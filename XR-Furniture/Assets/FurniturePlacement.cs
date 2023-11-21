@@ -19,6 +19,8 @@ public class FurniturePlacement : MonoBehaviour
     private GameObject _furniturePreview;
 
     private bool _isPlaced;
+    private float prefabHeight;
+    private Vector3 _offset;
 
     private (Vector3 point, Vector3 normal, bool hit) _leftHandHit;
     private (Vector3 point, Vector3 normal, bool hit) _rightHandHit;
@@ -30,6 +32,9 @@ public class FurniturePlacement : MonoBehaviour
         _furniturePreview = Instantiate(furniturePreviewPrefab, transform);
         _furniture = Instantiate(furniturePrefab, transform);
         _furniture.SetActive(false);
+
+        prefabHeight = (furniturePrefab.transform.localScale.y) / 2;
+        _offset = new Vector3(0, prefabHeight, 0);
     }
 
     // Update is called once per frame
@@ -59,15 +64,15 @@ public class FurniturePlacement : MonoBehaviour
         _rightHandHit = (rightHit.point, rightHit.normal, rightRaySuccess);
         var active = _activeController == OVRInput.Controller.LTouch ? _leftHandHit : _rightHandHit;
 
-        if (togglePlacement && active.hit) TogglePlacement(active.point, active.normal);
+        if (togglePlacement && active.hit) TogglePlacement(active.point + _offset, active.normal);
 
         if (!_isPlaced && active.hit)
         {
             // update the position of the preview to match the raycast.
-            var blasterPreviewTransform = _furniturePreview.transform;
+            var furniturePreviewTransform = _furniturePreview.transform;
 
-            blasterPreviewTransform.position = active.point;
-            blasterPreviewTransform.up = active.normal;
+            furniturePreviewTransform.position = active.point + _offset;
+            furniturePreviewTransform.up = active.normal;
         }
     }
 
