@@ -40,7 +40,7 @@ public class FurniturePlacement : MonoBehaviour
 
         _startSpawnPos = new Vector3(transform.position.x, _offset.y, transform.position.z);
         _furniturePreview = Instantiate(furniturePreviewPrefab, _startSpawnPos, transform.rotation);
-        _furniture = Instantiate(furniturePrefab, _startSpawnPos, transform.rotation);
+        _furniture = Instantiate(furniturePrefab, _startSpawnPos, _furniturePreview.transform.rotation);
 
         _previewRB = _furniturePreview.GetComponent<Rigidbody>();
 
@@ -143,10 +143,13 @@ public class FurniturePlacement : MonoBehaviour
         }
         else
         {
-            _furniture.transform.position = point/* + _offset*/;
-            _furniture.transform.up = normal;
 
             _furniture.SetActive(true);
+
+            _furniture.transform.position = point/* + _offset*/;
+            _furniture.transform.up = normal;
+            _furniture.transform.rotation = _furniturePreview.transform.rotation;
+
             _furniturePreview.SetActive(false);
            //placeDownSFX.PlaySfxAtPosition(point);
 
