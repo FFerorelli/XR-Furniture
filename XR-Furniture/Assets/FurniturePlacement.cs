@@ -13,6 +13,10 @@ public class FurniturePlacement : MonoBehaviour
     [SerializeField] private Transform leftHand;
     [SerializeField] private Transform rightHand;
 
+    [SerializeField] private float _speed = 5f;
+
+    private Rigidbody _previewRB;
+
     private OVRInput.Controller _activeController = OVRInput.Controller.RTouch;
 
     private GameObject _furniture;
@@ -30,6 +34,8 @@ public class FurniturePlacement : MonoBehaviour
     void Start()
     {
         _furniturePreview = Instantiate(furniturePreviewPrefab, transform);
+        _previewRB = _furniturePreview.GetComponent<Rigidbody>();
+
         _furniture = Instantiate(furniturePrefab, transform);
         _furniture.SetActive(false);
 
@@ -69,11 +75,23 @@ public class FurniturePlacement : MonoBehaviour
         if (!_isPlaced && active.hit)
         {
             // update the position of the preview to match the raycast.
-            var furniturePreviewTransform = _furniturePreview.transform;
 
-            furniturePreviewTransform.position = active.point + _offset;
-            furniturePreviewTransform.up = active.normal;
+            FollowRayHit(active);
+
         }
+    }
+
+    private void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray)
+    {
+        var currentPos = _furniturePreview.transform.position;
+        var targetPos = ray.point + _offset;
+        Vector3 direction = targetPos - currentPos;
+        float distance = direction.magnitude;
+        float step = distance * Time.fixedDeltaTime * _speed;
+        _previewRB.MovePosition(currentPos + direction.normalized * step);
+
+        // Stop moving when close to the hit point
+        if (distance < 0.1f) _previewRB.velocity = Vector3.zero;
     }
 
     private void TogglePlacement(Vector3 point, Vector3 normal)
@@ -88,9 +106,11 @@ public class FurniturePlacement : MonoBehaviour
         }
         else
         {
-            var blasterTransform = _furniture.transform;
-            blasterTransform.position = point;
-            blasterTransform.up = normal;
+            _furniture.transform.position = point/* + _offset*/;
+            _furniture.transform.up = normal;
+            //var furnitureTransform = _furniture.transform;
+            //furnitureTransform.position = point;
+            //furnitureTransform.up = normal;
 
             _furniture.SetActive(true);
             _furniturePreview.SetActive(false);
