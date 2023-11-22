@@ -50,8 +50,31 @@ public class FurniturePlacement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        var leftRay = new Ray(leftHand.position, leftHand.forward);
+        var rightRay = new Ray(rightHand.position, rightHand.forward);
+
+        var leftRaySuccess = Physics.Raycast(leftRay, out var leftHit, 100.0f, meshLayerMask);
+        var rightRaySuccess = Physics.Raycast(rightRay, out var rightHit, 100.0f, meshLayerMask);
+
+        _leftHandHit = (leftHit.point, leftHit.normal, leftRaySuccess);
+        _rightHandHit = (rightHit.point, rightHit.normal, rightRaySuccess);
+        var active = _activeController == OVRInput.Controller.LTouch ? _leftHandHit : _rightHandHit;
+
+        if (CheckTriggerInput() && active.hit) TogglePlacement(active.point + _offset, active.normal);
+
+        if (!_isPlaced && active.hit)
+        {
+            // update the position of the preview to match the raycast.
+
+            FollowRayHit(active);
+        }
+    }
+
+    private bool CheckTriggerInput()
+    {
         var togglePlacement = false;
-        const OVRInput.Button buttonMask = OVRInput.Button.PrimaryIndexTrigger | OVRInput.Button.PrimaryHandTrigger;
+        const OVRInput.Button buttonMask = OVRInput.Button.PrimaryIndexTrigger /*| OVRInput.Button.PrimaryHandTrigger*/;
 
         if (OVRInput.GetDown(buttonMask, OVRInput.Controller.LTouch))
         {
@@ -64,25 +87,7 @@ public class FurniturePlacement : MonoBehaviour
             togglePlacement = true;
         }
 
-        var leftRay = new Ray(leftHand.position, leftHand.forward);
-        var rightRay = new Ray(rightHand.position, rightHand.forward);
-
-        var leftRaySuccess = Physics.Raycast(leftRay, out var leftHit, 100.0f, meshLayerMask);
-        var rightRaySuccess = Physics.Raycast(rightRay, out var rightHit, 100.0f, meshLayerMask);
-
-        _leftHandHit = (leftHit.point, leftHit.normal, leftRaySuccess);
-        _rightHandHit = (rightHit.point, rightHit.normal, rightRaySuccess);
-        var active = _activeController == OVRInput.Controller.LTouch ? _leftHandHit : _rightHandHit;
-
-        if (togglePlacement && active.hit) TogglePlacement(active.point + _offset, active.normal);
-
-        if (!_isPlaced && active.hit)
-        {
-            // update the position of the preview to match the raycast.
-
-            FollowRayHit(active);
-
-        }
+        return togglePlacement;
     }
 
     private void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray)
@@ -112,9 +117,6 @@ public class FurniturePlacement : MonoBehaviour
         {
             _furniture.transform.position = point/* + _offset*/;
             _furniture.transform.up = normal;
-            //var furnitureTransform = _furniture.transform;
-            //furnitureTransform.position = point;
-            //furnitureTransform.up = normal;
 
             _furniture.SetActive(true);
             _furniturePreview.SetActive(false);
