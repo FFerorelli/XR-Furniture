@@ -14,6 +14,7 @@ public class FurniturePlacement : MonoBehaviour
     [SerializeField] private Transform rightHand;
 
     [SerializeField] private float _speed = 5f;
+    [SerializeField] private float _rotationSpeed = 90f;
 
     private Rigidbody _previewRB;
 
@@ -59,15 +60,42 @@ public class FurniturePlacement : MonoBehaviour
 
         _leftHandHit = (leftHit.point, leftHit.normal, leftRaySuccess);
         _rightHandHit = (rightHit.point, rightHit.normal, rightRaySuccess);
-        var active = _activeController == OVRInput.Controller.LTouch ? _leftHandHit : _rightHandHit;
+        var activeRay = _activeController == OVRInput.Controller.LTouch ? _leftHandHit : _rightHandHit;
 
-        if (CheckTriggerInput() && active.hit) TogglePlacement(active.point + _offset, active.normal);
 
-        if (!_isPlaced && active.hit)
+        if (activeRay.hit)
         {
             // update the position of the preview to match the raycast.
+            FollowRayHit(activeRay);
 
-            FollowRayHit(active);
+            // rotate the preview with the thumbsticks 
+            HandleRotation();
+
+            if (CheckTriggerInput()) TogglePlacement(activeRay.point + _offset, activeRay.normal);
+        }
+    }
+
+    private void HandleRotation()
+    {
+        var thumbStick = OVRInput.Axis2D.PrimaryThumbstick;
+
+        //if (OVRInput.Get(thumbStick, OVRInput.Controller.LTouch) != Vector2.zero)
+        //{
+        //    _activeController = OVRInput.Controller.LTouch;                              
+        //}
+        //else if (OVRInput.Get(thumbStick, OVRInput.Controller.RTouch) != Vector2.zero)
+        //{
+        //    _activeController = OVRInput.Controller.RTouch;
+        //}
+
+        Vector2 thumbStickPos = OVRInput.Get(thumbStick, _activeController);
+
+        if (thumbStickPos != Vector2.zero)
+        {
+            Debug.Log(thumbStickPos.x);
+            var previewTransform = _furniturePreview.transform;
+            float rotateAmount = -thumbStickPos.x * _rotationSpeed * Time.fixedDeltaTime;
+            previewTransform.Rotate(Vector3.up, rotateAmount);
         }
     }
 
@@ -92,12 +120,12 @@ public class FurniturePlacement : MonoBehaviour
 
     private void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray)
     {
-        var currentPos = _furniturePreview.transform.position;
+        var previewPos = _furniturePreview.transform.position;
         var targetPos = ray.point + _offset;
-        Vector3 direction = targetPos - currentPos;
+        Vector3 direction = targetPos - previewPos;
         float distance = direction.magnitude;
         float step = distance * Time.fixedDeltaTime * _speed;
-        _previewRB.MovePosition(currentPos + direction.normalized * step);
+        _previewRB.MovePosition(previewPos + direction.normalized * step);
 
         // Stop moving when close to the hit point
         if (distance < 0.1f) _previewRB.velocity = Vector3.zero;
