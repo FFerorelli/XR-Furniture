@@ -25,6 +25,7 @@ public class FurniturePlacement : MonoBehaviour
     private bool _isPlaced;
     private float prefabHeight;
     private Vector3 _offset;
+    private Vector3 _startSpawnPos;
 
     private (Vector3 point, Vector3 normal, bool hit) _leftHandHit;
     private (Vector3 point, Vector3 normal, bool hit) _rightHandHit;
@@ -33,14 +34,17 @@ public class FurniturePlacement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _furniturePreview = Instantiate(furniturePreviewPrefab, transform);
-        _previewRB = _furniturePreview.GetComponent<Rigidbody>();
-
-        _furniture = Instantiate(furniturePrefab, transform);
-        _furniture.SetActive(false);
-
         prefabHeight = (furniturePrefab.transform.localScale.y) / 2;
         _offset = new Vector3(0, prefabHeight, 0);
+
+        _startSpawnPos = new Vector3(transform.position.x, _offset.y, transform.position.z);
+        _furniturePreview = Instantiate(furniturePreviewPrefab, _startSpawnPos, transform.rotation);
+        _furniture = Instantiate(furniturePrefab, _startSpawnPos, transform.rotation);
+
+        _previewRB = _furniturePreview.GetComponent<Rigidbody>();
+
+        _furniture.SetActive(false);
+
     }
 
     // Update is called once per frame
