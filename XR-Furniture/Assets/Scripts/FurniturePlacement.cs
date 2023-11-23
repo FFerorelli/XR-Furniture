@@ -23,6 +23,7 @@ public class FurniturePlacement : MonoBehaviour
 
     private GameObject _furniture;
     private GameObject _furniturePreview;
+    private Furniture _furnitureBehaviour;
 
     private bool _isPlaced;
     private float prefabHeight;
@@ -43,9 +44,9 @@ public class FurniturePlacement : MonoBehaviour
         _furniturePreview = Instantiate(furniturePreviewPrefab, _startSpawnPos, transform.rotation);
        // _furniture = Instantiate(furniturePrefab, _startSpawnPos, _furniturePreview.transform.rotation);
 
-        _previewRB = _furniturePreview.GetComponent<Rigidbody>();
-
-        _furniture.SetActive(false);
+       // _previewRB = _furniturePreview.GetComponent<Rigidbody>();
+        _furnitureBehaviour = _furniturePreview.GetComponent<Furniture>();
+        //_furniture.SetActive(false);
 
     }
 
@@ -71,10 +72,10 @@ public class FurniturePlacement : MonoBehaviour
         {
             activeRayGround.point.y = 0;
             // update the position of the preview to match the raycast.
-            FollowRayHit(activeRayGround);
+            _furnitureBehaviour.FollowRayHit(activeRayGround);
 
             // rotate the preview with the thumbsticks 
-            HandleRotation();
+             HandleRotation();
 
             if (CheckTriggerInput()) TogglePlacement(activeRayGround.point + _offset/*, activeRayGround.normal*/);
         }
@@ -124,20 +125,20 @@ public class FurniturePlacement : MonoBehaviour
         return togglePlacement;
     }
 
-    private void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray)
-    {
-        Debug.Log(ray.point);
-        //ray.point.y = 0;
-        var previewPos = _furniturePreview.transform.position;
-        var targetPos = ray.point + _offset;
-        Vector3 direction = targetPos - previewPos;
-        float distance = direction.magnitude;
-        float step = distance * Time.fixedDeltaTime * _speed;
-        _previewRB.MovePosition(previewPos + direction.normalized * step);
+    //private void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray)
+    //{
+    //    Debug.Log(ray.point);
+    //    //ray.point.y = 0;
+    //    var previewPos = _furniturePreview.transform.position;
+    //    var targetPos = ray.point + _offset;
+    //    Vector3 direction = targetPos - previewPos;
+    //    float distance = direction.magnitude;
+    //    float step = distance * Time.fixedDeltaTime * _speed;
+    //    _previewRB.MovePosition(previewPos + direction.normalized * step);
 
-        // Stop moving when close to the hit point
-        if (distance < 0.1f) _previewRB.velocity = Vector3.zero;
-    }
+    //    // Stop moving when close to the hit point
+    //    if (distance < 0.1f) _previewRB.velocity = Vector3.zero;
+    //}
 
     private void TogglePlacement(Vector3 point/*, Vector3 normal*/)
     {
