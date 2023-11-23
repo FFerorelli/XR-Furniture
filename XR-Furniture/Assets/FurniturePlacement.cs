@@ -13,7 +13,7 @@ public class FurniturePlacement : MonoBehaviour
     [SerializeField] private Transform leftHand;
     [SerializeField] private Transform rightHand;
 
-    [SerializeField] private float _speed = 5f;
+    [SerializeField] private float _speed = 2.5f;
     [SerializeField] private float _rotationSpeed = 90f;
 
     private Rigidbody _previewRB;
@@ -65,6 +65,7 @@ public class FurniturePlacement : MonoBehaviour
 
         if (activeRay.hit)
         {
+            activeRay.point.y = 0;
             // update the position of the preview to match the raycast.
             FollowRayHit(activeRay);
 
@@ -74,6 +75,7 @@ public class FurniturePlacement : MonoBehaviour
             if (CheckTriggerInput()) TogglePlacement(activeRay.point + _offset, activeRay.normal);
         }
     }
+
 
     private void HandleRotation()
     {
@@ -92,7 +94,7 @@ public class FurniturePlacement : MonoBehaviour
 
         if (thumbStickPos != Vector2.zero)
         {
-            Debug.Log(thumbStickPos.x);
+           // Debug.Log(thumbStickPos.x);
             var previewTransform = _furniturePreview.transform;
             float rotateAmount = -thumbStickPos.x * _rotationSpeed * Time.fixedDeltaTime;
             previewTransform.Rotate(Vector3.up, rotateAmount);
@@ -120,6 +122,8 @@ public class FurniturePlacement : MonoBehaviour
 
     private void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray)
     {
+        Debug.Log(ray.point);
+        //ray.point.y = 0;
         var previewPos = _furniturePreview.transform.position;
         var targetPos = ray.point + _offset;
         Vector3 direction = targetPos - previewPos;
@@ -146,7 +150,7 @@ public class FurniturePlacement : MonoBehaviour
 
             _furniture.SetActive(true);
 
-            _furniture.transform.position = point/* + _offset*/;
+            _furniture.transform.position = _furniturePreview.transform.position;
             _furniture.transform.up = normal;
             _furniture.transform.rotation = _furniturePreview.transform.rotation;
 
