@@ -8,7 +8,8 @@ public class FurniturePlacement : MonoBehaviour
 
     [SerializeField] private GameObject furniturePrefab;
     [SerializeField] private GameObject furniturePreviewPrefab;
-    [SerializeField] private LayerMask meshLayerMask;
+
+    [SerializeField] private LayerMask groundLayerMask;
 
     [SerializeField] private Transform leftHand;
     [SerializeField] private Transform rightHand;
@@ -40,7 +41,7 @@ public class FurniturePlacement : MonoBehaviour
 
         _startSpawnPos = new Vector3(transform.position.x, _offset.y, transform.position.z);
         _furniturePreview = Instantiate(furniturePreviewPrefab, _startSpawnPos, transform.rotation);
-        _furniture = Instantiate(furniturePrefab, _startSpawnPos, _furniturePreview.transform.rotation);
+       // _furniture = Instantiate(furniturePrefab, _startSpawnPos, _furniturePreview.transform.rotation);
 
         _previewRB = _furniturePreview.GetComponent<Rigidbody>();
 
@@ -55,24 +56,27 @@ public class FurniturePlacement : MonoBehaviour
         var leftRay = new Ray(leftHand.position, leftHand.forward);
         var rightRay = new Ray(rightHand.position, rightHand.forward);
 
-        var leftRaySuccess = Physics.Raycast(leftRay, out var leftHit, 100.0f, meshLayerMask);
-        var rightRaySuccess = Physics.Raycast(rightRay, out var rightHit, 100.0f, meshLayerMask);
+        var leftRayGround = Physics.Raycast(leftRay, out var leftHit, 100.0f, groundLayerMask);
+        var rightRayGround = Physics.Raycast(rightRay, out var rightHit, 100.0f, groundLayerMask);
 
-        _leftHandHit = (leftHit.point, leftHit.normal, leftRaySuccess);
-        _rightHandHit = (rightHit.point, rightHit.normal, rightRaySuccess);
-        var activeRay = _activeController == OVRInput.Controller.LTouch ? _leftHandHit : _rightHandHit;
+        //var leftRayFurniture = Physics.Raycast(leftRay, out var leftFurnitureHit, 100.0f, furnitureLayerMask);
+        //var rightRayFurniture = Physics.Raycast(rightRay, out var rightFurnitureHit, 100.0f, furnitureLayerMask);
+
+        _leftHandHit = (leftHit.point, leftHit.normal, leftRayGround);
+        _rightHandHit = (rightHit.point, rightHit.normal, rightRayGround);
+        var activeRayGround = _activeController == OVRInput.Controller.LTouch ? _leftHandHit : _rightHandHit;
 
 
-        if (activeRay.hit)
+        if (activeRayGround.hit)
         {
-            activeRay.point.y = 0;
+            activeRayGround.point.y = 0;
             // update the position of the preview to match the raycast.
-            FollowRayHit(activeRay);
+            FollowRayHit(activeRayGround);
 
             // rotate the preview with the thumbsticks 
             HandleRotation();
 
-            if (CheckTriggerInput()) TogglePlacement(activeRay.point + _offset, activeRay.normal);
+            if (CheckTriggerInput()) TogglePlacement(activeRayGround.point + _offset/*, activeRayGround.normal*/);
         }
     }
 
@@ -135,29 +139,29 @@ public class FurniturePlacement : MonoBehaviour
         if (distance < 0.1f) _previewRB.velocity = Vector3.zero;
     }
 
-    private void TogglePlacement(Vector3 point, Vector3 normal)
+    private void TogglePlacement(Vector3 point/*, Vector3 normal*/)
     {
-        if (_isPlaced)
-        {
-            _furniture.SetActive(false);
-            _furniturePreview.SetActive(true);
+       // if (_isPlaced)
+       // {
+           // _furniture.SetActive(false);
+           // _furniturePreview.SetActive(true);
             //pickUpSFX.PlaySfxAtPosition(point);
 
-            _isPlaced = false;
-        }
-        else
-        {
+          //  _isPlaced = false;
+      //  }
+       // else
+       // {
 
-            _furniture.SetActive(true);
+           // _furniture.SetActive(true);
+           _furniture = Instantiate(furniturePrefab, _furniturePreview.transform.position, _furniturePreview.transform.rotation);
+           // _furniture.transform.position = _furniturePreview.transform.position;
+           // _furniture.transform.up = normal;
+           // _furniture.transform.rotation = _furniturePreview.transform.rotation;
 
-            _furniture.transform.position = _furniturePreview.transform.position;
-            _furniture.transform.up = normal;
-            _furniture.transform.rotation = _furniturePreview.transform.rotation;
-
-            _furniturePreview.SetActive(false);
+           // _furniturePreview.SetActive(true);
            //placeDownSFX.PlaySfxAtPosition(point);
 
-            _isPlaced = true;
-        }
+          //  _isPlaced = true;
+       // }
     }
 }
