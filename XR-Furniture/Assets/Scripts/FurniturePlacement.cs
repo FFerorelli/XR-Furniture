@@ -22,14 +22,14 @@ public class FurniturePlacement : MonoBehaviour
 
     private GameObject _furniture;
     private GameObject _furniturePreview;
-    private FloorFurniture _furnitureBehaviour;
+    private IFurniture _furnitureBehaviour;
 
     private float prefabHeight;
     private Vector3 _offset;
     private Vector3 _startSpawnPos;
 
-    private (Vector3 point, Vector3 normal, bool hit) _leftHandHit;
-    private (Vector3 point, Vector3 normal, bool hit) _rightHandHit;
+    private (Vector3 point, bool hit) _leftHandHit;
+    private (Vector3 point, bool hit) _rightHandHit;
 
 
     // Start is called before the first frame update
@@ -40,9 +40,9 @@ public class FurniturePlacement : MonoBehaviour
 
         _startSpawnPos = new Vector3(transform.position.x, _offset.y, transform.position.z);
         _furniturePreview = Instantiate(furniturePreviewPrefab, _startSpawnPos, transform.rotation);
-       // _furniture = Instantiate(furniturePrefab, _startSpawnPos, _furniturePreview.transform.rotation);
+        // _furniture = Instantiate(furniturePrefab, _startSpawnPos, _furniturePreview.transform.rotation);
 
-       // _previewRB = _furniturePreview.GetComponent<Rigidbody>();
+        // _previewRB = _furniturePreview.GetComponent<Rigidbody>();
         _furnitureBehaviour = _furniturePreview.GetComponent<FloorFurniture>();
         //_furniture.SetActive(false);
 
@@ -61,8 +61,8 @@ public class FurniturePlacement : MonoBehaviour
         //var leftRayFurniture = Physics.Raycast(leftRay, out var leftFurnitureHit, 100.0f, furnitureLayerMask);
         //var rightRayFurniture = Physics.Raycast(rightRay, out var rightFurnitureHit, 100.0f, furnitureLayerMask);
 
-        _leftHandHit = (leftHit.point, leftHit.normal, leftRayGround);
-        _rightHandHit = (rightHit.point, rightHit.normal, rightRayGround);
+        _leftHandHit = (leftHit.point, leftRayGround);
+        _rightHandHit = (rightHit.point, rightRayGround);
         var activeRayGround = _activeController == OVRInput.Controller.LTouch ? _leftHandHit : _rightHandHit;
 
 

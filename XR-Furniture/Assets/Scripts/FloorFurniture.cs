@@ -17,7 +17,7 @@ public class FloorFurniture : MonoBehaviour, IFurniture
         prefabHeight = transform.localScale.y / 2;
         offset = new Vector3(0, prefabHeight, 0);
         rigidBody = GetComponent<Rigidbody>();
-       // Debug.Log(rigidBody);
+
     }
 
     // Update is called once per frame
@@ -26,7 +26,7 @@ public class FloorFurniture : MonoBehaviour, IFurniture
         
     }
 
-   public void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray)
+   public void FollowRayHit((Vector3 point, bool hit) ray)
     {
         var previewPos = gameObject.transform.position;
         var targetPos = ray.point + offset;
