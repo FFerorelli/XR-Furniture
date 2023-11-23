@@ -14,18 +14,16 @@ public class FurniturePlacement : MonoBehaviour
     [SerializeField] private Transform leftHand;
     [SerializeField] private Transform rightHand;
 
-    [SerializeField] private float _speed = 2.5f;
+
     [SerializeField] private float _rotationSpeed = 90f;
 
-    private Rigidbody _previewRB;
 
     private OVRInput.Controller _activeController = OVRInput.Controller.RTouch;
 
     private GameObject _furniture;
     private GameObject _furniturePreview;
-    private Furniture _furnitureBehaviour;
+    private FloorFurniture _furnitureBehaviour;
 
-    private bool _isPlaced;
     private float prefabHeight;
     private Vector3 _offset;
     private Vector3 _startSpawnPos;
@@ -45,7 +43,7 @@ public class FurniturePlacement : MonoBehaviour
        // _furniture = Instantiate(furniturePrefab, _startSpawnPos, _furniturePreview.transform.rotation);
 
        // _previewRB = _furniturePreview.GetComponent<Rigidbody>();
-        _furnitureBehaviour = _furniturePreview.GetComponent<Furniture>();
+        _furnitureBehaviour = _furniturePreview.GetComponent<FloorFurniture>();
         //_furniture.SetActive(false);
 
     }
@@ -77,7 +75,7 @@ public class FurniturePlacement : MonoBehaviour
             // rotate the preview with the thumbsticks 
              HandleRotation();
 
-            if (CheckTriggerInput()) TogglePlacement(activeRayGround.point + _offset/*, activeRayGround.normal*/);
+            if (CheckTriggerInput()) TogglePlacement();
         }
     }
 
@@ -125,44 +123,10 @@ public class FurniturePlacement : MonoBehaviour
         return togglePlacement;
     }
 
-    //private void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray)
-    //{
-    //    Debug.Log(ray.point);
-    //    //ray.point.y = 0;
-    //    var previewPos = _furniturePreview.transform.position;
-    //    var targetPos = ray.point + _offset;
-    //    Vector3 direction = targetPos - previewPos;
-    //    float distance = direction.magnitude;
-    //    float step = distance * Time.fixedDeltaTime * _speed;
-    //    _previewRB.MovePosition(previewPos + direction.normalized * step);
 
-    //    // Stop moving when close to the hit point
-    //    if (distance < 0.1f) _previewRB.velocity = Vector3.zero;
-    //}
 
-    private void TogglePlacement(Vector3 point/*, Vector3 normal*/)
+    private void TogglePlacement()
     {
-       // if (_isPlaced)
-       // {
-           // _furniture.SetActive(false);
-           // _furniturePreview.SetActive(true);
-            //pickUpSFX.PlaySfxAtPosition(point);
-
-          //  _isPlaced = false;
-      //  }
-       // else
-       // {
-
-           // _furniture.SetActive(true);
            _furniture = Instantiate(furniturePrefab, _furniturePreview.transform.position, _furniturePreview.transform.rotation);
-           // _furniture.transform.position = _furniturePreview.transform.position;
-           // _furniture.transform.up = normal;
-           // _furniture.transform.rotation = _furniturePreview.transform.rotation;
-
-           // _furniturePreview.SetActive(true);
-           //placeDownSFX.PlaySfxAtPosition(point);
-
-          //  _isPlaced = true;
-       // }
     }
 }

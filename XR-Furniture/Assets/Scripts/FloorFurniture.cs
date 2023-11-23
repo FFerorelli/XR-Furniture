@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Furniture : MonoBehaviour, IFurniture
+public class FloorFurniture : MonoBehaviour, IFurniture
 {
     [SerializeField] private float speed = 2.5f;
 
