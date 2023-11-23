@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class FurniturePlacement : MonoBehaviour
 {
@@ -9,10 +10,10 @@ public class FurniturePlacement : MonoBehaviour
     [SerializeField] private GameObject furniturePrefab;
     [SerializeField] private GameObject furniturePreviewPrefab;
 
-    [SerializeField] private LayerMask groundLayerMask;
+    private LayerMask mask;
 
-    [SerializeField] private Transform leftHand;
-    [SerializeField] private Transform rightHand;
+    [SerializeField] public Transform leftHand;
+    [SerializeField] public Transform rightHand;
 
 
     [SerializeField] private float _rotationSpeed = 90f;
@@ -22,7 +23,7 @@ public class FurniturePlacement : MonoBehaviour
 
     private GameObject _furniture;
     private GameObject _furniturePreview;
-    private IFurniture _furnitureBehaviour;
+    private Furniture _furnitureBehaviour;
 
     private float prefabHeight;
     private Vector3 _offset;
@@ -31,6 +32,7 @@ public class FurniturePlacement : MonoBehaviour
     private (Vector3 point, bool hit) _leftHandHit;
     private (Vector3 point, bool hit) _rightHandHit;
 
+    public (Vector3 point, bool hit) activeRay;
 
     // Start is called before the first frame update
     void Start()
@@ -40,37 +42,32 @@ public class FurniturePlacement : MonoBehaviour
 
         _startSpawnPos = new Vector3(transform.position.x, _offset.y, transform.position.z);
         _furniturePreview = Instantiate(furniturePreviewPrefab, _startSpawnPos, transform.rotation);
-        // _furniture = Instantiate(furniturePrefab, _startSpawnPos, _furniturePreview.transform.rotation);
 
-        // _previewRB = _furniturePreview.GetComponent<Rigidbody>();
-        _furnitureBehaviour = _furniturePreview.GetComponent<FloorFurniture>();
-        //_furniture.SetActive(false);
+        _furnitureBehaviour = _furniturePreview.GetComponent<Furniture>();
 
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-
+        mask = _furnitureBehaviour.layer;
+       
         var leftRay = new Ray(leftHand.position, leftHand.forward);
         var rightRay = new Ray(rightHand.position, rightHand.forward);
 
-        var leftRayGround = Physics.Raycast(leftRay, out var leftHit, 100.0f, groundLayerMask);
-        var rightRayGround = Physics.Raycast(rightRay, out var rightHit, 100.0f, groundLayerMask);
+        var leftRayGround = Physics.Raycast(leftRay, out var leftHit, 100.0f, mask);
+        var rightRayGround = Physics.Raycast(rightRay, out var rightHit, 100.0f, mask);
 
-        //var leftRayFurniture = Physics.Raycast(leftRay, out var leftFurnitureHit, 100.0f, furnitureLayerMask);
-        //var rightRayFurniture = Physics.Raycast(rightRay, out var rightFurnitureHit, 100.0f, furnitureLayerMask);
 
         _leftHandHit = (leftHit.point, leftRayGround);
         _rightHandHit = (rightHit.point, rightRayGround);
-        var activeRayGround = _activeController == OVRInput.Controller.LTouch ? _leftHandHit : _rightHandHit;
+        var activeRay = _activeController == OVRInput.Controller.LTouch ? _leftHandHit : _rightHandHit;
 
 
-        if (activeRayGround.hit)
+        if (activeRay.hit)
         {
-            activeRayGround.point.y = 0;
-            // update the position of the preview to match the raycast.
-            _furnitureBehaviour.FollowRayHit(activeRayGround);
+            //// update the position of the preview to match the raycast.
+            _furnitureBehaviour.FollowRayHit(activeRay);
 
             // rotate the preview with the thumbsticks 
              HandleRotation();

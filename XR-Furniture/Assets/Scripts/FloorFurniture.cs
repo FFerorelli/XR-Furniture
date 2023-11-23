@@ -3,30 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FloorFurniture : MonoBehaviour, IFurniture
+public class FloorFurniture : Furniture/*, IFurniture*/
 {
     [SerializeField] private float speed = 2.5f;
 
-    private Vector3 offset;
-    private float prefabHeight;
-    private Rigidbody rigidBody;
-
-    // Start is called before the first frame update
     void Start()
     {
+
+        Debug.Log("FloorFurniture");
         prefabHeight = transform.localScale.y / 2;
         offset = new Vector3(0, prefabHeight, 0);
         rigidBody = GetComponent<Rigidbody>();
 
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        
-    }
-
-   public void FollowRayHit((Vector3 point, bool hit) ray)
+    public override void FollowRayHit((Vector3 point, bool hit) ray)
     {
         var previewPos = gameObject.transform.position;
         var targetPos = ray.point + offset;
