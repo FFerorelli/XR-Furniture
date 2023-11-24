@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
+
 
 public class FurniturePlacement : MonoBehaviour
 {
@@ -55,12 +55,12 @@ public class FurniturePlacement : MonoBehaviour
         var leftRay = new Ray(leftHand.position, leftHand.forward);
         var rightRay = new Ray(rightHand.position, rightHand.forward);
 
-        var leftRayGround = Physics.Raycast(leftRay, out var leftHit, 100.0f, mask);
-        var rightRayGround = Physics.Raycast(rightRay, out var rightHit, 100.0f, mask);
+        var leftRayGroundHit = Physics.Raycast(leftRay, out var leftHit, 100.0f, mask);
+        var rightRayGroundHit = Physics.Raycast(rightRay, out var rightHit, 100.0f, mask);
 
 
-        _leftHandHit = (leftHit.point, leftRayGround);
-        _rightHandHit = (rightHit.point, rightRayGround);
+        _leftHandHit = (leftHit.point, leftRayGroundHit);
+        _rightHandHit = (rightHit.point, rightRayGroundHit);
         var activeRay = _activeController == OVRInput.Controller.LTouch ? _leftHandHit : _rightHandHit;
 
 

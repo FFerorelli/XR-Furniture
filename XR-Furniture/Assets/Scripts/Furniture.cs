@@ -11,7 +11,6 @@ public class Furniture : MonoBehaviour
     public LayerMask layer;
     public virtual void FollowRayHit((Vector3 point, bool hit) ray) 
     {
-        Debug.Log("Furniture");
     }
 
 }
