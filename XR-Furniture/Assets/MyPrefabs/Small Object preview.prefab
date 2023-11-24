@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 39831318330767457}
   - component: {fileID: 9161216272655870811}
   - component: {fileID: 458667029335583457}
-  - component: {fileID: 4180905531207629207}
-  m_Layer: 0
-  m_Name: Grabbable Cube preview
+  - component: {fileID: 5980313530849082975}
+  m_Layer: 2
+  m_Name: Small Object preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,8 +34,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.036, y: 0, z: -6.016585}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 0.15, y: 0.35, z: 0.15}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -135,7 +135,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 2
 --- !u!114 &39831318330767457
 MonoBehaviour:
@@ -201,7 +201,7 @@ MonoBehaviour:
   _resetGrabOnGrabsUpdated: 1
   _physicsGrabbable: {fileID: 0}
   _movementProvider: {fileID: 0}
---- !u!114 &4180905531207629207
+--- !u!114 &5980313530849082975
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3830238887274247678}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97d4a59bafbdb1b4a98dc8a702b2066c, type: 3}
+  m_Script: {fileID: 11500000, guid: fa4546592d437364bb6f31237a05ec6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isPlaceble: 0
@@ -218,5 +218,5 @@ MonoBehaviour:
   redMat: {fileID: 2100000, guid: 0805f7b4c5b59914c804670f5b845289, type: 2}
   layer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 499
   speed: 2.5

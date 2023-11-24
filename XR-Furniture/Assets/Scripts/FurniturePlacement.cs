@@ -29,10 +29,10 @@ public class FurniturePlacement : MonoBehaviour
     private Vector3 _offset;
     private Vector3 _startSpawnPos;
 
-    private (Vector3 point, bool hit) _leftHandHit;
-    private (Vector3 point, bool hit) _rightHandHit;
+    private (Vector3 point, Vector3 normal, bool hit) _leftHandHit;
+    private (Vector3 point, Vector3 normal, bool hit) _rightHandHit;
 
-    public (Vector3 point, bool hit) activeRay;
+    public (Vector3 point, Vector3 normal, bool hit) activeRay;
 
     // Start is called before the first frame update
     void Start()
@@ -59,8 +59,8 @@ public class FurniturePlacement : MonoBehaviour
         var rightRayGroundHit = Physics.Raycast(rightRay, out var rightHit, 100.0f, mask);
 
 
-        _leftHandHit = (leftHit.point, leftRayGroundHit);
-        _rightHandHit = (rightHit.point, rightRayGroundHit);
+        _leftHandHit = (leftHit.point, leftHit.normal, leftRayGroundHit);
+        _rightHandHit = (rightHit.point, rightHit.normal, rightRayGroundHit);
         var activeRay = _activeController == OVRInput.Controller.LTouch ? _leftHandHit : _rightHandHit;
 
 
