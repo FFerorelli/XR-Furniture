@@ -72,7 +72,7 @@ public class FurniturePlacement : MonoBehaviour
             // rotate the preview with the thumbsticks 
              HandleRotation();
 
-            if (CheckTriggerInput()) TogglePlacement();
+            if (CheckTriggerInput() && _furnitureBehaviour.isPlaceble) TogglePlacement();
         }
     }
 

@@ -25,7 +25,8 @@ public class FloorFurniture : Furniture
         Vector3 direction = targetPos - previewPos;
         float distance = direction.magnitude;
         float step = distance * Time.fixedDeltaTime * speed;
-        rigidBody.MovePosition(previewPos + direction.normalized * step);
+        rigidBody.MovePosition(previewPos + direction.normalized * step); // teleport instead?
+
 
         // Stop moving when close to the hit point
         if (distance < 0.1f) rigidBody.velocity = Vector3.zero;

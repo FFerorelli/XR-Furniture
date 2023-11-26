@@ -7,6 +7,9 @@ public class SmallObject : Furniture
 {
     [SerializeField] private float speed = 2.5f;
     private Material currentMaterial;
+
+    private double epsilon = 0.001;
+
     void Start()
     {
 
@@ -19,29 +22,43 @@ public class SmallObject : Furniture
 
     public override void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray)
     {
-        float dotProduct = Vector3.Dot(ray.normal.normalized, Vector3.up);
 
-        if (dotProduct >= verticalThreshold)
+        var downRay = new Ray(transform.position - offset, -transform.up);
+        var downRayGroundHit = Physics.Raycast(downRay, out var hit, 100.0f);
+        float dotProduct = Vector3.Dot(hit.normal.normalized, Vector3.up);
+
+
+        if (dotProduct >= verticalThreshold && hit.distance < epsilon)
         {
-            Debug.Log(dotProduct);
             isPlaceble = true;
             currentMaterial.color = Color.green;
         }
         else
         {
-            Debug.Log(dotProduct);
             isPlaceble = false;
             currentMaterial.color = Color.red;
         }
-        Debug.Log(isPlaceble);
+        // Debug.Log(dotProduct + " " + isPlaceble);
+        Debug.Log(hit.distance);
+
+
         var previewPos = gameObject.transform.position;
+        gameObject.transform.up = hit.normal;
         var targetPos = ray.point + offset;
         Vector3 direction = targetPos - previewPos;
         float distance = direction.magnitude;
         float step = distance * Time.fixedDeltaTime * speed;
-        rigidBody.MovePosition(previewPos + direction.normalized * step);
 
+
+        rigidBody.MovePosition(previewPos + direction.normalized * step);
         // Stop moving when close to the hit point
-        if (distance < 0.1f) rigidBody.velocity = Vector3.zero;
+        // if (distance < 0.1f) rigidBody.velocity = Vector3.zero;
+        // teleport instead?
+
+        //gameObject.transform.position = ray.point + offset;
+        //gameObject.transform.up = hit.normal;
+
+
+
     }
 }

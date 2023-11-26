@@ -5,7 +5,7 @@ using UnityEngine;
 public class Furniture : MonoBehaviour
 {
     public bool isPlaceble;
-    protected float verticalThreshold = 0.95f;
+    [SerializeField] protected float verticalThreshold = 0.95f;
     [SerializeField] protected Material greenMat;
     [SerializeField] protected Material redMat;
 
