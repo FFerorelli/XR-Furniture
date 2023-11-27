@@ -17,7 +17,11 @@ public class FloorFurniture : Furniture
         currentMaterial = GetComponent<MeshRenderer>().material;
 
     }
-
+    private void Update()
+    {
+        if (isPlaceble == true) currentMaterial.color = Color.green;
+        else currentMaterial.color = Color.red;
+    }
     public override void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray)
     {
 
@@ -28,13 +32,19 @@ public class FloorFurniture : Furniture
         if (dotProduct >= verticalThreshold)
         {
             isPlaceble = true;
-            currentMaterial.color = Color.green;
+           // currentMaterial.color = Color.green;
         }
         else
         {
             isPlaceble = false;
-            currentMaterial.color = Color.red;
+           // currentMaterial.color = Color.red;
         }
+
+        //if (isPlaceble == true) currentMaterial.color = Color.green;
+        //else currentMaterial.color = Color.red;
+
+
+
 
 
         var previewPos = gameObject.transform.position;

@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 458667029335583457}
   m_Layer: 8
   m_Name: Small Object
-  m_TagString: Untagged
+  m_TagString: Furniture
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
