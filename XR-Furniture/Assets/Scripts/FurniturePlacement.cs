@@ -54,7 +54,7 @@ public class FurniturePlacement : MonoBehaviour
        
         var leftRay = new Ray(leftHand.position, leftHand.forward);
         var rightRay = new Ray(rightHand.position, rightHand.forward);
-
+        Debug.DrawRay(rightRay.origin, Vector3.forward * 100.0f, Color.blue);
         var leftRayGroundHit = Physics.Raycast(leftRay, out var leftHit, 100.0f, mask);
         var rightRayGroundHit = Physics.Raycast(rightRay, out var rightHit, 100.0f, mask);
 
@@ -71,7 +71,7 @@ public class FurniturePlacement : MonoBehaviour
 
             // rotate the preview with the thumbsticks 
              HandleRotation();
-
+            Debug.Log(_furnitureBehaviour.isPlaceble);
             if (CheckTriggerInput() && _furnitureBehaviour.isPlaceble) TogglePlacement();
         }
     }

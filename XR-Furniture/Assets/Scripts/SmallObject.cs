@@ -5,15 +5,13 @@ using UnityEngine;
 
 public class SmallObject : Furniture
 {
-    [SerializeField] private float speed = 2.5f;
-    private Material currentMaterial;
 
-    private double epsilon = 0.001;
 
     void Start()
     {
 
         Debug.Log("SmallObject");
+
         prefabHeight = transform.localScale.y / 2;
         offset = new Vector3(0, prefabHeight, 0);
         rigidBody = GetComponent<Rigidbody>();
@@ -22,11 +20,17 @@ public class SmallObject : Furniture
 
     public override void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray)
     {
-
-        var downRay = new Ray(transform.position - offset, -transform.up);
+        
+        var downRay = new Ray(transform.position - offset /*+ bottomOffset*/, -transform.up);
         var downRayGroundHit = Physics.Raycast(downRay, out var hit, 100.0f);
         float dotProduct = Vector3.Dot(hit.normal.normalized, Vector3.up);
 
+        void OnDrawGizmos()
+        {
+            Debug.DrawRay(transform.position - offset, -transform.up * 100.0f, Color.green);
+        }
+
+        OnDrawGizmos();
 
         if (dotProduct >= verticalThreshold && hit.distance < epsilon)
         {
@@ -39,8 +43,8 @@ public class SmallObject : Furniture
             currentMaterial.color = Color.red;
         }
         // Debug.Log(dotProduct + " " + isPlaceble);
-        Debug.Log(hit.distance);
-
+        //Debug.Log(hit.distance);
+        Debug.Log(hit.point);
 
         var previewPos = gameObject.transform.position;
         gameObject.transform.up = hit.normal;
