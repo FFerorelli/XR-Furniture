@@ -46,6 +46,10 @@ public class SmallObject : Furniture
         //Debug.Log(hit.distance);
         Debug.Log(hit.point);
 
+
+       // var previewRot = gameObject.transform.rotation;
+       // previewRot = Quaternion.FromToRotation(Vector3.up, hit.normal);
+
         var previewPos = gameObject.transform.position;
         gameObject.transform.up = hit.normal;
         var targetPos = ray.point + offset;

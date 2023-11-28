@@ -29,16 +29,16 @@ public class FloorFurniture : Furniture
         var downRayGroundHit = Physics.Raycast(downRay, out var hit, 100.0f);
         float dotProduct = Vector3.Dot(hit.normal.normalized, Vector3.up);
 
-        if (dotProduct >= verticalThreshold)
-        {
-            isPlaceble = true;
-           // currentMaterial.color = Color.green;
-        }
-        else
-        {
-            isPlaceble = false;
-           // currentMaterial.color = Color.red;
-        }
+        //if (dotProduct >= verticalThreshold)
+        //{
+        //    isPlaceble = true;
+        //   // currentMaterial.color = Color.green;
+        //}
+        //else
+        //{
+        //    isPlaceble = false;
+        //   // currentMaterial.color = Color.red;
+        //}
 
         //if (isPlaceble == true) currentMaterial.color = Color.green;
         //else currentMaterial.color = Color.red;

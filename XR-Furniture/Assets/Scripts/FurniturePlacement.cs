@@ -97,7 +97,7 @@ public class FurniturePlacement : MonoBehaviour
            // Debug.Log(thumbStickPos.x);
             var previewTransform = _furniturePreview.transform;
             float rotateAmount = -thumbStickPos.x * _rotationSpeed * Time.fixedDeltaTime;
-            previewTransform.Rotate(Vector3.up, rotateAmount);
+            previewTransform.Rotate(Vector3.up, rotateAmount, Space.Self);
         }
     }
 
