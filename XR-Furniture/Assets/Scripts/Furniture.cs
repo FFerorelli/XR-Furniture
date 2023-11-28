@@ -13,7 +13,7 @@ public class Furniture : MonoBehaviour
     [SerializeField] public float speed = 2.5f;
 
     protected Material currentMaterial;
-    protected double epsilon = 0.001;
+    protected double epsilon = 0.005;
     protected Vector3 offset;
     protected Vector3 bottomOffset;
     protected float prefabHeight;
@@ -32,30 +32,30 @@ public class Furniture : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Furniture"))
-        {
-            Debug.Log("Collision detected with object tagged as 'Furniture'");
-            isPlaceble = false;
-        }
-    }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Furniture"))
+    //    {
+    //        Debug.Log("Collision detected with object tagged as 'Furniture'");
+    //        isPlaceble = false;
+    //    }
+    //}
 
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Furniture"))
-        {
-            Debug.Log("Collision still ongoing with object tagged as 'Furniture'");
-            isPlaceble = false;
-        }
-    }
+    //private void OnCollisionStay(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Furniture"))
+    //    {
+    //        Debug.Log("Collision still ongoing with object tagged as 'Furniture'");
+    //        isPlaceble = false;
+    //    }
+    //}
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Furniture"))
-        {
-            Debug.Log("Collision with object tagged as 'Furniture' ended");
-            isPlaceble = true;
-        }
-    }
+    //private void OnCollisionExit(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Furniture"))
+    //    {
+    //        Debug.Log("Collision with object tagged as 'Furniture' ended");
+    //        isPlaceble = true;
+    //    }
+    //}
 }

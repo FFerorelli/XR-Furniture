@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 39831318330767457}
   - component: {fileID: 9161216272655870811}
   - component: {fileID: 458667029335583457}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Floor Furniture
   m_TagString: Furniture
   m_Icon: {fileID: 0}

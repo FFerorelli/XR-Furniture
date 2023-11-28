@@ -21,16 +21,10 @@ public class SmallObject : Furniture
     public override void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray)
     {
         
-        var downRay = new Ray(transform.position - offset /*+ bottomOffset*/, -transform.up);
+        var downRay = new Ray(transform.position - offset, -transform.up);
         var downRayGroundHit = Physics.Raycast(downRay, out var hit, 100.0f);
         float dotProduct = Vector3.Dot(hit.normal.normalized, Vector3.up);
 
-        void OnDrawGizmos()
-        {
-            Debug.DrawRay(transform.position - offset, -transform.up * 100.0f, Color.green);
-        }
-
-        OnDrawGizmos();
 
         if (dotProduct >= verticalThreshold && hit.distance < epsilon)
         {
@@ -51,7 +45,7 @@ public class SmallObject : Furniture
        // previewRot = Quaternion.FromToRotation(Vector3.up, hit.normal);
 
         var previewPos = gameObject.transform.position;
-        gameObject.transform.up = hit.normal;
+       // gameObject.transform.up = hit.normal;
         var targetPos = ray.point + offset;
         Vector3 direction = targetPos - previewPos;
         float distance = direction.magnitude;

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7364228411325162552}
   - component: {fileID: 88582415350934078}
   - component: {fileID: 502283750161808342}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 1111892878021631180}
   - component: {fileID: 2860601991380340522}
   - component: {fileID: 1942692223414016422}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Y
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 1585219800720041947}
   - component: {fileID: 5483448882749490568}
   - component: {fileID: 4321007330935119452}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Z
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,7 +306,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1603266695477837254}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 357717176885471077}
   - component: {fileID: 5553710774826003978}
   - component: {fileID: 7811671605386057800}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: X
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -449,7 +449,7 @@ GameObject:
   - component: {fileID: 1132682185376712905}
   - component: {fileID: 8013016026686888416}
   - component: {fileID: 2339718010947781651}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -508,7 +508,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7581257289442046999}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}

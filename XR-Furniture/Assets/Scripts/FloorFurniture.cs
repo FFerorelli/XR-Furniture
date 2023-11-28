@@ -55,4 +55,32 @@ public class FloorFurniture : Furniture
         // Stop moving when close to the hit point
         if (distance < 0.1f) rigidBody.velocity = Vector3.zero;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Furniture"))
+        {
+            Debug.Log("Collision detected with object tagged as 'Furniture'");
+            isPlaceble = false;
+        }
+    }
+
+    //private void OnCollisionStay(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Furniture"))
+    //    {
+    //        Debug.Log("Collision still ongoing with object tagged as 'Furniture'");
+    //        isPlaceble = false;
+    //    }
+    //}
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Furniture"))
+        {
+            Debug.Log("Collision with object tagged as 'Furniture' ended");
+            isPlaceble = true;
+        }
+    }
+
 }
