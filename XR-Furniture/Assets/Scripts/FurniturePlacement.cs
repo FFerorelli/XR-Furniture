@@ -24,7 +24,8 @@ public class FurniturePlacement : MonoBehaviour
     private GameObject _furniture;
     private GameObject _furniturePreview;
     private Furniture _furnitureBehaviour;
-
+    private string currentLayerName;
+    private int currentLayerIndex;
     private float prefabHeight;
     private Vector3 _offset;
     private Vector3 _startSpawnPos;
@@ -33,6 +34,17 @@ public class FurniturePlacement : MonoBehaviour
     private (Vector3 point, Vector3 normal, bool hit) _rightHandHit;
 
     public (Vector3 point, Vector3 normal, bool hit) activeRay;
+
+    //private LineRenderer rightLineRenderer;
+    //private LineRenderer leftLineRenderer;
+
+
+    //[Header("Line Render Settings")]
+    //[SerializeField]
+    //private float lineWidth = 0.01f;
+
+    //[SerializeField]
+    //private float lineMaxLength = 50f;
 
     // Start is called before the first frame update
     void Start()
@@ -46,32 +58,54 @@ public class FurniturePlacement : MonoBehaviour
         _furnitureBehaviour = _furniturePreview.GetComponent<Furniture>();
 
     }
+    private void Awake()
+    {
+        //rightLineRenderer = gameObject.GetComponent<LineRenderer>();
+        //leftLineRenderer = gameObject.GetComponent<LineRenderer>();
+        //rightLineRenderer.widthMultiplier = lineWidth;
+        //leftLineRenderer.widthMultiplier = lineWidth;
+    }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         mask = _furnitureBehaviour.layer;
        
-        var leftRay = new Ray(leftHand.position, leftHand.forward);
+      //  var leftRay = new Ray(leftHand.position, leftHand.forward);
         var rightRay = new Ray(rightHand.position, rightHand.forward);
-        Debug.DrawRay(rightRay.origin, Vector3.forward * 100.0f, Color.blue);
-        var leftRayGroundHit = Physics.Raycast(leftRay, out var leftHit, 100.0f, mask);
-        var rightRayGroundHit = Physics.Raycast(rightRay, out var rightHit, 100.0f, mask);
+
+        
+
+      //  var leftRayGroundHit = Physics.Raycast(leftRay, out var leftHit, 100.0f, mask);
+        var rightRayCast = Physics.Raycast(rightRay, out var rightHit, 100.0f/*, mask*/);
+
+        currentLayerIndex = rightHit.collider.gameObject.layer;
+
+        currentLayerName = LayerMask.LayerToName(currentLayerIndex);
+
+        Debug.Log(currentLayerName);
+
+       // _leftHandHit = (leftHit.point, leftHit.normal, leftRayGroundHit);
+        _rightHandHit = (rightHit.point, rightHit.normal, rightRayCast);
+        // var activeRay = _activeController == OVRInput.Controller.LTouch ? _leftHandHit : _rightHandHit;
+
+        //rightLineRenderer.SetPosition(0, leftHand.position);
+        //rightLineRenderer.SetPosition(1, leftHit.point);
+
+        //leftLineRenderer.SetPosition(0, rightHand.position);
+        //leftLineRenderer.SetPosition(1, rightHit.point);
 
 
-        _leftHandHit = (leftHit.point, leftHit.normal, leftRayGroundHit);
-        _rightHandHit = (rightHit.point, rightHit.normal, rightRayGroundHit);
-        var activeRay = _activeController == OVRInput.Controller.LTouch ? _leftHandHit : _rightHandHit;
-
-
-        if (activeRay.hit)
+        // Check if the hitLayer is included in the specified layerMaskToCheck
+        if ((_rightHandHit.hit && (mask.value & (1<< currentLayerIndex)) > 0))
         {
+
             //// update the position of the preview to match the raycast.
-            _furnitureBehaviour.FollowRayHit(activeRay);
+            _furnitureBehaviour.FollowRayHit(_rightHandHit);
 
             // rotate the preview with the thumbsticks 
              HandleRotation();
-            Debug.Log(_furnitureBehaviour.isPlaceble);
+            //Debug.Log(_furnitureBehaviour.isPlaceble);
             if (CheckTriggerInput() && _furnitureBehaviour.isPlaceble) TogglePlacement();
         }
     }
@@ -79,7 +113,7 @@ public class FurniturePlacement : MonoBehaviour
 
     private void HandleRotation()
     {
-        var thumbStick = OVRInput.Axis2D.PrimaryThumbstick;
+        var thumbStick = OVRInput.Axis2D.SecondaryThumbstick;
 
         //if (OVRInput.Get(thumbStick, OVRInput.Controller.LTouch) != Vector2.zero)
         //{
@@ -90,7 +124,7 @@ public class FurniturePlacement : MonoBehaviour
         //    _activeController = OVRInput.Controller.RTouch;
         //}
 
-        Vector2 thumbStickPos = OVRInput.Get(thumbStick, _activeController);
+        Vector2 thumbStickPos = OVRInput.Get(thumbStick/*, _activeController*/);
 
         if (thumbStickPos != Vector2.zero)
         {
@@ -104,20 +138,21 @@ public class FurniturePlacement : MonoBehaviour
     private bool CheckTriggerInput()
     {
         var togglePlacement = false;
-        const OVRInput.Button buttonMask = OVRInput.Button.PrimaryIndexTrigger /*| OVRInput.Button.PrimaryHandTrigger*/;
+        const OVRInput.Button buttonMask = OVRInput.Button.SecondaryIndexTrigger /*| OVRInput.Button.PrimaryHandTrigger*/;
 
-        if (OVRInput.GetDown(buttonMask, OVRInput.Controller.LTouch))
-        {
-            _activeController = OVRInput.Controller.LTouch;
-            togglePlacement = true;
-        }
-        else if (OVRInput.GetDown(buttonMask, OVRInput.Controller.RTouch))
-        {
-            _activeController = OVRInput.Controller.RTouch;
-            togglePlacement = true;
-        }
+        //if (OVRInput.GetDown(buttonMask, OVRInput.Controller.LTouch))
+        //{
+           // _activeController = OVRInput.Controller.LTouch;
+           if (OVRInput.GetDown(buttonMask)) togglePlacement = true;
+            // togglePlacement = true;
+            // }
+            //else if (OVRInput.GetDown(buttonMask, OVRInput.Controller.RTouch))
+            //{
+            // _activeController = OVRInput.Controller.RTouch;
+            // togglePlacement = true;
+            // }
 
-        return togglePlacement;
+            return togglePlacement;
     }
 
 
