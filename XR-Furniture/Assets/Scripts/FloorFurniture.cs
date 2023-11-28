@@ -10,7 +10,7 @@ public class FloorFurniture : Furniture
     void Start()
     {
         Debug.Log("FloorFurniture");
-
+        isPlaceble = true;
         prefabHeight = transform.localScale.y / 2;
         offset = new Vector3(0, prefabHeight, 0);
         rigidBody = GetComponent<Rigidbody>();
@@ -43,10 +43,7 @@ public class FloorFurniture : Furniture
         //if (isPlaceble == true) currentMaterial.color = Color.green;
         //else currentMaterial.color = Color.red;
 
-
-
-
-
+        
         var previewPos = gameObject.transform.position;
         var targetPos = ray.point + offset;
         Vector3 direction = targetPos - previewPos;

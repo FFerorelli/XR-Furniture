@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 
@@ -15,11 +16,13 @@ public class FurniturePlacement : MonoBehaviour
     [SerializeField] public Transform leftHand;
     [SerializeField] public Transform rightHand;
 
+    [SerializeField]
+    private TextMeshProUGUI displayText = null;
 
     [SerializeField] private float _rotationSpeed = 90f;
 
 
-    private OVRInput.Controller _activeController = OVRInput.Controller.RTouch;
+   // private OVRInput.Controller _activeController = OVRInput.Controller.RTouch;
 
     private GameObject _furniture;
     private GameObject _furniturePreview;
@@ -78,15 +81,18 @@ public class FurniturePlacement : MonoBehaviour
 
       //  var leftRayGroundHit = Physics.Raycast(leftRay, out var leftHit, 100.0f, mask);
         var rightRayCast = Physics.Raycast(rightRay, out var rightHit, 100.0f/*, mask*/);
+        _rightHandHit = (rightHit.point, rightHit.normal, rightRayCast);
 
-        currentLayerIndex = rightHit.collider.gameObject.layer;
+        if (_rightHandHit.hit)
+        {
+            currentLayerIndex = rightHit.collider.gameObject.layer;
+            currentLayerName = LayerMask.LayerToName(currentLayerIndex);
+            displayText.text = currentLayerName;
+        }
 
-        currentLayerName = LayerMask.LayerToName(currentLayerIndex);
 
-        Debug.Log(currentLayerName);
 
        // _leftHandHit = (leftHit.point, leftHit.normal, leftRayGroundHit);
-        _rightHandHit = (rightHit.point, rightHit.normal, rightRayCast);
         // var activeRay = _activeController == OVRInput.Controller.LTouch ? _leftHandHit : _rightHandHit;
 
         //rightLineRenderer.SetPosition(0, leftHand.position);
@@ -113,7 +119,7 @@ public class FurniturePlacement : MonoBehaviour
 
     private void HandleRotation()
     {
-        var thumbStick = OVRInput.Axis2D.SecondaryThumbstick;
+        var thumbStick = OVRInput.Axis2D.PrimaryThumbstick;
 
         //if (OVRInput.Get(thumbStick, OVRInput.Controller.LTouch) != Vector2.zero)
         //{
@@ -124,7 +130,7 @@ public class FurniturePlacement : MonoBehaviour
         //    _activeController = OVRInput.Controller.RTouch;
         //}
 
-        Vector2 thumbStickPos = OVRInput.Get(thumbStick/*, _activeController*/);
+        Vector2 thumbStickPos = OVRInput.Get(thumbStick, OVRInput.Controller.RTouch);
 
         if (thumbStickPos != Vector2.zero)
         {
@@ -138,12 +144,12 @@ public class FurniturePlacement : MonoBehaviour
     private bool CheckTriggerInput()
     {
         var togglePlacement = false;
-        const OVRInput.Button buttonMask = OVRInput.Button.SecondaryIndexTrigger /*| OVRInput.Button.PrimaryHandTrigger*/;
+        const OVRInput.Button buttonMask = OVRInput.Button.PrimaryIndexTrigger /*| OVRInput.Button.PrimaryHandTrigger*/;
 
         //if (OVRInput.GetDown(buttonMask, OVRInput.Controller.LTouch))
         //{
            // _activeController = OVRInput.Controller.LTouch;
-           if (OVRInput.GetDown(buttonMask)) togglePlacement = true;
+           if (OVRInput.GetDown(buttonMask, OVRInput.Controller.RTouch)) togglePlacement = true;
             // togglePlacement = true;
             // }
             //else if (OVRInput.GetDown(buttonMask, OVRInput.Controller.RTouch))
