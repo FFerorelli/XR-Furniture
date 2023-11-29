@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SmallObject : Furniture
 {
-
+    [SerializeField] private float verticalThreshold = 0.95f;
 
     void Start()
     {

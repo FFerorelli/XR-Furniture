@@ -79,6 +79,10 @@ public class FurniturePlacement : MonoBehaviour
            // place the furniture
             if (CheckTriggerInput() && _furnitureBehaviour.isPlaceble) TogglePlacement();
         }
+        else
+        {
+            _furniturePreview.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
     }
 
 

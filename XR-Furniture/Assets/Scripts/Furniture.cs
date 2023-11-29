@@ -7,14 +7,14 @@ public class Furniture : MonoBehaviour
     public bool isPlaceble;
     public LayerMask layer;
 
-    [SerializeField] protected float verticalThreshold = 0.95f;
+    
     [SerializeField] protected Material greenMat;
     [SerializeField] protected Material redMat;
     [SerializeField] public float speed = 2.5f;
     [SerializeField] public float _rotationSpeed = 90f;
+    [SerializeField] protected double epsilon = 0.005;
 
     protected Material currentMaterial;
-    protected double epsilon = 0.005;
     protected Vector3 offset;
     protected Vector3 bottomOffset;
     protected float prefabHeight;
@@ -54,7 +54,7 @@ public class Furniture : MonoBehaviour
         rigidBody.MovePosition(previewPos + direction.normalized * step); // teleport instead?
 
         // Stop moving when close to the hit point
-        if (distance < 0.1f) rigidBody.velocity = Vector3.zero;
+       // if (distance < 0.1f) rigidBody.velocity = Vector3.zero;
     }
 
     public void HandleRotation()
