@@ -6,7 +6,6 @@ using UnityEngine;
 public class FloorFurniture : Furniture
 {
 
-
     void Start()
     {
         Debug.Log("FloorFurniture");
@@ -65,14 +64,6 @@ public class FloorFurniture : Furniture
         }
     }
 
-    //private void OnCollisionStay(Collision collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Furniture"))
-    //    {
-    //        Debug.Log("Collision still ongoing with object tagged as 'Furniture'");
-    //        isPlaceble = false;
-    //    }
-    //}
 
     private void OnCollisionExit(Collision collision)
     {
