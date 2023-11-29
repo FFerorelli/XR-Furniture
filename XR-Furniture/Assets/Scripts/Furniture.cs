@@ -32,6 +32,29 @@ public class Furniture : MonoBehaviour
 
     public virtual void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray) 
     {
+
+        var downRay = new Ray(transform.position - offset /*+ bottomOffset*/, -transform.up);
+        var downRayGroundHit = Physics.Raycast(downRay, out var hit, 100.0f);
+        float dotProduct = Vector3.Dot(hit.normal.normalized, Vector3.up);
+
+        //if (dotProduct >= verticalThreshold)
+        //{
+        //    isPlaceble = true;
+        //}
+        //else
+        //{
+        //    isPlaceble = false;
+        //}
+
+        var previewPos = gameObject.transform.position;
+        var targetPos = ray.point + offset;
+        Vector3 direction = targetPos - previewPos;
+        float distance = direction.magnitude;
+        float step = distance * Time.fixedDeltaTime * speed;
+        rigidBody.MovePosition(previewPos + direction.normalized * step); // teleport instead?
+
+        // Stop moving when close to the hit point
+        if (distance < 0.1f) rigidBody.velocity = Vector3.zero;
     }
 
     public void HandleRotation()

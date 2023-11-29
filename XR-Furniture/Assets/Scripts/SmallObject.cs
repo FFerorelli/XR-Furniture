@@ -11,7 +11,7 @@ public class SmallObject : Furniture
     {
 
         Debug.Log("SmallObject");
-
+        isPlaceble = true;
         prefabHeight = transform.localScale.y / 2;
         offset = new Vector3(0, prefabHeight, 0);
         rigidBody = GetComponent<Rigidbody>();
@@ -20,7 +20,8 @@ public class SmallObject : Furniture
 
     public override void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray)
     {
-        
+        base.FollowRayHit(ray);
+
         var downRay = new Ray(transform.position - offset, -transform.up);
         var downRayGroundHit = Physics.Raycast(downRay, out var hit, 100.0f);
         float dotProduct = Vector3.Dot(hit.normal.normalized, Vector3.up);
@@ -39,14 +40,14 @@ public class SmallObject : Furniture
        // previewRot = Quaternion.FromToRotation(Vector3.up, hit.normal);
        // gameObject.transform.up = hit.normal;
 
-        var previewPos = gameObject.transform.position;
-        var targetPos = ray.point + offset;
-        Vector3 direction = targetPos - previewPos;
-        float distance = direction.magnitude;
-        float step = distance * Time.fixedDeltaTime * speed;
+        //var previewPos = gameObject.transform.position;
+        //var targetPos = ray.point + offset;
+        //Vector3 direction = targetPos - previewPos;
+        //float distance = direction.magnitude;
+        //float step = distance * Time.fixedDeltaTime * speed;
 
 
-        rigidBody.MovePosition(previewPos + direction.normalized * step);
+        //rigidBody.MovePosition(previewPos + direction.normalized * step);
 
         // Stop moving when close to the hit point
         // if (distance < 0.1f) rigidBody.velocity = Vector3.zero;
@@ -54,8 +55,6 @@ public class SmallObject : Furniture
 
         //gameObject.transform.position = ray.point + offset;
         //gameObject.transform.up = hit.normal;
-
-
 
     }
 }
