@@ -29,23 +29,17 @@ public class SmallObject : Furniture
         if (dotProduct >= verticalThreshold && hit.distance < epsilon)
         {
             isPlaceble = true;
-            currentMaterial.color = Color.green;
         }
         else
         {
             isPlaceble = false;
-            currentMaterial.color = Color.red;
         }
-        // Debug.Log(dotProduct + " " + isPlaceble);
-        //Debug.Log(hit.distance);
-        Debug.Log(hit.point);
-
 
        // var previewRot = gameObject.transform.rotation;
        // previewRot = Quaternion.FromToRotation(Vector3.up, hit.normal);
+       // gameObject.transform.up = hit.normal;
 
         var previewPos = gameObject.transform.position;
-       // gameObject.transform.up = hit.normal;
         var targetPos = ray.point + offset;
         Vector3 direction = targetPos - previewPos;
         float distance = direction.magnitude;
@@ -53,6 +47,7 @@ public class SmallObject : Furniture
 
 
         rigidBody.MovePosition(previewPos + direction.normalized * step);
+
         // Stop moving when close to the hit point
         // if (distance < 0.1f) rigidBody.velocity = Vector3.zero;
         // teleport instead?

@@ -22,10 +22,12 @@ public class Furniture : MonoBehaviour
 
     private void Start()
     {
-        //prefabHeight = transform.localScale.y / 2;
-        //offset = new Vector3(0, prefabHeight, 0);
-        //rigidBody = GetComponent<Rigidbody>();
-        //currentMaterial = GetComponent<MeshRenderer>().material;
+
+    }
+    private void Update()
+    {
+        if (isPlaceble == true) currentMaterial.color = Color.green;
+        else currentMaterial.color = Color.red;
     }
 
     public virtual void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray) 
