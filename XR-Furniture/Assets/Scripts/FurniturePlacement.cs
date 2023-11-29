@@ -14,7 +14,7 @@ public class FurniturePlacement : MonoBehaviour
     [SerializeField] private GameObject furniturePrefab;
 
     [SerializeField] private TextMeshProUGUI displayText = null;
-    [SerializeField] private float _rotationSpeed = 90f;
+   // [SerializeField] private float _rotationSpeed = 90f;
 
     private Material currentMaterial;
     private Color greenColor;
@@ -70,30 +70,17 @@ public class FurniturePlacement : MonoBehaviour
         // Check if the hitLayer is included in the specified layerMaskToCheck
         if ((_rightHandHit.hit && (mask.value & (1<< currentLayerIndex)) > 0))
         {
-            // update the position of the preview to match the raycast.
+           // update the position of the preview to match the raycast.
             _furnitureBehaviour.FollowRayHit(_rightHandHit);
 
-            // rotate the preview with the thumbsticks 
-             HandleRotation();
+           // rotate the preview with the thumbsticks 
+            _furnitureBehaviour.HandleRotation();
 
+           // place the furniture
             if (CheckTriggerInput() && _furnitureBehaviour.isPlaceble) TogglePlacement();
         }
     }
 
-
-    private void HandleRotation()
-    {
-        var thumbStick = OVRInput.Axis2D.PrimaryThumbstick;
-
-        Vector2 thumbStickPos = OVRInput.Get(thumbStick, OVRInput.Controller.RTouch);
-
-        if (thumbStickPos != Vector2.zero)
-        {
-            var previewTransform = _furniturePreview.transform;
-            float rotateAmount = -thumbStickPos.x * _rotationSpeed * Time.fixedDeltaTime;
-            previewTransform.Rotate(Vector3.up, rotateAmount, Space.Self);
-        }
-    }
 
     private bool CheckTriggerInput()
     {

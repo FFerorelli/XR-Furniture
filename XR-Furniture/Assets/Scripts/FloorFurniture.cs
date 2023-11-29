@@ -6,6 +6,7 @@ using UnityEngine;
 public class FloorFurniture : Furniture
 {
 
+
     void Start()
     {
         Debug.Log("FloorFurniture");
