@@ -33,9 +33,9 @@ public class WallFurniture : Furniture
         bool checkForward = CheckPlacement(transform.forward, out var hitForward);
         bool checkBack = CheckPlacement(-transform.forward, out var hitBack);
 
-        Debug.Log(hitForward.normal + " " + hitBack.normal);
-        Debug.Log(checkForward);
-        Debug.Log(checkBack);
+        //Debug.Log(hitForward.normal + " " + hitBack.normal);
+        //Debug.Log(checkForward);
+        //Debug.Log(checkBack);
 
         return checkBack || checkForward;
     }

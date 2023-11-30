@@ -85,6 +85,8 @@ public class FurniturePlacement : MonoBehaviour
                 _furniturePreview.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }
         }
+
+        else displayText.text = string.Empty;
     }
 
 
