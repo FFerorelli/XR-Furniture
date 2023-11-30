@@ -17,15 +17,15 @@ public class FurniturePlacement : MonoBehaviour
    // [SerializeField] private float _rotationSpeed = 90f;
 
     private Material currentMaterial;
-    private Color greenColor;
+   // private Color greenColor;
     private Color originalColor;
 
-    private LayerMask mask;
+   // private LayerMask mask;
     private GameObject spawnedPrefab;
     private GameObject _furniturePreview;
     private Furniture _furnitureBehaviour;
-    private string currentLayerName;
-    private int currentLayerIndex;
+   // private string currentLayerName;
+   // private int currentLayerIndex;
     private float prefabHeight;
     private Vector3 _offset;
     private Vector3 _startSpawnPos;
@@ -54,34 +54,36 @@ public class FurniturePlacement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        mask = _furnitureBehaviour.layer;
+        // Get the layer mask value from _furnitureBehaviour
+        LayerMask mask = _furnitureBehaviour.layer;
+        Ray rightRay = new Ray(rightHand.position, rightHand.forward);
 
-        var rightRay = new Ray(rightHand.position, rightHand.forward);
-        var rightRayCast = Physics.Raycast(rightRay, out var rightHit, 100.0f);
+        bool rightRayCast = Physics.Raycast(rightRay, out RaycastHit rightHit, 100.0f);
         _rightHandHit = (rightHit.point, rightHit.normal, rightRayCast);
 
         if (_rightHandHit.hit)
         {
-            currentLayerIndex = rightHit.collider.gameObject.layer;
-            currentLayerName = LayerMask.LayerToName(currentLayerIndex);
+
+            int currentLayerIndex = rightHit.collider.gameObject.layer;
+            string currentLayerName = LayerMask.LayerToName(currentLayerIndex);
             displayText.text = currentLayerName;
-        }
 
-        // Check if the hitLayer is included in the specified layerMaskToCheck
-        if ((_rightHandHit.hit && (mask.value & (1<< currentLayerIndex)) > 0))
-        {
-           // update the position of the preview to match the raycast.
-            _furnitureBehaviour.FollowRayHit(_rightHandHit);
+            // Check if the hitLayer is included in the specified layerMaskToCheck
+            if ((mask.value & (1 << currentLayerIndex)) > 0)
+            {
+                _furnitureBehaviour.FollowRayHit(_rightHandHit);
 
-           // rotate the preview with the thumbsticks 
-            _furnitureBehaviour.HandleRotation();
+                _furnitureBehaviour.HandleRotation();
 
-           // place the furniture
-            if (CheckTriggerInput() && _furnitureBehaviour.isPlaceble) TogglePlacement();
-        }
-        else
-        {
-            _furniturePreview.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                if (CheckTriggerInput() && _furnitureBehaviour.isPlaceble)
+                {
+                    TogglePlacement();
+                }
+            }
+            else
+            {
+                _furniturePreview.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            }
         }
     }
 
