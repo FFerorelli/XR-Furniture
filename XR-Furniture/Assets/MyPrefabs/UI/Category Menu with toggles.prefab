@@ -6823,7 +6823,7 @@ GameObject:
   - component: {fileID: 251108755494534066}
   - component: {fileID: 5801021275871605931}
   m_Layer: 0
-  m_Name: Category Menu
+  m_Name: Category Menu with toggles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

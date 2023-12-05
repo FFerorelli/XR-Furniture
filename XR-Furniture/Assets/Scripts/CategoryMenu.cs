@@ -27,8 +27,8 @@ public class CategoryMenu : MonoBehaviour
     void Start()
     {
         floorFurnitures.onClick.AddListener(() => UIEnabler(0));
-        floorFurnitures.onClick.AddListener(() => UIEnabler(1));
-        floorFurnitures.onClick.AddListener(() => UIEnabler(2));
+        wallFurnitures.onClick.AddListener(() => UIEnabler(1));
+        smallObjectsFurnitures.onClick.AddListener(() => UIEnabler(2));
     }
 
     // Update is called once per frame
