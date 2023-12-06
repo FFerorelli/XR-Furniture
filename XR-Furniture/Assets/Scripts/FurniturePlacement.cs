@@ -58,12 +58,12 @@ public class FurniturePlacement : MonoBehaviour
 
     public void SetNewFurniture(GameObject prefab)
     {
-        Debug.Log(prefab.name + "-__-_-----_-----_-_-_-_-----------_____");
-        prefabHeight = (prefab.transform.localScale.y) / 2;
-        _offset = new Vector3(0, prefabHeight, 0);
-        _startSpawnPos = new Vector3(transform.position.x, _offset.y, transform.position.z);
+        furniturePrefab = prefab;
+        //prefabHeight = (prefab.transform.localScale.y) / 2;
+        //_offset = new Vector3(0, prefabHeight, 0);
+        _startSpawnPos = new Vector3(transform.position.x, transform.position.y/*_offset.y*/, transform.position.z);
 
-        _furniturePreview = Instantiate(prefab, _startSpawnPos, transform.rotation);
+        _furniturePreview = Instantiate(furniturePrefab, _startSpawnPos, transform.rotation);
 
         currentMaterial = _furniturePreview.GetComponent<MeshRenderer>().material;
         originalColor = currentMaterial.color;
