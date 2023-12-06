@@ -2112,14 +2112,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1409968534}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 587fa52724b86ce4388d08e2db474fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonPrefab: {fileID: 0}
-  buttonsParent: {fileID: 0}
-  folderPath: 
+  buttonPrefab: {fileID: 4561018227273732398, guid: f67be983e3733c54d9b7573b50a730d4, type: 3}
+  buttonsParent: {fileID: 3747187617732762481}
+  folderPath: Assets/MyPrefabs/Furnitures Prefabs/Small Objects
 --- !u!1001 &1424881225
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2444,14 +2444,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1584615146}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 587fa52724b86ce4388d08e2db474fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonPrefab: {fileID: 0}
-  buttonsParent: {fileID: 0}
-  folderPath: 
+  buttonPrefab: {fileID: 4561018227273732398, guid: f67be983e3733c54d9b7573b50a730d4, type: 3}
+  buttonsParent: {fileID: 3747187617732762482}
+  folderPath: Assets/MyPrefabs/Furnitures Prefabs/Wall Furnitures
 --- !u!1 &1638650399
 GameObject:
   m_ObjectHideFlags: 0
@@ -15175,6 +15175,16 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1409968540}
   m_SourcePrefab: {fileID: 100100000, guid: 0e129c153a46cdc499dd0b9ee2be704e, type: 3}
+--- !u!224 &3747187617732762481 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 329504432671178159, guid: 0e129c153a46cdc499dd0b9ee2be704e, type: 3}
+  m_PrefabInstance: {fileID: 3747187617732762480}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &3747187617732762482 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2120728761802393375, guid: 0e129c153a46cdc499dd0b9ee2be704e, type: 3}
+  m_PrefabInstance: {fileID: 3747187617732762480}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3750587645136066973
 MonoBehaviour:
   m_ObjectHideFlags: 0

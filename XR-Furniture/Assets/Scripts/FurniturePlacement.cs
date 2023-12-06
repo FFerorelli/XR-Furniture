@@ -32,10 +32,27 @@ public class FurniturePlacement : MonoBehaviour
 
     private (Vector3 point, Vector3 normal, bool hit) _rightHandHit;
 
+    
+    public static FurniturePlacement Instance { get; private set; }
 
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // This will persist the GameManager object between scenes
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
+        // Start is called before the first frame update
+        void Start()
     {
 
         prefabHeight = (furniturePrefab.transform.localScale.y) / 2;
