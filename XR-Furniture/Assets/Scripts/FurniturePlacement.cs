@@ -58,6 +58,7 @@ public class FurniturePlacement : MonoBehaviour
 
     public void SetNewFurniture(GameObject prefab)
     {
+        Destroy(_furniturePreview);
         furniturePrefab = prefab;
         //prefabHeight = (prefab.transform.localScale.y) / 2;
         //_offset = new Vector3(0, prefabHeight, 0);
