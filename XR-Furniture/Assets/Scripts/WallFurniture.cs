@@ -10,7 +10,7 @@ public class WallFurniture : Furniture
     private float minWallDistance = 0.05f;
     void Start()
     {
-        Debug.Log("FloorFurniture");
+        Debug.Log("WallFurniture");
         isPlaceble = true;
         prefabHeight = transform.localScale.y / 2;
         offset = new Vector3(0, prefabHeight, 0);

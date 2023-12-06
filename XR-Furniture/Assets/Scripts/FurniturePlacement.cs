@@ -10,8 +10,7 @@ public class FurniturePlacement : MonoBehaviour
     [SerializeField] public Transform leftHand;
     [SerializeField] public Transform rightHand;
 
-   // [SerializeField] private GameObject furniturePrefab;
-    [SerializeField] private GameObject furniturePrefab;
+    /*[SerializeField]*/ public GameObject furniturePrefab;
 
     [SerializeField] private TextMeshProUGUI displayText = null;
    // [SerializeField] private float _rotationSpeed = 90f;
@@ -52,14 +51,19 @@ public class FurniturePlacement : MonoBehaviour
 
 
         // Start is called before the first frame update
-        void Start()
+    void Start()
     {
+        //SetNewFurniture(furniturePrefab);
+    }
 
-        prefabHeight = (furniturePrefab.transform.localScale.y) / 2;
+    public void SetNewFurniture(GameObject prefab)
+    {
+        Debug.Log(prefab.name + "-__-_-----_-----_-_-_-_-----------_____");
+        prefabHeight = (prefab.transform.localScale.y) / 2;
         _offset = new Vector3(0, prefabHeight, 0);
         _startSpawnPos = new Vector3(transform.position.x, _offset.y, transform.position.z);
 
-        _furniturePreview = Instantiate(furniturePrefab, _startSpawnPos, transform.rotation);
+        _furniturePreview = Instantiate(prefab, _startSpawnPos, transform.rotation);
 
         currentMaterial = _furniturePreview.GetComponent<MeshRenderer>().material;
         originalColor = currentMaterial.color;
@@ -71,8 +75,7 @@ public class FurniturePlacement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        // Get the layer mask value from _furnitureBehaviour
-        LayerMask mask = _furnitureBehaviour.layer;
+
         Ray rightRay = new Ray(rightHand.position, rightHand.forward);
 
         bool rightRayCast = Physics.Raycast(rightRay, out RaycastHit rightHit, 100.0f);
@@ -85,21 +88,30 @@ public class FurniturePlacement : MonoBehaviour
             string currentLayerName = LayerMask.LayerToName(currentLayerIndex);
             displayText.text = currentLayerName;
 
-            // Check if the hitLayer is included in the specified layerMaskToCheck
-            if ((mask.value & (1 << currentLayerIndex)) > 0)
+
+            //If a furniture is selected from the UI
+
+            if (_furnitureBehaviour != null)
             {
-                _furnitureBehaviour.FollowRayHit(_rightHandHit);
 
-                _furnitureBehaviour.HandleRotation();
+                LayerMask mask = _furnitureBehaviour.layer;
 
-                if (CheckTriggerInput() && _furnitureBehaviour.isPlaceble)
+                // Check if the hitLayer is included in the specified layerMaskToCheck
+                if ((mask.value & (1 << currentLayerIndex)) > 0)
                 {
-                    TogglePlacement();
+                    _furnitureBehaviour.FollowRayHit(_rightHandHit);
+
+                    _furnitureBehaviour.HandleRotation();
+
+                    if (CheckTriggerInput() && _furnitureBehaviour.isPlaceble)
+                    {
+                        TogglePlacement();
+                    }
                 }
-            }
-            else
-            {
-                _furniturePreview.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                else
+                {
+                    _furniturePreview.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                } 
             }
         }
 

@@ -1394,6 +1394,7 @@ MonoBehaviour:
   buttonPrefab: {fileID: 4561018227273732398, guid: f67be983e3733c54d9b7573b50a730d4, type: 3}
   buttonsParent: {fileID: 55120783}
   folderPath: Assets/Resources/Furnitures Prefabs/Floor Furnitures
+  relativePath: Furnitures Prefabs/Floor Furnitures
 --- !u!1001 &966286844
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2120,6 +2121,7 @@ MonoBehaviour:
   buttonPrefab: {fileID: 4561018227273732398, guid: f67be983e3733c54d9b7573b50a730d4, type: 3}
   buttonsParent: {fileID: 3747187617732762481}
   folderPath: Assets/MyPrefabs/Furnitures Prefabs/Small Objects
+  relativePath: 
 --- !u!1001 &1424881225
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2452,6 +2454,7 @@ MonoBehaviour:
   buttonPrefab: {fileID: 4561018227273732398, guid: f67be983e3733c54d9b7573b50a730d4, type: 3}
   buttonsParent: {fileID: 3747187617732762482}
   folderPath: Assets/MyPrefabs/Furnitures Prefabs/Wall Furnitures
+  relativePath: 
 --- !u!1 &1638650399
 GameObject:
   m_ObjectHideFlags: 0

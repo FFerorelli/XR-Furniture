@@ -10,6 +10,7 @@ public class PopulatePrefabList : MonoBehaviour
     public GameObject buttonPrefab;
     public Transform buttonsParent; // Reference to the parent object where buttons will be placed
     public string folderPath; // Path to the folder containing the prefabs
+    public string relativePath; // Path to the folder containing the prefabs
 
     void Start()
     {
@@ -20,23 +21,22 @@ public class PopulatePrefabList : MonoBehaviour
     {
         string[] prefabPaths = Directory.GetFiles(folderPath, "*.prefab");
         
-        foreach (var path in prefabPaths)/* (int i = 0; i < prefabPaths.Length; i++)*/
+        foreach (var path in prefabPaths)
         {
 
             string prefabName = Path.GetFileNameWithoutExtension(path);
-            GameObject prefab = Resources.Load<GameObject>(prefabName);
+            GameObject prefab = Resources.Load<GameObject>(relativePath + prefabName);
+            Debug.Log(prefabName + "---------------");
 
             //if (prefab != null)
             //{
                 // Create a button from the prefab
-                GameObject button = Instantiate(buttonPrefab, buttonsParent);
+            GameObject button = Instantiate(buttonPrefab, buttonsParent);
 
-                button.GetComponentInChildren<TextMeshProUGUI>().text = prefabName; // Set button text or image here
+            button.GetComponentInChildren<TextMeshProUGUI>().text = prefabName; // Set button text or image here
 
-                // Add functionality if needed (e.g., onClick listeners)
-                // button.GetComponent<Button>().onClick.AddListener(() => YourFunction(prefab));
+          button.GetComponent<Button>().onClick.AddListener(() => SetCurrentPrefab(prefab));
 
-                // You may adjust the position or layout here based on your requirements 
             //}
             //else
             //{
@@ -45,9 +45,10 @@ public class PopulatePrefabList : MonoBehaviour
         }
     }
 
-    // Example function for button onClick listener
-    // void YourFunction(GameObject prefab)
-    // {
-    //     Instantiate(prefab, Vector3.zero, Quaternion.identity);
-    // }
+
+     void SetCurrentPrefab(GameObject prefab)
+     {
+        Debug.Log(prefab);
+        FurniturePlacement.Instance.SetNewFurniture(prefab);
+     }
 }
