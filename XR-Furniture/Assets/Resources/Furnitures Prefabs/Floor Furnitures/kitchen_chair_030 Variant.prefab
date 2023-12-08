@@ -18,11 +18,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6919114925107310502, guid: 665e1b963b491d44aa1fd8d20ff3f4f0, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6919114925107310502, guid: 665e1b963b491d44aa1fd8d20ff3f4f0, type: 3}
       propertyPath: m_TagString
-      value: Furniture
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7732243990152459548, guid: 665e1b963b491d44aa1fd8d20ff3f4f0, type: 3}
       propertyPath: m_LocalPosition.x
