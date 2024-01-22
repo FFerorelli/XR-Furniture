@@ -1,0 +1,55 @@
+ManifestFileVersion: 0
+CRC: 2633906036
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6e522fa566eea545b1983cdbe500729e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: beb79e0fadebf4f7785b899d4079dfb2
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 6e522fa566eea545b1983cdbe500729e
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 07525681efbca7a4e9643ab3a592ada7, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 43f86b14a27b52f4f9298c33015b5c26, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 97d4a59bafbdb1b4a98dc8a702b2066c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5a1bc992571301d4a9602ac95ef4c71a, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/Furnitures Prefabs/Floor Furnitures/armchair_001.prefab
+- Assets/Resources/Furnitures Prefabs/Floor Furnitures/armchair_003.prefab
+- Assets/Resources/Furnitures Prefabs/Floor Furnitures/armchair_004.prefab
+- Assets/Resources/Furnitures Prefabs/Floor Furnitures/kitchen_chair_030 Variant.prefab
+- Assets/Resources/Furnitures Prefabs/Floor Furnitures/Floor Furniture.prefab
+- Assets/Resources/Furnitures Prefabs/Floor Furnitures/armchair_002.prefab
+Dependencies: []

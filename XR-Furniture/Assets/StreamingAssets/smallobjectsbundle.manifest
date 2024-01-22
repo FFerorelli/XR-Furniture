@@ -1,0 +1,46 @@
+ManifestFileVersion: 0
+CRC: 492634955
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 691515d38dee90459fa118c7752c081d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b569461ce09dab7cd51c7beaa3a3df14
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 691515d38dee90459fa118c7752c081d
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 07525681efbca7a4e9643ab3a592ada7, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fa4546592d437364bb6f31237a05ec6d, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 43f86b14a27b52f4f9298c33015b5c26, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5a1bc992571301d4a9602ac95ef4c71a, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/Furnitures Prefabs/Small Objects/Small Object.prefab
+Dependencies: []

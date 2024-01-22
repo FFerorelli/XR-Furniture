@@ -1,0 +1,45 @@
+ManifestFileVersion: 0
+CRC: 599750240
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2d530b16f6b9291c0e114c3e989cf9a1
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f8bce726dea6a9de4d24ce87aa9b2283
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 2d530b16f6b9291c0e114c3e989cf9a1
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 013c5ebe8f6850e4392c957fd9c14080, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/Furnitures Prefabs/Wall Furnitures/Wall Furniture.prefab
+- Assets/Resources/Furnitures Prefabs/Wall Furnitures/picture_014.prefab
+Dependencies: []

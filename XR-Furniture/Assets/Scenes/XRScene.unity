@@ -1399,6 +1399,7 @@ MonoBehaviour:
   buttonsParent: {fileID: 55120783}
   folderPath: Assets/Resources/Furnitures Prefabs/Floor Furnitures
   relativePath: Furnitures Prefabs/Floor Furnitures/
+  assetBundleName: floorfurnituresbundle
 --- !u!1001 &966286844
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1697,7 +1698,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1061610191
 Transform:
   m_ObjectHideFlags: 0
@@ -2126,6 +2127,7 @@ MonoBehaviour:
   buttonsParent: {fileID: 3747187617732762481}
   folderPath: Assets/Resources/Furnitures Prefabs/Small Objects
   relativePath: Furnitures Prefabs/Small Objects/
+  assetBundleName: smallobjectsbundle
 --- !u!1001 &1424881225
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2459,6 +2461,7 @@ MonoBehaviour:
   buttonsParent: {fileID: 3747187617732762482}
   folderPath: Assets/Resources/Furnitures Prefabs/Wall Furnitures
   relativePath: Furnitures Prefabs/Wall Furnitures/
+  assetBundleName: wallfurnituresbundle
 --- !u!1 &1638650399
 GameObject:
   m_ObjectHideFlags: 0

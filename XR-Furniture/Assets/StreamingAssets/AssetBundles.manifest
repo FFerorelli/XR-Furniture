@@ -1,0 +1,13 @@
+ManifestFileVersion: 0
+CRC: 59253266
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: floorfurnituresbundle
+      Dependencies: {}
+    Info_1:
+      Name: smallobjectsbundle
+      Dependencies: {}
+    Info_2:
+      Name: wallfurnituresbundle
+      Dependencies: {}
