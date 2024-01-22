@@ -837,6 +837,10 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3830238887274247678, guid: be1d30f657fa51145862f13885becaf9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3830238887274247678, guid: be1d30f657fa51145862f13885becaf9, type: 3}
       propertyPath: m_TagString
       value: Furniture
       objectReference: {fileID: 0}
@@ -1693,7 +1697,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1061610191
 Transform:
   m_ObjectHideFlags: 0
@@ -2120,7 +2124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPrefab: {fileID: 4561018227273732398, guid: f67be983e3733c54d9b7573b50a730d4, type: 3}
   buttonsParent: {fileID: 3747187617732762481}
-  folderPath: Assets/MyPrefabs/Furnitures Prefabs/Small Objects
+  folderPath: Assets/Resources/Furnitures Prefabs/Small Objects
   relativePath: Furnitures Prefabs/Small Objects/
 --- !u!1001 &1424881225
 PrefabInstance:
@@ -2453,7 +2457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPrefab: {fileID: 4561018227273732398, guid: f67be983e3733c54d9b7573b50a730d4, type: 3}
   buttonsParent: {fileID: 3747187617732762482}
-  folderPath: Assets/MyPrefabs/Furnitures Prefabs/Wall Furnitures
+  folderPath: Assets/Resources/Furnitures Prefabs/Wall Furnitures
   relativePath: Furnitures Prefabs/Wall Furnitures/
 --- !u!1 &1638650399
 GameObject:
