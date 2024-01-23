@@ -6,6 +6,7 @@ using TMPro;
 using System.Collections;
 using UnityEngine.Networking;
 using System;
+using UnityEditor;
 
 public class PopulatePrefabList : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class PopulatePrefabList : MonoBehaviour
     public string relativePath; // Path to the folder containing the prefabs
     public string assetBundleName;
     [SerializeField] private GameObject[] _myPrefabList;
+   
 
     void Start()
     {
@@ -27,12 +29,16 @@ public class PopulatePrefabList : MonoBehaviour
         foreach (var prefab in _myPrefabList)
         {
             string prefabName = prefab.name;
-            //GameObject prefab = Resources.Load<GameObject>(relativePath + prefabName);
-            Debug.Log(prefabName + "---------------");
+
+            Texture2D prefabThumbnail = AssetPreview.GetAssetPreview(prefab);
+            Sprite buttonImage = Sprite.Create(prefabThumbnail, new Rect(0, 0, prefabThumbnail.width, prefabThumbnail.height), new Vector2(0.5f, 0.5f), 100);
+
 
             GameObject button = Instantiate(buttonPrefab, buttonsParent);
 
-            button.GetComponentInChildren<TextMeshProUGUI>().text = prefabName;
+            button.GetComponentInChildren<Image>().sprite = buttonImage;
+
+           // button.GetComponentInChildren<TextMeshProUGUI>().text = prefabName;
 
             button.GetComponent<Button>().onClick.AddListener(() => SetCurrentPrefab(prefab));
         }
