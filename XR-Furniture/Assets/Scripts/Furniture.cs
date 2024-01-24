@@ -12,12 +12,13 @@ public class Furniture : MonoBehaviour
     [SerializeField] protected Material redMat;
     [SerializeField] public float speed = 2.5f;
     [SerializeField] public float _rotationSpeed = 90f;
-    [SerializeField] protected double epsilon = 0.005;
+    [SerializeField] protected double epsilon = 0.001;
 
     protected Material currentMaterial;
     protected Vector3 offset;
     protected Vector3 bottomOffset;
     protected float prefabHeight;
+    protected float objectHeight;
     protected Rigidbody rigidBody;
 
     private void Start()
@@ -33,9 +34,9 @@ public class Furniture : MonoBehaviour
     public virtual void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray) 
     {
 
-        var downRay = new Ray(transform.position - offset /*+ bottomOffset*/, -transform.up);
-        var downRayGroundHit = Physics.Raycast(downRay, out var hit, 100.0f);
-        float dotProduct = Vector3.Dot(hit.normal.normalized, Vector3.up);
+        //var downRay = new Ray(transform.position - offset /*+ bottomOffset*/, -transform.up);
+        //var downRayGroundHit = Physics.Raycast(downRay, out var hit, 100.0f);
+        //float dotProduct = Vector3.Dot(hit.normal.normalized, Vector3.up);
 
         //if (dotProduct >= verticalThreshold)
         //{
@@ -47,7 +48,7 @@ public class Furniture : MonoBehaviour
         //}
 
         var previewPos = gameObject.transform.position;
-        var targetPos = ray.point + offset;
+        var targetPos = ray.point/* + offset*/;
         Vector3 direction = targetPos - previewPos;
         float distance = direction.magnitude;
         float step = distance * Time.fixedDeltaTime * speed;

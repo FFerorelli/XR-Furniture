@@ -7,6 +7,7 @@ using System.Collections;
 using UnityEngine.Networking;
 using System;
 using UnityEditor;
+using static System.Net.Mime.MediaTypeNames;
 
 public class PopulatePrefabList : MonoBehaviour
 {
@@ -16,7 +17,10 @@ public class PopulatePrefabList : MonoBehaviour
     public string relativePath; // Path to the folder containing the prefabs
     public string assetBundleName;
     [SerializeField] private GameObject[] _myPrefabList;
-   
+    public Dictionary<GameObject, Sprite> prefabToThumbnail;
+    public string screenshotDirectory = "Assets/Resources/Thumbnails";
+    
+
 
     void Start()
     {
@@ -29,14 +33,21 @@ public class PopulatePrefabList : MonoBehaviour
         foreach (var prefab in _myPrefabList)
         {
             string prefabName = prefab.name;
+            string imagePath = screenshotDirectory + "/Thumbnails" + prefabName + ".png";
 
-            Texture2D prefabThumbnail = AssetPreview.GetAssetPreview(prefab);
+            //Texture2D prefabThumbnail = AssetPreview.GetAssetPreview(prefab);
+            byte[] imageBytes = File.ReadAllBytes(imagePath);
+            Texture2D prefabThumbnail = new Texture2D(2, 2);
+            prefabThumbnail.LoadImage(imageBytes);
+
             Sprite buttonImage = Sprite.Create(prefabThumbnail, new Rect(0, 0, prefabThumbnail.width, prefabThumbnail.height), new Vector2(0.5f, 0.5f), 100);
+
 
 
             GameObject button = Instantiate(buttonPrefab, buttonsParent);
 
-            button.GetComponentInChildren<Image>().sprite = buttonImage;
+
+            button.GetComponentInChildren<UnityEngine.UI.Image>().sprite = buttonImage;
 
            // button.GetComponentInChildren<TextMeshProUGUI>().text = prefabName;
 
@@ -99,6 +110,14 @@ public class PopulatePrefabList : MonoBehaviour
         Debug.Log(prefab);
         FurniturePlacement.Instance.SetNewFurniture(prefab);
      }
+    //IEnumerator LoadThumbnail(GameObject prefab)
+    //{
+    //    UnityWebRequest www = UnityWebRequestTexture.GetTexture(prefab.name + ".png");
+    //    yield return www.SendWebRequest();
+    //    Texture2D texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+    //    Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+    //    prefabToThumbnail[prefab] = sprite;
+    //}
 }
    
 
