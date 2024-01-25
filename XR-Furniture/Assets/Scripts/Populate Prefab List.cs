@@ -7,7 +7,7 @@ using System.Collections;
 using UnityEngine.Networking;
 using System;
 using UnityEditor;
-using static System.Net.Mime.MediaTypeNames;
+
 
 public class PopulatePrefabList : MonoBehaviour
 {
@@ -24,38 +24,53 @@ public class PopulatePrefabList : MonoBehaviour
 
     void Start()
     {
-        // StartCoroutine(CreateGrid());
-        CreateGrid();
+        StartCoroutine(CreateGrid());
+        //CreateGrid();
     }
 
-    void CreateGrid()
+    IEnumerator CreateGrid()
     {
         foreach (var prefab in _myPrefabList)
         {
             string prefabName = prefab.name;
-            // string imagePath = screenshotDirectory + "/Thumbnails" + prefabName + ".png";
 
-            //Texture2D prefabThumbnail = AssetPreview.GetAssetPreview(prefab);
+            Debug.Log("Loading: Thumbnails/" + prefabName);
+            ResourceRequest resourceRequest = Resources.LoadAsync<Texture2D>("Thumbnails/Thumbnails" + prefabName);
 
-            //byte[] imageBytes = File.ReadAllBytes(imagePath);
-            //Texture2D prefabThumbnail = new Texture2D(2, 2);
-            //prefabThumbnail.LoadImage(imageBytes);
+            yield return resourceRequest;
 
-            Debug.Log("Thumbnails/" + prefabName);
-            Texture2D prefabThumbnail = Resources.Load<Texture2D>("Thumbnails/Thumbnails" + prefabName);
+            if (resourceRequest.asset == null)
+            {
+                Debug.Log("Failed to load: Thumbnails/" + prefabName);
+                continue;
+            }
 
-            Sprite buttonImage = Sprite.Create(prefabThumbnail, new Rect(0, 0, prefabThumbnail.width, prefabThumbnail.height), new Vector2(0.5f, 0.5f), 100);
+            if (resourceRequest.asset is Texture2D prefabThumbnail)
+            {
+                Sprite buttonImage = Sprite.Create(prefabThumbnail, new Rect(0, 0, prefabThumbnail.width, prefabThumbnail.height), new Vector2(0.5f, 0.5f), 100);
 
+                GameObject button = Instantiate(buttonPrefab, buttonsParent);
 
+                if (button == null)
+                {
+                    Debug.Log("Failed to instantiate button for: " + prefabName);
+                    continue;
+                }
 
-            GameObject button = Instantiate(buttonPrefab, buttonsParent);
+                Image buttonImageComponent = button.GetComponentInChildren<Image>();
 
+                if (buttonImageComponent == null)
+                {
+                    Debug.Log("Failed to get Image component for: " + prefabName);
+                    continue;
+                }
 
-            button.GetComponentInChildren<UnityEngine.UI.Image>().sprite = buttonImage;
+                buttonImageComponent.sprite = buttonImage;
 
-           // button.GetComponentInChildren<TextMeshProUGUI>().text = prefabName;
+                button.GetComponent<Button>().onClick.AddListener(() => SetCurrentPrefab(prefab));
+            }
 
-            button.GetComponent<Button>().onClick.AddListener(() => SetCurrentPrefab(prefab));
+            yield return null; // This will ensure that the loop will continue on the next frame
         }
     }
         //IEnumerator CreateGrid()
