@@ -67,7 +67,7 @@ public class PopulatePrefabList : MonoBehaviour
 
                 buttonImageComponent.sprite = buttonImage;
 
-                button.GetComponent<Button>().onClick.AddListener(() => SetCurrentPrefab(prefab));
+                button.GetComponent<Button>().onClick.AddListener(() => FurniturePlacement.Instance.SetNewFurniture(prefab));
             }
 
             yield return null; // This will ensure that the loop will continue on the next frame
@@ -124,11 +124,7 @@ public class PopulatePrefabList : MonoBehaviour
 
         //  button.GetComponent<Button>().onClick.AddListener(() => SetCurrentPrefab(prefab));
 
-        void SetCurrentPrefab(GameObject prefab)
-     {
-        Debug.Log(prefab);
-        FurniturePlacement.Instance.SetNewFurniture(prefab);
-     }
+
     //IEnumerator LoadThumbnail(GameObject prefab)
     //{
     //    UnityWebRequest www = UnityWebRequestTexture.GetTexture(prefab.name + ".png");

@@ -144,7 +144,9 @@ public class FurniturePlacement : MonoBehaviour
         spawnedPrefab.GetComponent<MeshRenderer>().material.color = originalColor;
         spawnedPrefab.tag = "Furniture";
         spawnedPrefab.layer = 8;
-        Debug.Log(LayerMask.LayerToName(spawnedPrefab.layer));
+
+        SetNewFurniture(null);
+
 
     }
 }
