@@ -33,12 +33,16 @@ public class PopulatePrefabList : MonoBehaviour
         foreach (var prefab in _myPrefabList)
         {
             string prefabName = prefab.name;
-            string imagePath = screenshotDirectory + "/Thumbnails" + prefabName + ".png";
+            // string imagePath = screenshotDirectory + "/Thumbnails" + prefabName + ".png";
 
             //Texture2D prefabThumbnail = AssetPreview.GetAssetPreview(prefab);
-            byte[] imageBytes = File.ReadAllBytes(imagePath);
-            Texture2D prefabThumbnail = new Texture2D(2, 2);
-            prefabThumbnail.LoadImage(imageBytes);
+
+            //byte[] imageBytes = File.ReadAllBytes(imagePath);
+            //Texture2D prefabThumbnail = new Texture2D(2, 2);
+            //prefabThumbnail.LoadImage(imageBytes);
+
+            Debug.Log("Thumbnails/" + prefabName);
+            Texture2D prefabThumbnail = Resources.Load<Texture2D>("Thumbnails/Thumbnails" + prefabName);
 
             Sprite buttonImage = Sprite.Create(prefabThumbnail, new Rect(0, 0, prefabThumbnail.width, prefabThumbnail.height), new Vector2(0.5f, 0.5f), 100);
 

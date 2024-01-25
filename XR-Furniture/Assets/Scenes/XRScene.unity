@@ -2130,6 +2130,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: electronics_017
       objectReference: {fileID: 0}
+    - target: {fileID: 7094410004518767757, guid: 0057bc9a2c49b3743922fec6d1893af8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7583983583298180663, guid: 0057bc9a2c49b3743922fec6d1893af8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.8477988
@@ -2519,6 +2523,7 @@ MonoBehaviour:
   relativePath: Furnitures Prefabs/Small Objects/
   assetBundleName: smallobjectsbundle
   _myPrefabList:
+  - {fileID: 3830238887274247678, guid: 234936c3e860b734b875ba30ade6ab5b, type: 3}
   - {fileID: 5389513771953057968, guid: 226864eafa0df10438fb57cf4a3be6d9, type: 3}
   - {fileID: 9023888597368549752, guid: 6a1f5776b12654443abb19d3cbb1a920, type: 3}
   - {fileID: 1553643735147392849, guid: 5b009500fca0a0d4d80af3415ff2712a, type: 3}
@@ -2595,19 +2600,15 @@ MonoBehaviour:
   - {fileID: 325219445555605316, guid: 6755fd7c0b3a573449798c949a0b481c, type: 3}
   - {fileID: 3167136282145917800, guid: 2789b79c2f06bd940a09a49f57a1b794, type: 3}
   - {fileID: 1313050216440173600, guid: 821a227379969d645ae52c916da7613e, type: 3}
-  - {fileID: 7321490241512307883, guid: ebaebc3099edc4240a2bb74533b8ba6f, type: 3}
-  - {fileID: 7246072105181424287, guid: e937cd97da4cec0488e4af200d695f09, type: 3}
   - {fileID: 4297634751359680963, guid: 8acb48ec15041f94cb0a3667fa5664eb, type: 3}
   - {fileID: 4863485488778211979, guid: 2e710141008e16444827f1e10d3d2a2a, type: 3}
   - {fileID: 3586085144509387087, guid: 109caba02c61d4c4d9e81f9f53b395b3, type: 3}
-  - {fileID: 9158993682246012052, guid: 0a7cf43b60e16ea4b9ca7b741f453ff9, type: 3}
   - {fileID: 4415299799051689993, guid: d832da98f826a564c9ab37ed8f567ae1, type: 3}
   - {fileID: 790523067663829928, guid: 0da88e6dcfd2731428dc19c140ab12fc, type: 3}
   - {fileID: 8211037989918807798, guid: c1fc958d78fdb6149a4530df6538f638, type: 3}
   - {fileID: 3146015172094612422, guid: c8d6607ceb4649f41bd04cf303136c0d, type: 3}
   - {fileID: 5132045081732797483, guid: 93e918a9d97203e4c8ab38002bf56f26, type: 3}
   - {fileID: 2439590301253228632, guid: b4895b24ce1df4444afedd71098862a5, type: 3}
-  - {fileID: 7551678052896084910, guid: 595ba82edbf97ef4b89c55a726160cba, type: 3}
   - {fileID: 2005770682118701926, guid: 8289244b7dddc3c47820922113023fec, type: 3}
   - {fileID: 4772893505305743773, guid: 64f312644ab4eb141aaad5602bd0caea, type: 3}
   - {fileID: 3011045249603855314, guid: ab4b4c501a641bd48a956e3e32890b14, type: 3}

@@ -140,5 +140,22 @@ public class SmallObject : Furniture
         //gameObject.transform.up = hit.normal;
 
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("Collision detected with object tagged as 'Ground'");
+            isPlaceble = true;
+        }
+    }
 
+
+    //private void OnCollisionExit(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Ground"))
+    //    {
+    //        Debug.Log("Collision with object tagged as 'Furniture' ended");
+    //        isPlaceble = true;
+    //    }
+    //}
 }
