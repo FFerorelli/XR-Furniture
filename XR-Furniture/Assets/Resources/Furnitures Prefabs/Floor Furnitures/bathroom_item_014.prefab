@@ -125,11 +125,10 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 448
-  greenMat: {fileID: 2100000, guid: 603216af46f1d8b4397a2b241e9ae420, type: 2}
-  redMat: {fileID: 2100000, guid: 0805f7b4c5b59914c804670f5b845289, type: 2}
+  greenMat: {fileID: 2100000, guid: 1be49e0130fe7854eb12b9461eb50c1b, type: 2}
+  redMat: {fileID: 2100000, guid: 8dbad44d659237a4daf5cf7119e3f7ea, type: 2}
   speed: 2.5
   _rotationSpeed: 90
-  epsilon: 0.005
 --- !u!54 &2953314448242418486
 Rigidbody:
   m_ObjectHideFlags: 0

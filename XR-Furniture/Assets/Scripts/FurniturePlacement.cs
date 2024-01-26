@@ -7,9 +7,9 @@ public class FurniturePlacement : MonoBehaviour
     [SerializeField] public Transform rightHand;
     [SerializeField] public GameObject furniturePrefab;
     [SerializeField] private TextMeshProUGUI displayText = null;
+    [SerializeField] private Material previewMaterial;
 
-    private Material currentMaterial;
-    private Color originalColor;
+    private Material originalMaterial;
     private GameObject spawnedPrefab;
     private GameObject _furniturePreview;
     private Furniture _furnitureBehaviour;
@@ -43,9 +43,9 @@ public class FurniturePlacement : MonoBehaviour
         _furniturePreview = Instantiate(furniturePrefab, _startSpawnPos, transform.rotation);
 
         var meshRenderer = _furniturePreview.GetComponent<MeshRenderer>();
-        currentMaterial = meshRenderer.material;
-        originalColor = currentMaterial.color;
-        meshRenderer.material.color = Color.green;
+        originalMaterial = meshRenderer.material;
+       // originalColor = currentMaterial.color;
+        meshRenderer.material = previewMaterial;
 
         _furnitureBehaviour = _furniturePreview.GetComponent<Furniture>();
     }
@@ -101,7 +101,7 @@ public class FurniturePlacement : MonoBehaviour
         spawnedPrefab.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
         var meshRenderer = spawnedPrefab.GetComponent<MeshRenderer>();
-        meshRenderer.material.color = originalColor;
+        meshRenderer.material = originalMaterial;
 
         spawnedPrefab.tag = "Furniture";
         spawnedPrefab.layer = 8;
