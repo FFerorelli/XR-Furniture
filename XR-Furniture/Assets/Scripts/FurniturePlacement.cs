@@ -1,47 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-
 public class FurniturePlacement : MonoBehaviour
 {
-
     [SerializeField] public Transform leftHand;
     [SerializeField] public Transform rightHand;
-
-    /*[SerializeField]*/ public GameObject furniturePrefab;
-
+    [SerializeField] public GameObject furniturePrefab;
     [SerializeField] private TextMeshProUGUI displayText = null;
-   // [SerializeField] private float _rotationSpeed = 90f;
 
     private Material currentMaterial;
-   // private Color greenColor;
     private Color originalColor;
-
-   // private LayerMask mask;
     private GameObject spawnedPrefab;
     private GameObject _furniturePreview;
     private Furniture _furnitureBehaviour;
-   // private string currentLayerName;
-   // private int currentLayerIndex;
-    private float prefabHeight;
-    private Vector3 _offset;
     private Vector3 _startSpawnPos;
 
-    private (Vector3 point, Vector3 normal, bool hit) _rightHandHit;
-
-    
     public static FurniturePlacement Instance { get; private set; }
-
-
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // This will persist the GameManager object between scenes
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -49,104 +30,84 @@ public class FurniturePlacement : MonoBehaviour
         }
     }
 
-
-        // Start is called before the first frame update
-    void Start()
-    {
-        //SetNewFurniture(furniturePrefab);
-    }
-
     public void SetNewFurniture(GameObject prefab)
     {
-        Destroy(_furniturePreview);
+        if (_furniturePreview != null)
+        {
+            Destroy(_furniturePreview);
+        }
+
         furniturePrefab = prefab;
-        //prefabHeight = (prefab.transform.localScale.y) / 2;
-        //_offset = new Vector3(0, prefabHeight, 0);
-        _startSpawnPos = new Vector3(transform.position.x, transform.position.y/*_offset.y*/, transform.position.z);
+        _startSpawnPos = transform.position;
 
         _furniturePreview = Instantiate(furniturePrefab, _startSpawnPos, transform.rotation);
 
-        currentMaterial = _furniturePreview.GetComponent<MeshRenderer>().material;
+        var meshRenderer = _furniturePreview.GetComponent<MeshRenderer>();
+        currentMaterial = meshRenderer.material;
         originalColor = currentMaterial.color;
-        _furniturePreview.GetComponent<MeshRenderer>().material.color = Color.green;
+        meshRenderer.material.color = Color.green;
 
         _furnitureBehaviour = _furniturePreview.GetComponent<Furniture>();
     }
 
-    // Update is called once per frame
+    // FixedUpdate is called once per frame, but with a fixed time interval
     void FixedUpdate()
     {
-
+        // Create a ray from the right hand's position, pointing forward
         Ray rightRay = new Ray(rightHand.position, rightHand.forward);
 
-        bool rightRayCast = Physics.Raycast(rightRay, out RaycastHit rightHit, 100.0f);
-        _rightHandHit = (rightHit.point, rightHit.normal, rightRayCast);
-
-        if (_rightHandHit.hit)
+        // Perform a raycast using the rightRay, store the result in rightHit and check if it hit something
+        if (Physics.Raycast(rightRay, out RaycastHit rightHit, 100.0f))
         {
+            // Display the name of the layer of the hit object in the UI
+            displayText.text = LayerMask.LayerToName(rightHit.collider.gameObject.layer);
 
-            int currentLayerIndex = rightHit.collider.gameObject.layer;
-            string currentLayerName = LayerMask.LayerToName(currentLayerIndex);
-            displayText.text = currentLayerName;
-
-
-            //If a furniture is selected from the UI
-
-            if (_furnitureBehaviour != null)
+            // If a furniture is selected from the UI and the hit object's layer is included in the furniture's layer mask
+            if (_furnitureBehaviour != null && ((1 << rightHit.collider.gameObject.layer) & _furnitureBehaviour.layer.value) != 0)
             {
+                // Make the furniture follow the ray hit
+                _furnitureBehaviour.FollowRayHit((rightHit.point, rightHit.normal, true));
+                // Handle the rotation of the furniture
+                _furnitureBehaviour.HandleRotation();
 
-                LayerMask mask = _furnitureBehaviour.layer;
-
-                // Check if the hitLayer is included in the specified layerMaskToCheck
-                if ((mask.value & (1 << currentLayerIndex)) > 0)
+                // If the trigger input is pressed and the furniture is placeable
+                if (CheckTriggerInput() && _furnitureBehaviour.isPlaceble)
                 {
-                    _furnitureBehaviour.FollowRayHit(_rightHandHit);
-
-                    _furnitureBehaviour.HandleRotation();
-
-                    if (CheckTriggerInput() && _furnitureBehaviour.isPlaceble)
-                    {
-                        TogglePlacement();
-                    }
+                    // Toggle the placement of the furniture
+                    TogglePlacement();
                 }
-                else
-                {
-                    _furniturePreview.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                } 
+            }
+            else if (_furniturePreview != null) // If the hit object's layer is not included in the furniture's layer mask
+            {
+                // Stop the furniture's movement
+                _furniturePreview.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }
         }
-
-        else displayText.text = string.Empty;
+        else // If the raycast didn't hit anything
+        {
+            // Clear the display text
+            displayText.text = string.Empty;
+        }
     }
-
 
     private bool CheckTriggerInput()
     {
-        var togglePlacement = false;
-
-        const OVRInput.Button buttonMask = OVRInput.Button.PrimaryIndexTrigger;
-
-        if (OVRInput.GetDown(buttonMask, OVRInput.Controller.RTouch)) togglePlacement = true;
-
-        return togglePlacement;
+        return OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch);
     }
-
-
 
     private void TogglePlacement()
     {
-
         spawnedPrefab = Instantiate(furniturePrefab, _furniturePreview.transform.position, _furniturePreview.transform.rotation);
         spawnedPrefab.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-       
-        Furniture furnitureScript = spawnedPrefab.GetComponent<Furniture>();
-        Destroy(furnitureScript);
-        spawnedPrefab.GetComponent<MeshRenderer>().material.color = originalColor;
+
+        var meshRenderer = spawnedPrefab.GetComponent<MeshRenderer>();
+        meshRenderer.material.color = originalColor;
+
         spawnedPrefab.tag = "Furniture";
         spawnedPrefab.layer = 8;
 
+        Destroy(spawnedPrefab.GetComponent<Furniture>());
+
         SetNewFurniture(null);
-
-
     }
 }
