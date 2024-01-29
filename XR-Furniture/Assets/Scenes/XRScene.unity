@@ -646,6 +646,7 @@ GameObject:
   m_Component:
   - component: {fileID: 181034089}
   - component: {fileID: 181034088}
+  - component: {fileID: 181034090}
   m_Layer: 0
   m_Name: FurnitureSpawner
   m_TagString: Untagged
@@ -667,6 +668,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHand: {fileID: 390625559}
   rightHand: {fileID: 536916947}
+  _parentTransform: {fileID: 415515467}
   furniturePrefab: {fileID: 2508141666041645072, guid: 34695ad7331219e43a223284b1fb172e, type: 3}
   displayText: {fileID: 1580169763}
   previewMaterial: {fileID: 2100000, guid: 1be49e0130fe7854eb12b9461eb50c1b, type: 2}
@@ -678,15 +680,28 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 181034087}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.529}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1567942430}
   - {fileID: 332960389}
-  m_Father: {fileID: 336890369}
+  m_Father: {fileID: 415515467}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &181034090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181034087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1711983e1909deb459a7a412713ede99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentTransform: {fileID: 415515467}
 --- !u!1 &182065420 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 686900868427628225, guid: 0e129c153a46cdc499dd0b9ee2be704e, type: 3}
@@ -2388,9 +2403,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1260369004}
-    - targetCorrespondingSourceObject: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 181034089}
     - targetCorrespondingSourceObject: {fileID: 459718, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1437759969}
@@ -2400,6 +2412,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 400002, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 61771272}
+    - targetCorrespondingSourceObject: {fileID: 400002, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 181034089}
     - targetCorrespondingSourceObject: {fileID: 482130, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1203734194}

@@ -15,28 +15,40 @@ public class ScreenshotCapturer : MonoBehaviour
 
     private IEnumerator CaptureScreenshots()
     {
+        Camera cam = Camera.main; // Get the main camera
+        float cameraAspect = cam.aspect; // Get the camera's aspect ratio
+
         Vector3 prefabPosition = prefabPos.position;
         Quaternion prefabRotation = prefabPos.rotation;
 
-        //Destroy(prefabPos.gameObject);
         prefabPos.gameObject.SetActive(false);
         foreach (var prefab in prefabs)
         {
-            // Instantiate the prefab at the prefabPos position
             GameObject instance = Instantiate(prefab, prefabPosition, prefabRotation);
 
-            // Wait for the end of the frame to ensure the prefab has been rendered
             yield return new WaitForEndOfFrame();
 
-            // Capture a screenshot and save it as an image file
-            ScreenCapture.CaptureScreenshot(screenshotDirectory + prefab.name + ".png");
+            // Calculate the bounds of the prefab
+            Bounds bounds = instance.GetComponent<Renderer>().bounds;
 
-            // Destroy the prefab instance
+            // Calculate the necessary distance to fit the bounds in the camera's field of view
+            float cameraDistance = Mathf.Max(bounds.size.x / cameraAspect, bounds.size.y) / (2f * Mathf.Tan(0.5f * cam.fieldOfView * Mathf.Deg2Rad));
+
+            // Add an offset to the camera distance
+            float offset = 1.0f; // Adjust this value as needed
+            cameraDistance += offset;
+
+            // Position the camera at the calculated distance
+            cam.transform.position = bounds.center - cam.transform.forward * cameraDistance;
+
+            ScreenCapture.CaptureScreenshot(screenshotDirectory + prefab.name + ".png");
+            Debug.Log("Screenshot captured for " + prefab.name);
+
             Destroy(instance);
 
-            // Wait for a short delay to ensure the screenshot has been saved
             yield return new WaitForSeconds(0.5f);
         }
         prefabPos.gameObject.SetActive(false);
+        Debug.Log("All Screenshots captured");
     }
 }
