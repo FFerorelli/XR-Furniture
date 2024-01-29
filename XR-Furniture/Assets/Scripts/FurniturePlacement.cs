@@ -5,6 +5,7 @@ public class FurniturePlacement : MonoBehaviour
 {
     [SerializeField] public Transform leftHand;
     [SerializeField] public Transform rightHand;
+    [SerializeField] private Transform _parentTransform;
     [SerializeField] public GameObject furniturePrefab;
     [SerializeField] private TextMeshProUGUI displayText = null;
     [SerializeField] private Material previewMaterial;
@@ -14,6 +15,7 @@ public class FurniturePlacement : MonoBehaviour
     private GameObject _furniturePreview;
     private Furniture _furnitureBehaviour;
     private Vector3 _startSpawnPos;
+    private Quaternion _startSpawnRot;
 
     public static FurniturePlacement Instance { get; private set; }
 
@@ -38,9 +40,14 @@ public class FurniturePlacement : MonoBehaviour
         }
 
         furniturePrefab = prefab;
-        _startSpawnPos = transform.position;
 
-        _furniturePreview = Instantiate(furniturePrefab, _startSpawnPos, transform.rotation);
+        _startSpawnPos = transform.position;
+        _startSpawnRot = new Quaternion(0, 0, 0, 0);
+
+        _furniturePreview = Instantiate(furniturePrefab, _startSpawnPos, _startSpawnRot);
+
+       // _furniturePreview.transform.LookAt(transform.position);
+        _furniturePreview.transform.Rotate(0, 180, 0);
 
         var meshRenderer = _furniturePreview.GetComponent<MeshRenderer>();
         originalMaterial = meshRenderer.material;
