@@ -46,6 +46,7 @@ public class FurniturePlacement : MonoBehaviour
 
         _furniturePreview = Instantiate(furniturePrefab, _startSpawnPos, _startSpawnRot);
 
+
        // _furniturePreview.transform.LookAt(transform.position);
         _furniturePreview.transform.Rotate(0, 180, 0);
 
