@@ -16,6 +16,7 @@ public class FurniturePlacement : MonoBehaviour
     private Furniture _furnitureBehaviour;
     private Vector3 _startSpawnPos;
     private Quaternion _startSpawnRot;
+    private Outline outline;
 
     public static FurniturePlacement Instance { get; private set; }
 
@@ -91,20 +92,33 @@ public class FurniturePlacement : MonoBehaviour
                 _furniturePreview.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }
             // if the layer you are pointing to a furniture and you press B it will delete the furniture
-            else if (/*_furnitureBehaviour == null && */rightHit.collider.gameObject.layer == 8 && CheckBInput())
+            if (rightHit.collider.gameObject.layer == 8)
             {
-               // Debug.Log
-                Debug.Log("Deleted " + rightHit.collider.gameObject.name);
-                DeleteFurniture(rightHit.collider.gameObject);
-                
+                outline = rightHit.collider.gameObject.GetComponent<Outline>();
+                outline.enabled = true;
+
+                if (CheckBInput())
+                {
+                    Debug.Log("Deleted " + rightHit.collider.gameObject.name);
+                    DeleteFurniture(rightHit.collider.gameObject);
+                }
+
             }
+            else
+            {
+                if (outline != null)
+                {
+                    outline.enabled = false;
+                }
+            }
+
         }
         else // If the raycast didn't hit anything
-        {
+        {           
             // Clear the display text
             displayText.text = string.Empty;
         }
-
+        
     }
 
     private bool CheckTriggerInput()
@@ -120,6 +134,12 @@ public class FurniturePlacement : MonoBehaviour
     {
         spawnedPrefab = Instantiate(furniturePrefab, _furniturePreview.transform.position, _furniturePreview.transform.rotation);
         spawnedPrefab.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+
+        var outline = spawnedPrefab.AddComponent<Outline>();
+        outline.OutlineMode = Outline.Mode.OutlineAll;
+        outline.OutlineColor = Color.yellow;
+        outline.OutlineWidth = 5f;
+        outline.enabled = false;
 
         var meshRenderer = spawnedPrefab.GetComponent<MeshRenderer>();
         meshRenderer.material = originalMaterial;
