@@ -90,17 +90,30 @@ public class FurniturePlacement : MonoBehaviour
                 // Stop the furniture's movement
                 _furniturePreview.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }
+            // if the layer you are pointing to a furniture and you press B it will delete the furniture
+            else if (/*_furnitureBehaviour == null && */rightHit.collider.gameObject.layer == 8 && CheckBInput())
+            {
+               // Debug.Log
+                Debug.Log("Deleted " + rightHit.collider.gameObject.name);
+                DeleteFurniture(rightHit.collider.gameObject);
+                
+            }
         }
         else // If the raycast didn't hit anything
         {
             // Clear the display text
             displayText.text = string.Empty;
         }
+
     }
 
     private bool CheckTriggerInput()
     {
         return OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch);
+    }
+    private bool CheckBInput()
+    {
+        return OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch);
     }
 
     private void TogglePlacement()
@@ -117,5 +130,9 @@ public class FurniturePlacement : MonoBehaviour
         Destroy(spawnedPrefab.GetComponent<Furniture>());
 
         SetNewFurniture(null);
+    }
+    private void DeleteFurniture(GameObject objectToDelete)
+    {
+        Destroy(objectToDelete);
     }
 }

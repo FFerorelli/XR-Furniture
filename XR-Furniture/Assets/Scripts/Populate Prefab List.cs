@@ -34,7 +34,7 @@ public class PopulatePrefabList : MonoBehaviour
         {
             string prefabName = prefab.name;
 
-            Debug.Log("Loading: Thumbnails/" + prefabName);
+           // Debug.Log("Loading: Thumbnails/" + prefabName);
             ResourceRequest resourceRequest = Resources.LoadAsync<Texture2D>("Thumbnails/Thumbnails" + prefabName);
 
             yield return resourceRequest;
