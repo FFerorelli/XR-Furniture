@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class FurniturePlacement : MonoBehaviour
 {
+    public bool isPrefabSelected = false;
     [SerializeField] public Transform leftHand;
     [SerializeField] public Transform rightHand;
     [SerializeField] private Transform _parentTransform;
@@ -41,23 +42,27 @@ public class FurniturePlacement : MonoBehaviour
             Destroy(_furniturePreview);
         }
 
-        furniturePrefab = prefab;
+        if (prefab != null)
+        {
+            isPrefabSelected = true;
+            furniturePrefab = prefab;
 
-        _startSpawnPos = transform.position;
-        _startSpawnRot = new Quaternion(0, 0, 0, 0);
+            _startSpawnPos = transform.position;
+            _startSpawnRot = new Quaternion(0, 0, 0, 0);
 
-        _furniturePreview = Instantiate(furniturePrefab, _startSpawnPos, _startSpawnRot);
+            _furniturePreview = Instantiate(furniturePrefab, _startSpawnPos, _startSpawnRot);
 
 
-       // _furniturePreview.transform.LookAt(transform.position);
-        _furniturePreview.transform.Rotate(0, 180, 0);
+            // _furniturePreview.transform.LookAt(transform.position);
+            _furniturePreview.transform.Rotate(0, 180, 0);
 
-        var meshRenderer = _furniturePreview.GetComponent<MeshRenderer>();
-        originalMaterial = meshRenderer.material;
-       // originalColor = currentMaterial.color;
-        meshRenderer.material = previewMaterial;
+            var meshRenderer = _furniturePreview.GetComponent<MeshRenderer>();
+            originalMaterial = meshRenderer.material;
+            // originalColor = currentMaterial.color;
+            meshRenderer.material = previewMaterial;
 
-        _furnitureBehaviour = _furniturePreview.GetComponent<Furniture>();
+            _furnitureBehaviour = _furniturePreview.GetComponent<Furniture>(); 
+        }
     }
 
     // FixedUpdate is called once per frame, but with a fixed time interval
@@ -167,6 +172,7 @@ public class FurniturePlacement : MonoBehaviour
 
     private void TogglePlacement()
     {
+        isPrefabSelected = false;
         spawnedPrefab = Instantiate(furniturePrefab, _furniturePreview.transform.position, _furniturePreview.transform.rotation);
         spawnedPrefab.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 

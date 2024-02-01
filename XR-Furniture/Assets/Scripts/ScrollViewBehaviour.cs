@@ -16,18 +16,19 @@ public class ScrollViewBehaviour : MonoBehaviour
     void Update()
     {
         // Check if the thumbstick is being moved
-        if (OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.LTouch).magnitude > 0)
+        if (!FurniturePlacement.Instance.isPrefabSelected)
         {
-            // Get the thumbstick's vertical input
-            float verticalInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.LTouch).y;
-
-            // Scroll the ScrollView based on the thumbstick's vertical input
-            scrollRect.verticalNormalizedPosition += verticalInput * Time.deltaTime;
+            ScrollMenu(OVRInput.Controller.LTouch);
+            ScrollMenu(OVRInput.Controller.RTouch);
         }
-        if (OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch).magnitude > 0)
+    }
+
+    private void ScrollMenu(OVRInput.Controller controller)
+    {
+        if (OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, controller).magnitude > 0)
         {
             // Get the thumbstick's vertical input
-            float verticalInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch).y;
+            float verticalInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, controller).y;
 
             // Scroll the ScrollView based on the thumbstick's vertical input
             scrollRect.verticalNormalizedPosition += verticalInput * Time.deltaTime;
