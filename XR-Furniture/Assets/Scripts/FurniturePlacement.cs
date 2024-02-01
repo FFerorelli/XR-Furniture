@@ -13,6 +13,7 @@ public class FurniturePlacement : MonoBehaviour
     private Material originalMaterial;
     private GameObject spawnedPrefab;
     private GameObject _furniturePreview;
+    private GameObject lastHitObject = null;
     private Furniture _furnitureBehaviour;
     private Vector3 _startSpawnPos;
     private Quaternion _startSpawnRot;
@@ -91,34 +92,68 @@ public class FurniturePlacement : MonoBehaviour
                 // Stop the furniture's movement
                 _furniturePreview.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }
-            // if the layer you are pointing to a furniture and you press B it will delete the furniture
+            // if the layer you are pointing to is furniture and you press B it will delete the furniture
             if (rightHit.collider.gameObject.layer == 8)
             {
-                outline = rightHit.collider.gameObject.GetComponent<Outline>();
-                outline.enabled = true;
+                // If the ray hit a different object than last time
+                if (lastHitObject != rightHit.collider.gameObject)
+                {
+                    // Disable the outline of the last hit object
+                    if (lastHitObject != null)
+                    {
+                        var lastOutline = lastHitObject.GetComponent<Outline>();
+                        if (lastOutline != null)
+                        {
+                            lastOutline.enabled = false;
+                        }
+                    }
+
+                    // Enable the outline of the new hit object
+                    var newOutline = rightHit.collider.gameObject.GetComponent<Outline>();
+                    if (newOutline != null)
+                    {
+                        newOutline.enabled = true;
+                    }
+
+                    // Update the last hit object
+                    lastHitObject = rightHit.collider.gameObject;
+                }
 
                 if (CheckBInput())
                 {
                     Debug.Log("Deleted " + rightHit.collider.gameObject.name);
                     DeleteFurniture(rightHit.collider.gameObject);
                 }
-
             }
             else
             {
-                if (outline != null)
+                // If the ray didn't hit a furniture object, disable the outline of the last hit object
+                if (lastHitObject != null)
                 {
-                    outline.enabled = false;
+                    var lastOutline = lastHitObject.GetComponent<Outline>();
+                    if (lastOutline != null)
+                    {
+                        lastOutline.enabled = false;
+                    }
+                    lastHitObject = null;
                 }
             }
 
         }
-        else // If the raycast didn't hit anything
-        {           
-            // Clear the display text
-            displayText.text = string.Empty;
+        else
+        {
+            // If the ray didn't hit anything, disable the outline of the last hit object
+            if (lastHitObject != null)
+            {
+                var lastOutline = lastHitObject.GetComponent<Outline>();
+                if (lastOutline != null)
+                {
+                    lastOutline.enabled = false;
+                }
+                lastHitObject = null;
+            }
         }
-        
+
     }
 
     private bool CheckTriggerInput()
