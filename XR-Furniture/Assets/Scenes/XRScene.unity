@@ -677,6 +677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c554cbf9078026428f8d9bbfbabe7de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPrefabSelected: 0
   leftHand: {fileID: 390625559}
   rightHand: {fileID: 536916947}
   _parentTransform: {fileID: 415515467}
@@ -967,6 +968,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be1d30f657fa51145862f13885becaf9, type: 3}
+--- !u!224 &382611567 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7517873505637636393, guid: 0e129c153a46cdc499dd0b9ee2be704e, type: 3}
+  m_PrefabInstance: {fileID: 3747187617732762480}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &390625559 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 482130, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
@@ -1914,7 +1920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 747806495401477014, guid: c813208e672e3074bbe118e1a9ee94fd, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 747806495401477035, guid: c813208e672e3074bbe118e1a9ee94fd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2126,7 +2132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1061610191
 Transform:
   m_ObjectHideFlags: 0
@@ -2363,6 +2369,10 @@ PrefabInstance:
     - target: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_Name
       value: OVRCameraRig
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15969,6 +15979,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7270714205731175082, guid: 0e129c153a46cdc499dd0b9ee2be704e, type: 3}
+      propertyPath: m_Viewport
+      value: 
+      objectReference: {fileID: 382611567}
     - target: {fileID: 7710242638541613733, guid: 0e129c153a46cdc499dd0b9ee2be704e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
