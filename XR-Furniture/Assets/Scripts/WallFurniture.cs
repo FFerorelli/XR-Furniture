@@ -15,6 +15,11 @@ public class WallFurniture : Furniture
         isPlaceble = true;
         prefabHeight = transform.localScale.y / 2;
         offset = new Vector3(0, prefabHeight, 0);
+
+
+        // Move the object up along the y-axis
+        float moveUpDistance = 1.0f; // Set this to the distance you want the object to move up
+        transform.position = new Vector3(transform.position.x, transform.position.y + moveUpDistance, transform.position.z);
     }
 
     private void FixedUpdate()
