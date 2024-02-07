@@ -7,10 +7,11 @@ public class FurniturePlacement : MonoBehaviour
     [SerializeField] public Transform leftHand;
     [SerializeField] public Transform rightHand;
     [SerializeField] private Transform _parentTransform;
-    [SerializeField] public GameObject furniturePrefab;
+    [SerializeField] private Transform _UITransform;
     [SerializeField] private TextMeshProUGUI displayText = null;
     [SerializeField] private Material previewMaterial;
 
+    private GameObject furniturePrefab;
     private Material originalMaterial;
     private GameObject spawnedPrefab;
     private GameObject _furniturePreview;
@@ -47,8 +48,9 @@ public class FurniturePlacement : MonoBehaviour
             isPrefabSelected = true;
             furniturePrefab = prefab;
 
+            float uiRotation = _UITransform.rotation.eulerAngles.y;           
             _startSpawnPos = transform.position;
-            _startSpawnRot = new Quaternion(0, 0, 0, 0);
+            _startSpawnRot = Quaternion.Euler(0, uiRotation, 0);
 
             _furniturePreview = Instantiate(furniturePrefab, _startSpawnPos, _startSpawnRot);
 
@@ -173,6 +175,7 @@ public class FurniturePlacement : MonoBehaviour
     private void TogglePlacement()
     {
         isPrefabSelected = false;
+       
         spawnedPrefab = Instantiate(furniturePrefab, _furniturePreview.transform.position, _furniturePreview.transform.rotation);
         spawnedPrefab.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
