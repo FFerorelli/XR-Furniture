@@ -22,7 +22,7 @@ public class ResetUIPosition : MonoBehaviour
             Debug.Log("Resetting UI position");
             transform.position = _newTransform.position; 
             transform.LookAt(player.transform.position);
-            transform.Rotate(-17, 180, 0);
+            transform.Rotate(-12, 180, 0);
         } 
     }
 }

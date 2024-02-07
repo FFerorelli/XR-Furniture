@@ -1,0 +1,34 @@
+{
+    "name": "MyControls",
+    "maps": [
+        {
+            "name": "UI",
+            "id": "7092dda0-ccf1-4396-a7d6-7534e8b264ef",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "e3c86fa4-a8c1-4855-b320-8ab19c03c632",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7b1beebe-50bb-4eab-8408-1eadf0d70374",
+                    "path": "<XRController>/isTracked",
+                    "interactions": "Press(pressPoint=0.25)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
