@@ -6,9 +6,9 @@ public abstract class Furniture : MonoBehaviour
     public LayerMask layer;
     [SerializeField] protected Material greenMat;
     [SerializeField] protected Material redMat;
-    [SerializeField] public float speed = 2.5f;
-    [SerializeField] public float _rotationSpeed = 90f;
-    protected double epsilon = 0.01;
+    protected float speed = 3.5f;
+    protected float _rotationSpeed = 90f;
+    protected double epsilon = 0.03;
     protected Material currentMaterial;
     protected Vector3 offset;
     protected Vector3 bottomOffset;

@@ -26,11 +26,11 @@ public class SmallObject : Furniture
         isPlaceble = dotProduct >= verticalThreshold && hit.distance < epsilon;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isPlaceble = true;
-        }
-    }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Ground"))
+    //    {
+    //        isPlaceble = true;
+    //    }
+    //}
 }
