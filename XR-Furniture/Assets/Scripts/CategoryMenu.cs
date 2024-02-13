@@ -19,10 +19,6 @@ public class CategoryMenu : MonoBehaviour
     public GameObject carpetsList;
     public GameObject othersList;
 
-    public Button floorFurnitures; 
-    public Button wallFurnitures; 
-    public Button smallObjectsFurnitures; 
-
     public Button tables; 
     public Button chairsAndSofa; 
     public Button beds; 
@@ -35,7 +31,7 @@ public class CategoryMenu : MonoBehaviour
 
     public void UIEnabler(int index)
     {
-        GameObject[] categoriesMenus = new GameObject[] { /*floorFurnitureList , wallFurnituresList, smallObjectsFurnituresList,*/ tablesList, chairsAndSofaList, bedsList, closetsList, bathroomList, wallArtList, electronicsList, carpetsList, othersList };
+        GameObject[] categoriesMenus = new GameObject[] { tablesList, chairsAndSofaList, bedsList, closetsList, bathroomList, wallArtList, electronicsList, carpetsList, othersList };
 
         for (int i = 0; i < categoriesMenus.Length; i++)
         {
