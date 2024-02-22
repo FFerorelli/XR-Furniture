@@ -2855,6 +2855,10 @@ PrefabInstance:
       propertyPath: SceneSettings.DataSource
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2285931788795654580, guid: 8a80c380c89644344b9ffbcb25f419b8, type: 3}
+      propertyPath: SceneSettings.RoomPrefabs.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2321442810802685255, guid: 8a80c380c89644344b9ffbcb25f419b8, type: 3}
       propertyPath: m_Name
       value: MRUK Variant
