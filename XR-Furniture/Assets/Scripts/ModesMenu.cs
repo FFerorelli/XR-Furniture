@@ -7,6 +7,7 @@ public class ModesMenu : MonoBehaviour
 {
 
     public GameObject categoryMenu;
+    public GameObject modesMenu;
     public GameObject repaintMenu;
 
     public Button furnitures;
@@ -29,15 +30,15 @@ public class ModesMenu : MonoBehaviour
     public void FurnishMode()
     {
         categoryMenu.SetActive(true);
-        repaintMenu.SetActive(false);
+        modesMenu.SetActive(false);
         GameManager.instance.ChangeState(GameManager.AppStates.PlacementMode);
 
 
     } 
     public void RepaintMode()
     {
-        categoryMenu.SetActive(false);
         repaintMenu.SetActive(true);
+        modesMenu.SetActive(false);
         GameManager.instance.ChangeState(GameManager.AppStates.RepaintMode);
     }
 }
