@@ -24,6 +24,7 @@ public class PopulatePrefabList : MonoBehaviour
 
     void Start()
     {
+        
         StartCoroutine(CreateGrid());
         //CreateGrid();
     }

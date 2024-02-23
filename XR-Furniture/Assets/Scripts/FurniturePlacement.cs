@@ -100,7 +100,7 @@ public class FurniturePlacement : MonoBehaviour
                 _furniturePreview.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }
             // if the layer you are pointing to is furniture and you press B it will delete the furniture
-            if (rightHit.collider.gameObject.layer == 8)
+            if (rightHit.collider.gameObject.layer == 8/* && GameManager.instance.currentState == GameManager.AppStates.PlacementMode*/)
             {
                 // If the ray hit a different object than last time
                 if (lastHitObject != rightHit.collider.gameObject)
