@@ -72,7 +72,7 @@ public class FurniturePlacement : MonoBehaviour
     {
         // Create a ray from the right hand's position, pointing forward
         Ray rightRay = new Ray(rightHand.position, rightHand.forward);
-
+        Debug.DrawRay(rightRay.origin, rightRay.direction * 10f, Color.green);
         // Perform a raycast using the rightRay, store the result in rightHit and check if it hit something
         if (Physics.Raycast(rightRay, out RaycastHit rightHit, 100.0f))
         {

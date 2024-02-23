@@ -8283,6 +8283,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   start: {fileID: 1874047031}
   modesMenu: {fileID: 1619971108}
+  _newTransform: {fileID: 0}
+  player: {fileID: 0}
 --- !u!114 &1558113900
 MonoBehaviour:
   m_ObjectHideFlags: 0
