@@ -6186,6 +6186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   categoryMenu: {fileID: 3747187617732762481}
+  modesMenu: {fileID: 1619971108}
   repaintMenu: {fileID: 0}
   furnitures: {fileID: 976114673}
   repaint: {fileID: 1639822476}
