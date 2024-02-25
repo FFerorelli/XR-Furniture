@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
         RepaintMode
     }
 
+    public GameObject furnitureSpawner;
+    public GameObject materialSpawner;
     // Public variable to hold the current state
     public AppStates currentState;
 
@@ -37,8 +39,18 @@ public class GameManager : MonoBehaviour
     {
         currentState = newState;
 
-        // You can add additional logic or callbacks based on state changes if needed
-        Debug.Log("Changed to state: " + newState);
+        if (currentState == AppStates.PlacementMode)
+        {
+            furnitureSpawner.SetActive(true);
+            materialSpawner.SetActive(false);
+        }
+        else if (currentState == AppStates.RepaintMode)
+        {
+            furnitureSpawner.SetActive(false);
+            materialSpawner.SetActive(true);
+        }
+
+        Debug.Log("Changed to state: " + currentState);
     }
 
     // Example usage from another script

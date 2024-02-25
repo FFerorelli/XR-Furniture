@@ -7,6 +7,7 @@ public class ModesMenu : MonoBehaviour
 {
 
     public GameObject categoryMenu;
+    public GameObject categories;
     public GameObject modesMenu;
     public GameObject repaintMenu;
 
@@ -30,6 +31,7 @@ public class ModesMenu : MonoBehaviour
     public void FurnishMode()
     {
         categoryMenu.SetActive(true);
+        categories.SetActive(true);
         modesMenu.SetActive(false);
         GameManager.instance.ChangeState(GameManager.AppStates.PlacementMode);
 
