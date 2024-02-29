@@ -1,40 +1,44 @@
+// PopulatePrefabList.cs
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using System.IO;
-using TMPro;
 using System.Collections;
-using UnityEngine.Networking;
-using System;
-using UnityEditor;
-
+using TMPro;
 
 public class PopulatePrefabList : MonoBehaviour
 {
     public GameObject buttonPrefab;
-    public Transform buttonsParent; // Reference to the parent object where buttons will be placed
-    //public string folderPath; // Path to the folder containing the prefabs
-    //public string relativePath; // Path to the folder containing the prefabs
-    //public string assetBundleName;
+    public Transform buttonsParent;
     [SerializeField] private GameObject[] _myPrefabList;
-    public Dictionary<GameObject, Sprite> prefabToThumbnail;
-    public string screenshotDirectory = "Assets/Resources/Thumbnails";
-    
 
+    private int currentPrefabIndex = 0;
+    private Coroutine instantiationCoroutine;
 
     void Start()
     {
-        StartCoroutine(CreateGrid());
-        //CreateGrid();
+        // No need to start coroutine here
+    }
+
+    public void StartGridCreation()
+    {
+        instantiationCoroutine = StartCoroutine(CreateGrid());
+    }
+
+    public void StopGridCreation()
+    {
+        if (instantiationCoroutine != null)
+        {
+            StopCoroutine(instantiationCoroutine);
+        }
     }
 
     IEnumerator CreateGrid()
     {
-        foreach (var prefab in _myPrefabList)
+        for (int i = currentPrefabIndex; i < _myPrefabList.Length; i++)
         {
+            var prefab = _myPrefabList[i];
             string prefabName = prefab.name;
 
-           // Debug.Log("Loading: Thumbnails/" + prefabName);
             ResourceRequest resourceRequest = Resources.LoadAsync<Texture2D>("Thumbnails/" + prefabName);
 
             yield return resourceRequest;
@@ -70,12 +74,9 @@ public class PopulatePrefabList : MonoBehaviour
                 button.GetComponent<Button>().onClick.AddListener(() => FurniturePlacement.Instance.SetNewFurniture(prefab));
             }
 
-            yield return null; // This will ensure that the loop will continue on the next frame
+            currentPrefabIndex = i + 1;
+
+            yield return null;
         }
     }
-
 }
-   
-
-
-

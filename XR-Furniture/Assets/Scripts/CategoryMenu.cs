@@ -27,16 +27,28 @@ public class CategoryMenu : MonoBehaviour
     public Button wallArt; 
     public Button electronics; 
     public Button carpets; 
-    public Button others; 
+    public Button others;
+
+    public PopulatePrefabList[] populatePrefabLists;
 
     public void UIEnabler(int index)
     {
+        // Activate the correct category UI
         GameObject[] categoriesMenus = new GameObject[] { tablesList, chairsAndSofaList, bedsList, closetsList, bathroomList, wallArtList, electronicsList, carpetsList, othersList };
 
         for (int i = 0; i < categoriesMenus.Length; i++)
         {
-            categoriesMenus[i].SetActive(i == index);   
+            categoriesMenus[i].SetActive(i == index);
         }
+
+        // Stop the instantiation process for all PopulatePrefabList scripts
+        foreach (var populatePrefabList in populatePrefabLists)
+        {
+            populatePrefabList.StopGridCreation();
+        }
+
+        // Start the instantiation process for the selected category
+        populatePrefabLists[index].StartGridCreation();
     }
 
     // Start is called before the first frame update
