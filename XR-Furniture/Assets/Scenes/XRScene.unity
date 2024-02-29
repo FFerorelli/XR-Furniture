@@ -4243,7 +4243,6 @@ MonoBehaviour:
   buttonPrefab: {fileID: 4561018227273732398, guid: f67be983e3733c54d9b7573b50a730d4, type: 3}
   buttonsParent: {fileID: 958749676}
   _myPrefabList:
-  - {fileID: 7504115154443314763, guid: aec0a1ddf64c55f4e91bad3d988ea739, type: 3}
   - {fileID: 6438260971776465046, guid: 7f74f22a289d9b04fbbeba8a88c41f49, type: 3}
   - {fileID: 4643517788142193054, guid: 367fe1d15c651cd4d9edb459ea93e4b2, type: 3}
   - {fileID: 5453693664104529465, guid: 4458d8c3c9dad7a4db1a004e1a3cfa72, type: 3}

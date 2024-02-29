@@ -7,6 +7,8 @@ public class ScreenshotCapturer : MonoBehaviour
     public List<GameObject> prefabs;
     public Transform prefabPos;
     public string screenshotDirectory = "Assets/Resources/Thumbnails";
+    public float maxObjectSize = 2.0f; // Adjust this value to set the maximum size of objects in the screenshots
+    public float minFieldOfView = 20.0f; // Adjust this value to set the minimum field of view for smaller objects
 
     private void Start()
     {
@@ -22,6 +24,7 @@ public class ScreenshotCapturer : MonoBehaviour
         Quaternion prefabRotation = prefabPos.rotation;
 
         prefabPos.gameObject.SetActive(false);
+
         foreach (var prefab in prefabs)
         {
             GameObject instance = Instantiate(prefab, prefabPosition, prefabRotation);
@@ -31,17 +34,19 @@ public class ScreenshotCapturer : MonoBehaviour
             // Calculate the bounds of the prefab
             Bounds bounds = instance.GetComponent<Renderer>().bounds;
 
-            // Calculate the necessary distance to fit the bounds in the camera's field of view
-            float cameraDistance = Mathf.Max(bounds.size.x / cameraAspect, bounds.size.y) / (2f * Mathf.Tan(0.5f * cam.fieldOfView * Mathf.Deg2Rad));
+            // Set a fixed distance for the camera
+            float fixedDistance = 10.0f; // Adjust this value based on your scene
 
-            // Add an offset to the camera distance
-            float offset = 1.0f; // Adjust this value as needed
-            cameraDistance += offset;
+            // Calculate the field of view to fill the screen with the object
+            float fieldOfView = CalculateFieldOfView(bounds, fixedDistance, maxObjectSize, minFieldOfView, cameraAspect);
 
-            // Position the camera at the calculated distance
-            cam.transform.position = bounds.center - cam.transform.forward * cameraDistance;
+            // Set the calculated field of view
+            cam.fieldOfView = fieldOfView;
 
-            ScreenCapture.CaptureScreenshot(screenshotDirectory + prefab.name + ".png");
+            // Position the camera at the fixed distance
+            cam.transform.position = bounds.center - cam.transform.forward * fixedDistance;
+
+            ScreenCapture.CaptureScreenshot(screenshotDirectory + "/" + prefab.name + ".png");
             Debug.Log("Screenshot captured for " + prefab.name);
 
             Destroy(instance);
@@ -50,5 +55,14 @@ public class ScreenshotCapturer : MonoBehaviour
         }
         prefabPos.gameObject.SetActive(false);
         Debug.Log("All Screenshots captured");
+    }
+
+    private float CalculateFieldOfView(Bounds bounds, float distance, float maxObjectSize, float minFieldOfView, float cameraAspect)
+    {
+
+        float objectSize = Mathf.Max(bounds.size.x / cameraAspect, bounds.size.y);
+        float normalizedSize = Mathf.Clamp01(objectSize / maxObjectSize);
+        float fieldOfView = Mathf.Lerp(minFieldOfView, Camera.main.fieldOfView, normalizedSize);
+        return fieldOfView;
     }
 }
