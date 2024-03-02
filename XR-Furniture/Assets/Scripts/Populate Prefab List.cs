@@ -51,7 +51,12 @@ public class PopulatePrefabList : MonoBehaviour
 
             if (resourceRequest.asset is Texture2D prefabThumbnail)
             {
-                Sprite buttonImage = Sprite.Create(prefabThumbnail, new Rect(0, 0, prefabThumbnail.width, prefabThumbnail.height), new Vector2(0.5f, 0.5f), 100);
+                // Determine the size to crop to square based on the shorter side
+                float squareSize = Mathf.Min(prefabThumbnail.width, prefabThumbnail.height);
+                float xOffset = (prefabThumbnail.width - squareSize) / 2.0f; // Center the crop on the longer dimension
+                float yOffset = (prefabThumbnail.height - squareSize) / 2.0f;
+
+                Sprite buttonImage = Sprite.Create(prefabThumbnail, new Rect(xOffset, yOffset, squareSize, squareSize), new Vector2(0.5f, 0.5f), 100);
 
                 GameObject button = Instantiate(buttonPrefab, buttonsParent);
 
@@ -79,4 +84,5 @@ public class PopulatePrefabList : MonoBehaviour
             yield return null;
         }
     }
+
 }

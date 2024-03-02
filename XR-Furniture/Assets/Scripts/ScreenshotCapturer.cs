@@ -5,10 +5,17 @@ using UnityEngine;
 public class ScreenshotCapturer : MonoBehaviour
 {
     public List<GameObject> prefabs;
-    public Transform prefabPos;
+    public Transform spawnTransform; // Use this Transform to set spawn position and rotation in the Inspector
     public string screenshotDirectory = "Assets/Resources/Thumbnails";
-    public float maxObjectSize = 2.0f; // Adjust this value to set the maximum size of objects in the screenshots
-    public float minFieldOfView = 20.0f; // Adjust this value to set the minimum field of view for smaller objects
+    public float desiredScreenHeightPortion = 0.5f; // The portion of the screen height the object should fill
+
+    private Camera mainCamera;
+
+    private void Awake()
+    {
+        mainCamera = Camera.main; // Ensure the camera is set to orthographic in the editor
+        mainCamera.orthographic = true; // Set camera to orthographic just in case it's not set in the editor
+    }
 
     private void Start()
     {
@@ -17,52 +24,51 @@ public class ScreenshotCapturer : MonoBehaviour
 
     private IEnumerator CaptureScreenshots()
     {
-        Camera cam = Camera.main; // Get the main camera
-        float cameraAspect = cam.aspect; // Get the camera's aspect ratio
-
-        Vector3 prefabPosition = prefabPos.position;
-        Quaternion prefabRotation = prefabPos.rotation;
-
-        prefabPos.gameObject.SetActive(false);
-
         foreach (var prefab in prefabs)
         {
-            GameObject instance = Instantiate(prefab, prefabPosition, prefabRotation);
+            // Check if the prefab name contains "electronics" and adjust the position if it does
+            Vector3 spawnPosition = spawnTransform.position;
+            if (prefab.name.ToLower().Contains("electronics"))
+            {
+                spawnPosition.y += 0.2f; // Move up along the y-axis by 0.2 units
+            }
 
-            yield return new WaitForEndOfFrame();
+            GameObject instance = Instantiate(prefab, spawnPosition, spawnTransform.rotation);
+            Bounds bounds = CalculateObjectBounds(instance);
 
-            // Calculate the bounds of the prefab
-            Bounds bounds = instance.GetComponent<Renderer>().bounds;
+            AdjustCameraSize(bounds);
 
-            // Set a fixed distance for the camera
-            float fixedDistance = 10.0f; // Adjust this value based on your scene
+            yield return new WaitForEndOfFrame(); // Wait for the object to be rendered
 
-            // Calculate the field of view to fill the screen with the object
-            float fieldOfView = CalculateFieldOfView(bounds, fixedDistance, maxObjectSize, minFieldOfView, cameraAspect);
-
-            // Set the calculated field of view
-            cam.fieldOfView = fieldOfView;
-
-            // Position the camera at the fixed distance
-            cam.transform.position = bounds.center - cam.transform.forward * fixedDistance;
-
-            ScreenCapture.CaptureScreenshot(screenshotDirectory + "/" + prefab.name + ".png");
-            Debug.Log("Screenshot captured for " + prefab.name);
+            string screenshotPath = $"{screenshotDirectory}/{prefab.name}.png";
+            ScreenCapture.CaptureScreenshot(screenshotPath);
+            Debug.Log($"Screenshot captured for {prefab.name} at {screenshotPath}");
 
             Destroy(instance);
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.5f); // Wait a bit before capturing the next screenshot
         }
-        prefabPos.gameObject.SetActive(false);
-        Debug.Log("All Screenshots captured");
+
+        Debug.Log("All screenshots captured.");
     }
 
-    private float CalculateFieldOfView(Bounds bounds, float distance, float maxObjectSize, float minFieldOfView, float cameraAspect)
+    private Bounds CalculateObjectBounds(GameObject obj)
     {
+        var renderers = obj.GetComponentsInChildren<Renderer>();
+        Bounds bounds = new Bounds(spawnTransform.position, Vector3.zero);
+        foreach (var renderer in renderers)
+        {
+            bounds.Encapsulate(renderer.bounds);
+        }
+        return bounds;
+    }
 
-        float objectSize = Mathf.Max(bounds.size.x / cameraAspect, bounds.size.y);
-        float normalizedSize = Mathf.Clamp01(objectSize / maxObjectSize);
-        float fieldOfView = Mathf.Lerp(minFieldOfView, Camera.main.fieldOfView, normalizedSize);
-        return fieldOfView;
+    private void AdjustCameraSize(Bounds bounds)
+    {
+        // Calculate the orthographic size needed to maintain the desired portion of screen height
+        float objectSize = Mathf.Max(bounds.extents.x * 2.0f, bounds.extents.y * 2.0f, bounds.extents.z * 2.0f);
+        float cameraHeight = objectSize / desiredScreenHeightPortion;
+        mainCamera.orthographicSize = cameraHeight / 2.0f; // Camera size is half of the cameraHeight because it measures from the center to the top
     }
 }
+
