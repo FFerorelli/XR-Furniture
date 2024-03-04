@@ -590,6 +590,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EffectMesh
       objectReference: {fileID: 0}
+    - target: {fileID: 6860725376104033297, guid: d22abde080d7f334da37b27e8c77c3f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2703,7 +2707,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
-  m_ShadowAngle: 0
+  m_ShadowAngle: 1
 --- !u!4 &705507995
 Transform:
   m_ObjectHideFlags: 0
@@ -3826,11 +3830,11 @@ PrefabInstance:
     - target: {fileID: 747806495401477012, guid: c813208e672e3074bbe118e1a9ee94fd, type: 3}
       propertyPath: PlanePrefab
       value: 
-      objectReference: {fileID: 102490448831091297, guid: e34db856455a31a4482fbf04d84aee54, type: 3}
+      objectReference: {fileID: 7207619462695428501, guid: 721d6cd35f4241f4496b36f27d6e1d7b, type: 3}
     - target: {fileID: 747806495401477012, guid: c813208e672e3074bbe118e1a9ee94fd, type: 3}
       propertyPath: VolumePrefab
       value: 
-      objectReference: {fileID: 8013016026686888416, guid: 5633b3e5ef56a0b4291d8dff1008c75b, type: 3}
+      objectReference: {fileID: 4619261666902164902, guid: bdfb98ff0254b6a43bb9bf772e73fcce, type: 3}
     - target: {fileID: 747806495401477012, guid: c813208e672e3074bbe118e1a9ee94fd, type: 3}
       propertyPath: PrefabOverrides.Array.size
       value: 2
@@ -3838,11 +3842,11 @@ PrefabInstance:
     - target: {fileID: 747806495401477012, guid: c813208e672e3074bbe118e1a9ee94fd, type: 3}
       propertyPath: PrefabOverrides.Array.data[0].Prefab
       value: 
-      objectReference: {fileID: 102490448831091297, guid: e34db856455a31a4482fbf04d84aee54, type: 3}
+      objectReference: {fileID: 7207619462695428501, guid: 721d6cd35f4241f4496b36f27d6e1d7b, type: 3}
     - target: {fileID: 747806495401477012, guid: c813208e672e3074bbe118e1a9ee94fd, type: 3}
       propertyPath: PrefabOverrides.Array.data[1].Prefab
       value: 
-      objectReference: {fileID: 102490448831091297, guid: 372f0ccf852424842ab9bbf7cc97cedc, type: 3}
+      objectReference: {fileID: 7207619462695428501, guid: 59f6004410ceb3148aa8776b7705cd71, type: 3}
     - target: {fileID: 747806495401477012, guid: c813208e672e3074bbe118e1a9ee94fd, type: 3}
       propertyPath: PrefabOverrides.Array.data[2].Prefab
       value: 
@@ -3901,7 +3905,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 747806495401477014, guid: c813208e672e3074bbe118e1a9ee94fd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 747806495401477035, guid: c813208e672e3074bbe118e1a9ee94fd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7097,6 +7101,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MRUK Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 851473970258123376, guid: 8a80c380c89644344b9ffbcb25f419b8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3773772563374501507, guid: 8a80c380c89644344b9ffbcb25f419b8, type: 3}
       propertyPath: SceneSettings.DataSource
       value: 0
@@ -8114,6 +8122,10 @@ PrefabInstance:
     - target: {fileID: 8168381574322655308, guid: c740c85d41f2e3747b952a5a5bba21e1, type: 3}
       propertyPath: m_Name
       value: Spawner_VirtualHomeFurniture
+      objectReference: {fileID: 0}
+    - target: {fileID: 8168381574322655308, guid: c740c85d41f2e3747b952a5a5bba21e1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
