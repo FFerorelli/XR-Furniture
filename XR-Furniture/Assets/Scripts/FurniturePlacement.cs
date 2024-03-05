@@ -4,9 +4,9 @@ using UnityEngine;
 public class FurniturePlacement : MonoBehaviour
 {
     public bool isPrefabSelected = false;
-    [SerializeField] public Transform leftHand;
+    //[SerializeField] public Transform leftHand;
     [SerializeField] public Transform rightHand;
-    [SerializeField] private Transform _parentTransform;
+    //[SerializeField] private Transform _parentTransform;
     [SerializeField] private Transform _UITransform;
     [SerializeField] private TextMeshProUGUI displayText = null;
     [SerializeField] private Material previewMaterial;
@@ -19,7 +19,7 @@ public class FurniturePlacement : MonoBehaviour
     private Furniture _furnitureBehaviour;
     private Vector3 _startSpawnPos;
     private Quaternion _startSpawnRot;
-    private Outline outline;
+    //private Outline outline;
 
     public static FurniturePlacement Instance { get; private set; }
 
