@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7554421047461015248}
   m_Layer: 8
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Furniture
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 8806108527926986574}
   m_Layer: 8
   m_Name: Parent
-  m_TagString: Untagged
+  m_TagString: Furniture
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
