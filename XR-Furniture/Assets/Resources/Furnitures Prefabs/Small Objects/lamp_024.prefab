@@ -8,6 +8,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5508886833343827601}
     m_Modifications:
+    - target: {fileID: 249148146260495620, guid: dbdd0ac1e10c0f54faa231f69c605263, type: 3}
+      propertyPath: m_Range
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 249148146260495620, guid: dbdd0ac1e10c0f54faa231f69c605263, type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 249148146260495620, guid: dbdd0ac1e10c0f54faa231f69c605263, type: 3}
+      propertyPath: m_Shadows.m_Bias
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 249148146260495620, guid: dbdd0ac1e10c0f54faa231f69c605263, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 249148146260495620, guid: dbdd0ac1e10c0f54faa231f69c605263, type: 3}
+      propertyPath: m_Shadows.m_NearPlane
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 3409167782652940557, guid: dbdd0ac1e10c0f54faa231f69c605263, type: 3}
       propertyPath: m_Name
       value: Spot Light

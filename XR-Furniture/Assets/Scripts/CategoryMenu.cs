@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class CategoryMenu : MonoBehaviour
 {
-    //public GameObject floorFurnitureList;
-    //public GameObject wallFurnituresList;
-    //public GameObject smallObjectsFurnituresList;
 
     public GameObject tablesList;
     public GameObject chairsAndSofaList;
@@ -16,7 +13,7 @@ public class CategoryMenu : MonoBehaviour
     public GameObject bathroomList;
     public GameObject wallArtList;
     public GameObject electronicsList;
-   // public GameObject carpetsList;
+    public GameObject lightsList;
     public GameObject othersList;
 
     public Button tables; 
@@ -26,7 +23,7 @@ public class CategoryMenu : MonoBehaviour
     public Button bathroom; 
     public Button wallArt; 
     public Button electronics; 
-   // public Button carpets; 
+    public Button lights; 
     public Button others;
 
     public PopulatePrefabList[] populatePrefabLists;
@@ -34,7 +31,7 @@ public class CategoryMenu : MonoBehaviour
     public void UIEnabler(int index)
     {
         // Activate the correct category UI
-        GameObject[] categoriesMenus = new GameObject[] { tablesList, chairsAndSofaList, bedsList, closetsList, bathroomList, wallArtList, electronicsList, othersList };
+        GameObject[] categoriesMenus = new GameObject[] { tablesList, chairsAndSofaList, bedsList, closetsList, bathroomList, wallArtList, electronicsList, lightsList, othersList };
 
         for (int i = 0; i < categoriesMenus.Length; i++)
         {
@@ -54,8 +51,7 @@ public class CategoryMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //floorFurnitures.onClick.AddListener(() => UIEnabler(0));
-        //wallFurnitures.onClick.AddListener(() => UIEnabler(1));
+
         tables.onClick.AddListener(() => UIEnabler(0));
         chairsAndSofa.onClick.AddListener(() => UIEnabler(1));
         beds.onClick.AddListener(() => UIEnabler(2));
@@ -63,8 +59,8 @@ public class CategoryMenu : MonoBehaviour
         bathroom.onClick.AddListener(() => UIEnabler(4));
         wallArt.onClick.AddListener(() => UIEnabler(5));
         electronics.onClick.AddListener(() => UIEnabler(6));
-       // carpets.onClick.AddListener(() => UIEnabler(7));
-        others.onClick.AddListener(() => UIEnabler(7));
+        lights.onClick.AddListener(() => UIEnabler(7));
+        others.onClick.AddListener(() => UIEnabler(8));
     }
 
     // Update is called once per frame
