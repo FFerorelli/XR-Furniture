@@ -120,11 +120,9 @@ MonoBehaviour:
   isPlaceble: 0
   layer:
     serializedVersion: 2
-    m_Bits: 448
+    m_Bits: 449
   greenMat: {fileID: 2100000, guid: 1be49e0130fe7854eb12b9461eb50c1b, type: 2}
   redMat: {fileID: 2100000, guid: 8dbad44d659237a4daf5cf7119e3f7ea, type: 2}
-  speed: 2.5
-  _rotationSpeed: 90
   horizontalThreshold: 0.96
   wallLayerToCheck:
     serializedVersion: 2
