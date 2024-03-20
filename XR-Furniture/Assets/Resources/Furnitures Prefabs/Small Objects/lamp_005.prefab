@@ -217,6 +217,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 6e9e09b123d0edb49bd624c18cf4a1c3, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 6e9e09b123d0edb49bd624c18cf4a1c3, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 327cbbeca54aa6c448b409fcaacd05ba, type: 2}
