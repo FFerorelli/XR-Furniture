@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4531190288289465647}
   - component: {fileID: 7067918174296057947}
   - component: {fileID: 7244043658833602772}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Bulb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4099133046291169215}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.0006, y: 0.3322, z: 0.0949}
   m_LocalScale: {x: 0.056971997, y: 0.056971997, z: 0.056971997}
   m_ConstrainProportionsScale: 1
@@ -50,7 +50,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4099133046291169215}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7a49404268695584b9992aefb10e623f, type: 2}
+  - {fileID: 2100000, guid: 82131ecaa397c194392a7897f7b4135e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
