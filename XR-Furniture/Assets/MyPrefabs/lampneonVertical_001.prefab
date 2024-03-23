@@ -158,6 +158,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: lampneonVertical_001
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bdb8c4bed8988424b9b2242087594d18, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -210,7 +214,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1291391565520550916, guid: bdb8c4bed8988424b9b2242087594d18, type: 3}
 --- !u!114 &6932086600977720462
@@ -345,6 +349,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 65289856d5343ab41a3d0b990c3344e6, type: 3}
       propertyPath: m_Name
       value: Bulb
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 65289856d5343ab41a3d0b990c3344e6, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
