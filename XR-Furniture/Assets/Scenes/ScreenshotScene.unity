@@ -732,6 +732,26 @@ MonoBehaviour:
   - {fileID: 24356619791748314, guid: 3bab30cfbec8466408136864a717979b, type: 3}
   - {fileID: 1420494201222749138, guid: 07ace7b0ec8765f42a4a57bd4974c681, type: 3}
   - {fileID: 4827940159820227170, guid: ccb86a88f3431da4cbb1928f2a54d188, type: 3}
+  - {fileID: 7510896052428679092, guid: aeb1ec24d58b4d74082e6aeb1e7df696, type: 3}
+  - {fileID: 2590736933084460181, guid: 69c63e8794d3c044290f0b92e3af757b, type: 3}
+  - {fileID: 5218131708298458682, guid: 0c2b13d22664bc84685ceab1b9f41e54, type: 3}
+  - {fileID: 7700367352098173668, guid: 5dc79714ff8f622479e815c75281fee1, type: 3}
+  - {fileID: 773809008839528173, guid: 2afd07f177a1d37489851f96f25de8af, type: 3}
+  - {fileID: 7216984347504311096, guid: 22c9ba6b31eaae24382f56d5a5f497da, type: 3}
+  - {fileID: 767870619474400328, guid: da332cd485c62694398929f55c8f39f2, type: 3}
+  - {fileID: 2965282284910451089, guid: 580cdbbb5ac417f4ab7d256c0f2aba69, type: 3}
+  - {fileID: 545073010472535492, guid: b30dc549b25e0bb4d91ca23d7c45d01b, type: 3}
+  - {fileID: 5833784260744330130, guid: 11727c5e154d16d4688378bbc35c7db0, type: 3}
+  - {fileID: 4694169649389982856, guid: 359f1da3bd726614e8d2547794e4a178, type: 3}
+  - {fileID: 1935102009696037662, guid: 71598cb63e45aca49a1f6ec0d6c1ab5c, type: 3}
+  - {fileID: 3279812577507136203, guid: 6931441e36fc35a4e88812869dfa5ab4, type: 3}
+  - {fileID: 1823788835285551688, guid: 6309d5dfbbd244c47822145e7dd256ea, type: 3}
+  - {fileID: 510703860357721359, guid: 6a8a1c4fd1bc7a245ac65c9c7cf95d4b, type: 3}
+  - {fileID: 1050056042059216220, guid: 427fcc75ae397524a942b4584e7c015e, type: 3}
+  - {fileID: 5432885896550057414, guid: 22963246947d82c46af9bd58067aedb5, type: 3}
+  - {fileID: 4618057968413655253, guid: c47e85c9baa8892429863a090f4ce442, type: 3}
+  - {fileID: 7987865432492017099, guid: 2d35b287c44afa14992789ea2e4cdb8b, type: 3}
+  - {fileID: 3600460801492310992, guid: d46860d1f865d7d43a17c7927f35a891, type: 3}
   spawnTransform: {fileID: 1126611882}
   screenshotDirectory: Assets/Resources/Thumbnails
   desiredScreenHeightPortion: 0.5
