@@ -13,6 +13,7 @@ public class CategoryMenu : MonoBehaviour
     public GameObject bathroomList;
     public GameObject wallArtList;
     public GameObject electronicsList;
+    public GameObject kitchenList;
     public GameObject lightsList;
     public GameObject othersList;
 
@@ -23,6 +24,7 @@ public class CategoryMenu : MonoBehaviour
     public Button bathroom; 
     public Button wallArt; 
     public Button electronics; 
+    public Button kitchen; 
     public Button lights; 
     public Button others;
 
@@ -31,7 +33,7 @@ public class CategoryMenu : MonoBehaviour
     public void UIEnabler(int index)
     {
         // Activate the correct category UI
-        GameObject[] categoriesMenus = new GameObject[] { tablesList, chairsAndSofaList, bedsList, closetsList, bathroomList, wallArtList, electronicsList, lightsList, othersList };
+        GameObject[] categoriesMenus = new GameObject[] { tablesList, chairsAndSofaList, bedsList, closetsList, bathroomList, wallArtList, electronicsList, kitchenList, lightsList, othersList };
 
         for (int i = 0; i < categoriesMenus.Length; i++)
         {
@@ -59,8 +61,9 @@ public class CategoryMenu : MonoBehaviour
         bathroom.onClick.AddListener(() => UIEnabler(4));
         wallArt.onClick.AddListener(() => UIEnabler(5));
         electronics.onClick.AddListener(() => UIEnabler(6));
-        lights.onClick.AddListener(() => UIEnabler(7));
-        others.onClick.AddListener(() => UIEnabler(8));
+        kitchen.onClick.AddListener(() => UIEnabler(7));
+        lights.onClick.AddListener(() => UIEnabler(8));
+        others.onClick.AddListener(() => UIEnabler(9));
     }
 
     // Update is called once per frame
