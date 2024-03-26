@@ -13253,6 +13253,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DisplaySemanticsPlate
       objectReference: {fileID: 0}
+    - target: {fileID: 7947486331839759784, guid: c119a1e32a7b8ed45859fe017e2d4529, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8094878179076522584, guid: c119a1e32a7b8ed45859fe017e2d4529, type: 3}
       propertyPath: m_fontSize
       value: 1.3
