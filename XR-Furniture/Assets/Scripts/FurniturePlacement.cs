@@ -10,8 +10,8 @@ public class FurniturePlacement : MonoBehaviour
     [SerializeField] private Transform _UITransform;
     [SerializeField] private TextMeshProUGUI displayText = null;
     [SerializeField] private Material previewMaterial;
+    [SerializeField] private GameObject furniturePrefab;
 
-    private GameObject furniturePrefab;
     private Material originalMaterial;
     private GameObject spawnedPrefab;
     private GameObject _furniturePreview;
@@ -34,6 +34,10 @@ public class FurniturePlacement : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    private void Start()
+    {
+        SetNewFurniture(furniturePrefab);
     }
 
     public void SetNewFurniture(GameObject prefab)
@@ -58,10 +62,9 @@ public class FurniturePlacement : MonoBehaviour
             // _furniturePreview.transform.LookAt(transform.position);
             _furniturePreview.transform.Rotate(0, 180, 0);
 
-            var meshRenderer = _furniturePreview.GetComponent<MeshRenderer>();
-            originalMaterial = meshRenderer.material;
-            // originalColor = currentMaterial.color;
-            meshRenderer.material = previewMaterial;
+            //var meshRenderer = _furniturePreview.GetComponent<MeshRenderer>();
+            //originalMaterial = meshRenderer.material;
+            //meshRenderer.material = previewMaterial;
 
             _furnitureBehaviour = _furniturePreview.GetComponent<Furniture>(); 
         }
@@ -185,8 +188,8 @@ public class FurniturePlacement : MonoBehaviour
         outline.OutlineWidth = 5f;
         outline.enabled = false;
 
-        var meshRenderer = spawnedPrefab.GetComponent<MeshRenderer>();
-        meshRenderer.material = originalMaterial;
+        //var meshRenderer = spawnedPrefab.GetComponent<MeshRenderer>();
+        //meshRenderer.material = originalMaterial;
 
         spawnedPrefab.tag = "Furniture";
         spawnedPrefab.layer = 8;

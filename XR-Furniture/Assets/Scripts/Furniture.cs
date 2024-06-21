@@ -24,8 +24,8 @@ public abstract class Furniture : MonoBehaviour
 
     protected virtual void Update()
     {
-        currentMaterial = isPlaceble ? greenMat : redMat;
-        GetComponent<MeshRenderer>().material = currentMaterial;
+        //currentMaterial = isPlaceble ? greenMat : redMat;
+        //GetComponent<MeshRenderer>().material = currentMaterial;
     }
 
     public virtual void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray)
