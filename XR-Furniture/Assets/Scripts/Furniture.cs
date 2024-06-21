@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public abstract class Furniture : MonoBehaviour
@@ -19,7 +20,7 @@ public abstract class Furniture : MonoBehaviour
     protected virtual void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
-        Debug.Log("-----------------------------" + rigidBody);
+
        // currentMaterial = GetComponent<MeshRenderer>().material;
     }
 
@@ -27,6 +28,7 @@ public abstract class Furniture : MonoBehaviour
     {
         //currentMaterial = isPlaceble ? greenMat : redMat;
         //GetComponent<MeshRenderer>().material = currentMaterial;
+       // Debug.Log("rot.x ----------" + transform.rotation.eulerAngles.x);
     }
 
     public virtual void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray)
@@ -39,8 +41,8 @@ public abstract class Furniture : MonoBehaviour
         {
             newPosition = ray.point;
         }
-        Debug.Log("newPosition ----------" + newPosition);
-        Debug.Log("rigidBody ----------" + rigidBody.name);
+        //Debug.Log("newPosition ----------" + newPosition);
+        //Debug.Log("rigidBody ----------" + rigidBody.name);
         rigidBody.MovePosition(newPosition);
     }
 
@@ -51,8 +53,18 @@ public abstract class Furniture : MonoBehaviour
         if (thumbStickPos != Vector2.zero)
         {
             float rotateAmount = -thumbStickPos.x * _rotationSpeed * Time.fixedDeltaTime;
-            transform.Rotate(Vector3.forward, rotateAmount, Space.Self);
-                            //Vector3.up if rot.x == 0
+            
+            if (transform.rotation.eulerAngles.x == 0)
+            {
+                //Debug.Log("transform.rotation.eulerAngles.x == 0 ----------" + transform.rotation.eulerAngles.x);
+                transform.Rotate(Vector3.up, rotateAmount, Space.Self);
+            }
+            else
+            {
+                //Debug.Log("NOT 0 ----------" + transform.rotation.eulerAngles.x);
+                transform.Rotate(Vector3.forward, rotateAmount, Space.Self);
+            }
+
         }
     }
 }
