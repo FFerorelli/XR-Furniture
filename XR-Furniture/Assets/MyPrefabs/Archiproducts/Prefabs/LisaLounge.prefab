@@ -69,8 +69,16 @@ PrefabInstance:
       value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1171954899114125784, guid: 5a6271edcebabf1439f097c39dea4a35, type: 3}
+      propertyPath: m_Name
+      value: Struttura
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171954899114125784, guid: 5a6271edcebabf1439f097c39dea4a35, type: 3}
       propertyPath: m_Layer
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2548489492842245292, guid: 5a6271edcebabf1439f097c39dea4a35, type: 3}
+      propertyPath: m_Name
+      value: Rivestimento
       objectReference: {fileID: 0}
     - target: {fileID: 2548489492842245292, guid: 5a6271edcebabf1439f097c39dea4a35, type: 3}
       propertyPath: m_Layer
@@ -113,7 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0f4163f15f13244fbbf0928d4ec3f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customPart: {fileID: 0}
   availableMaterials:
   - {fileID: 2100000, guid: c4363499f1b66ce4e84ca510bc3a6d8b, type: 2}
   - {fileID: 2100000, guid: 9f541602344dd33488dfd1e7b3173323, type: 2}
@@ -199,7 +206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0f4163f15f13244fbbf0928d4ec3f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customPart: {fileID: 0}
   availableMaterials:
   - {fileID: 2100000, guid: eb926364c593b5040ab0fedab1958543, type: 2}
   - {fileID: 2100000, guid: 5f423131eb3f45c478342031e1116495, type: 2}
