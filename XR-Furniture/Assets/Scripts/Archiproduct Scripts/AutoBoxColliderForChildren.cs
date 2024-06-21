@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class AutoBoxColliderForChildren : MonoBehaviour
 {
-    void Start()
+    private void Awake()
     {
         AddBoxCollider();
+    }
+    void Start()
+    {
+       // AddBoxCollider();
     }
 
     void AddBoxCollider()

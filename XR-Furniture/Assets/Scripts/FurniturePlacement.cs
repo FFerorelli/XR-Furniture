@@ -52,9 +52,11 @@ public class FurniturePlacement : MonoBehaviour
             isPrefabSelected = true;
             furniturePrefab = prefab;
 
-            float uiRotation = _UITransform.rotation.eulerAngles.y;           
+            float origignalAssetOffset = - prefab.transform.rotation.eulerAngles.x;
+            float uiRotation = _UITransform.rotation.eulerAngles.y;
+            Debug.Log(origignalAssetOffset);
             _startSpawnPos = transform.position;
-            _startSpawnRot = Quaternion.Euler(0, uiRotation, 0);
+            _startSpawnRot = Quaternion.Euler(origignalAssetOffset, uiRotation, 0);
 
             _furniturePreview = Instantiate(furniturePrefab, _startSpawnPos, _startSpawnRot);
 

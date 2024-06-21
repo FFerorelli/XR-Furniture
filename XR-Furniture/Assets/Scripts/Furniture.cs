@@ -19,6 +19,7 @@ public abstract class Furniture : MonoBehaviour
     protected virtual void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+        Debug.Log("-----------------------------" + rigidBody);
         currentMaterial = GetComponent<MeshRenderer>().material;
     }
 
