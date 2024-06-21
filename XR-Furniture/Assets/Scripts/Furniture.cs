@@ -51,7 +51,8 @@ public abstract class Furniture : MonoBehaviour
         if (thumbStickPos != Vector2.zero)
         {
             float rotateAmount = -thumbStickPos.x * _rotationSpeed * Time.fixedDeltaTime;
-            transform.Rotate(Vector3.up, rotateAmount, Space.Self);
+            transform.Rotate(Vector3.forward, rotateAmount, Space.Self);
+                            //Vector3.up if rot.x == 0
         }
     }
 }
