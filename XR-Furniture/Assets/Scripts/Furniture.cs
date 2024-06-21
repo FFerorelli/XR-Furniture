@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Furniture : MonoBehaviour
@@ -7,6 +8,8 @@ public abstract class Furniture : MonoBehaviour
     public LayerMask layer;
     [SerializeField] protected Material greenMat;
     [SerializeField] protected Material redMat;
+
+    [SerializeField] protected List<CustomElement> customizableElemets;
     protected float speed = 3.5f;
     protected float _rotationSpeed = 90f;
     protected double epsilon = 0.03;
