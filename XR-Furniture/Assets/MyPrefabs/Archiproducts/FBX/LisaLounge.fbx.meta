@@ -3,7 +3,17 @@ guid: 5a6271edcebabf1439f097c39dea4a35
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Seat Metal structure
+    second: {fileID: 2100000, guid: c4363499f1b66ce4e84ca510bc3a6d8b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Upholstery 2_LEATHER
+    second: {fileID: 2100000, guid: 5f423131eb3f45c478342031e1116495, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -32,7 +42,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1

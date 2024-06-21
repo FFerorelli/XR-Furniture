@@ -4,14 +4,18 @@ public class AutoBoxColliderForChildren : MonoBehaviour
 {
     private void Awake()
     {
-        AddBoxCollider();
-    }
-    void Start()
-    {
-       // AddBoxCollider();
+        // Remove the call to AddBoxCollider from Awake
+        // AddBoxCollider();
     }
 
-    void AddBoxCollider()
+    void Start()
+    {
+        // Remove the call to AddBoxCollider from Start
+         AddBoxCollider();
+    }
+
+    // Change AddBoxCollider to public
+    public void AddBoxCollider()
     {
         Bounds combinedBounds = new Bounds();
         bool hasBounds = false;

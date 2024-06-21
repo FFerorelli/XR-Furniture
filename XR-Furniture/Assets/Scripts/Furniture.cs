@@ -20,7 +20,7 @@ public abstract class Furniture : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody>();
         Debug.Log("-----------------------------" + rigidBody);
-        currentMaterial = GetComponent<MeshRenderer>().material;
+       // currentMaterial = GetComponent<MeshRenderer>().material;
     }
 
     protected virtual void Update()
@@ -39,7 +39,8 @@ public abstract class Furniture : MonoBehaviour
         {
             newPosition = ray.point;
         }
-
+        Debug.Log("newPosition ----------" + newPosition);
+        Debug.Log("rigidBody ----------" + rigidBody.name);
         rigidBody.MovePosition(newPosition);
     }
 
