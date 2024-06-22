@@ -82,18 +82,19 @@ public class PopulateCustomTabs : MonoBehaviour
                 Debug.Log($"Added listener to button {j} for material {currentPart.availableMaterials[capturedIndex].name}");
 
                 // Set the button image to the texture of the material
-                Image buttonImage = materialButton.GetComponent<Image>();
-                if (buttonImage != null && currentPart.availableMaterials[capturedIndex].mainTexture != null)
+                Image textureHolderImage = materialButton.transform.Find("TextureHolder").GetComponent<Image>();
+                if (textureHolderImage != null && currentPart.availableMaterials[capturedIndex].mainTexture != null)
                 {
-                    buttonImage.sprite = Sprite.Create((Texture2D)currentPart.availableMaterials[capturedIndex].mainTexture,
-                                                        new Rect(0, 0, currentPart.availableMaterials[capturedIndex].mainTexture.width, currentPart.availableMaterials[capturedIndex].mainTexture.height),
-                                                        new Vector2(0.5f, 0.5f));
+                    textureHolderImage.sprite = Sprite.Create((Texture2D)currentPart.availableMaterials[capturedIndex].mainTexture,
+                                                            new Rect(0, 0, currentPart.availableMaterials[capturedIndex].mainTexture.width, currentPart.availableMaterials[capturedIndex].mainTexture.height),
+                                                            new Vector2(0.5f, 0.5f));
                     Debug.Log($"Set image for button {j} to material texture {currentPart.availableMaterials[capturedIndex].name}");
                 }
                 else
                 {
-                    Debug.LogWarning($"Button image or material texture not found for button {j} of part {currentPart.name}");
+                    Debug.LogWarning($"TextureHolder image or material texture not found for button {j} of part {currentPart.name}");
                 }
+
                 // Additional setup for materialButton if needed
                 // yield return null; // Uncomment if needed for other processing
             }
