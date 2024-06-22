@@ -81,6 +81,19 @@ public class PopulateCustomTabs : MonoBehaviour
                 });
                 Debug.Log($"Added listener to button {j} for material {currentPart.availableMaterials[capturedIndex].name}");
 
+                // Set the button image to the texture of the material
+                Image buttonImage = materialButton.GetComponent<Image>();
+                if (buttonImage != null && currentPart.availableMaterials[capturedIndex].mainTexture != null)
+                {
+                    buttonImage.sprite = Sprite.Create((Texture2D)currentPart.availableMaterials[capturedIndex].mainTexture,
+                                                        new Rect(0, 0, currentPart.availableMaterials[capturedIndex].mainTexture.width, currentPart.availableMaterials[capturedIndex].mainTexture.height),
+                                                        new Vector2(0.5f, 0.5f));
+                    Debug.Log($"Set image for button {j} to material texture {currentPart.availableMaterials[capturedIndex].name}");
+                }
+                else
+                {
+                    Debug.LogWarning($"Button image or material texture not found for button {j} of part {currentPart.name}");
+                }
                 // Additional setup for materialButton if needed
                 // yield return null; // Uncomment if needed for other processing
             }
@@ -103,5 +116,36 @@ public class PopulateCustomTabs : MonoBehaviour
         Debug.Log($"Changing material of part {part.name} to {material.name}");
         part.GetComponent<MeshRenderer>().material = material;
     }
+    public Texture2D RenderMaterialToTexture(Material material, int width, int height)
+    {
+        RenderTexture renderTexture = new RenderTexture(width, height, 24);
+        Camera camera = new GameObject("TempCamera").AddComponent<Camera>();
+        camera.backgroundColor = Color.clear;
+        camera.clearFlags = CameraClearFlags.Color;
+        camera.targetTexture = renderTexture;
+
+        GameObject tempObject = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        tempObject.GetComponent<MeshRenderer>().material = material;
+        tempObject.transform.position = Vector3.zero;
+
+        camera.transform.position = tempObject.transform.position - tempObject.transform.forward * 2;
+        camera.transform.LookAt(tempObject.transform);
+
+        camera.Render();
+
+        RenderTexture.active = renderTexture;
+        Texture2D texture = new Texture2D(width, height, TextureFormat.RGB24, false);
+        texture.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+        texture.Apply();
+
+        RenderTexture.active = null;
+        camera.targetTexture = null;
+
+        UnityEngine.Object.Destroy(camera.gameObject);
+        UnityEngine.Object.Destroy(tempObject);
+
+        return texture;
+    }
+
 }
 
