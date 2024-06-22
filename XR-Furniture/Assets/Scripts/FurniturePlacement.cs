@@ -37,7 +37,7 @@ public class FurniturePlacement : MonoBehaviour
     }
     private void Start()
     {
-        SetNewFurniture(furniturePrefab);
+       // SetNewFurniture(furniturePrefab);
     }
 
     public void SetNewFurniture(GameObject prefab)

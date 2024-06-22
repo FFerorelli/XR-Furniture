@@ -21,15 +21,23 @@ public class PopulateCustomTabs : MonoBehaviour
     void Start()
     {
         _parentObject = transform.root.gameObject.GetComponent<Furniture>();
-        Debug.Log("Furniture script found in root parent: " + _parentObject.gameObject.name);
+        if (_parentObject == null)
+        {
+            Debug.LogError("Furniture script not found in root parent.");
+            return;
+        }
 
-        _parentName.text = _parentObject.gameObject.name.ToUpper();
+        string parentName = _parentObject.gameObject.name.Replace("(Clone)", "").Trim();
+        Debug.Log("Furniture script found in root parent: " + parentName);
+
+        _parentName.text = parentName.ToUpper();
 
         _customPartsList = _parentObject.customizableElements;
 
         StartCoroutine(createTabs());
         //createTabs();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -81,18 +89,28 @@ public class PopulateCustomTabs : MonoBehaviour
                 });
                 Debug.Log($"Added listener to button {j} for material {currentPart.availableMaterials[capturedIndex].name}");
 
-                // Set the button image to the texture of the material
+                // Set the button image or color based on the material
                 Image textureHolderImage = materialButton.transform.Find("TextureHolder").GetComponent<Image>();
-                if (textureHolderImage != null && currentPart.availableMaterials[capturedIndex].mainTexture != null)
+                if (textureHolderImage != null)
                 {
-                    textureHolderImage.sprite = Sprite.Create((Texture2D)currentPart.availableMaterials[capturedIndex].mainTexture,
-                                                            new Rect(0, 0, currentPart.availableMaterials[capturedIndex].mainTexture.width, currentPart.availableMaterials[capturedIndex].mainTexture.height),
-                                                            new Vector2(0.5f, 0.5f));
-                    Debug.Log($"Set image for button {j} to material texture {currentPart.availableMaterials[capturedIndex].name}");
+                    if (currentPart.availableMaterials[capturedIndex].mainTexture != null)
+                    {
+                        // Use the main texture
+                        textureHolderImage.sprite = Sprite.Create((Texture2D)currentPart.availableMaterials[capturedIndex].mainTexture,
+                                                                new Rect(0, 0, currentPart.availableMaterials[capturedIndex].mainTexture.width, currentPart.availableMaterials[capturedIndex].mainTexture.height),
+                                                                new Vector2(0.5f, 0.5f));
+                        Debug.Log($"Set image for button {j} to material texture {currentPart.availableMaterials[capturedIndex].name}");
+                    }
+                    else
+                    {
+                        // Use the material color
+                        textureHolderImage.color = currentPart.availableMaterials[capturedIndex].color;
+                        Debug.Log($"Set color for button {j} to material color {currentPart.availableMaterials[capturedIndex].color}");
+                    }
                 }
                 else
                 {
-                    Debug.LogWarning($"TextureHolder image or material texture not found for button {j} of part {currentPart.name}");
+                    Debug.LogWarning($"TextureHolder image component not found for button {j} of part {currentPart.name}");
                 }
 
                 // Additional setup for materialButton if needed
