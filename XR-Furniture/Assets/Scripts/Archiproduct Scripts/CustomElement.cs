@@ -6,7 +6,7 @@ public class CustomElement : MonoBehaviour
 {
     private MeshRenderer customPart; /*{ get; set; }*/
     private Material defaultMaterial;
-    public List <Material> availableMaterials; /*{ get; set; }*/
+    public Material[] availableMaterials; /*{ get; set; }*/
 
 
     // Start is called before the first frame update
