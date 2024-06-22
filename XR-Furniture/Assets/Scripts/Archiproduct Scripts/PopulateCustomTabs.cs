@@ -13,22 +13,22 @@ public class PopulateCustomTabs : MonoBehaviour
     public GameObject materialButtonPrefab;
     public Transform tabParent;
     private CustomElement[] _customPartsList;
-    private Furniture _parentObject;
+    private CustomizableObject _parentObject;
     [SerializeField]
     private TextMeshProUGUI _parentName;
 
     // Start is called before the first frame update
     void Start()
     {
-        _parentObject = transform.root.gameObject.GetComponent<Furniture>();
+        _parentObject = transform.root.gameObject.GetComponent<CustomizableObject>();
         if (_parentObject == null)
         {
-            Debug.LogError("Furniture script not found in root parent.");
+            Debug.LogError("CustomizableObject script not found in root parent.");
             return;
         }
 
         string parentName = _parentObject.gameObject.name.Replace("(Clone)", "").Trim();
-        Debug.Log("Furniture script found in root parent: " + parentName);
+        Debug.Log("CustomizableObject script found in root parent: " + parentName);
 
         _parentName.text = parentName.ToUpper();
 
@@ -44,7 +44,7 @@ public class PopulateCustomTabs : MonoBehaviour
     {
         
     }
-    IEnumerator createTabs()
+    public IEnumerator createTabs()
     {
         Debug.Log("Starting createTabs coroutine");
 
@@ -135,36 +135,7 @@ public class PopulateCustomTabs : MonoBehaviour
         Debug.Log($"Changing material of part {part.name} to {material.name}");
         part.GetComponent<MeshRenderer>().material = material;
     }
-    public Texture2D RenderMaterialToTexture(Material material, int width, int height)
-    {
-        RenderTexture renderTexture = new RenderTexture(width, height, 24);
-        Camera camera = new GameObject("TempCamera").AddComponent<Camera>();
-        camera.backgroundColor = Color.clear;
-        camera.clearFlags = CameraClearFlags.Color;
-        camera.targetTexture = renderTexture;
-
-        GameObject tempObject = GameObject.CreatePrimitive(PrimitiveType.Quad);
-        tempObject.GetComponent<MeshRenderer>().material = material;
-        tempObject.transform.position = Vector3.zero;
-
-        camera.transform.position = tempObject.transform.position - tempObject.transform.forward * 2;
-        camera.transform.LookAt(tempObject.transform);
-
-        camera.Render();
-
-        RenderTexture.active = renderTexture;
-        Texture2D texture = new Texture2D(width, height, TextureFormat.RGB24, false);
-        texture.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-        texture.Apply();
-
-        RenderTexture.active = null;
-        camera.targetTexture = null;
-
-        UnityEngine.Object.Destroy(camera.gameObject);
-        UnityEngine.Object.Destroy(tempObject);
-
-        return texture;
-    }
+    
 
 }
 

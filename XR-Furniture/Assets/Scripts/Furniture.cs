@@ -10,7 +10,7 @@ public abstract class Furniture : MonoBehaviour
     [SerializeField] protected Material greenMat;
     [SerializeField] protected Material redMat;
 
-    public CustomElement[] customizableElements;
+   // public CustomElement[] customizableElements;
 
     protected float speed = 3.5f;
     protected float _rotationSpeed = 90f;
