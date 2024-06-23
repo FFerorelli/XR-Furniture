@@ -125,7 +125,7 @@ public class FurniturePlacement : MonoBehaviour
                     if (newOutline != null)
                     {
                         newOutline.enabled = true;
-                        newOutline.precomputeOutline = true;
+                       // newOutline.precomputeOutline = true;
                     }
 
                     // Update the last hit object
@@ -186,10 +186,10 @@ public class FurniturePlacement : MonoBehaviour
         spawnedPrefab.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
         var outline = spawnedPrefab.AddComponent<Outline>();
-        outline.OutlineMode = Outline.Mode.OutlineAll;
+        outline.OutlineMode = Outline.Mode.OutlineVisible;
         outline.OutlineColor = Color.yellow;
         outline.OutlineWidth = 5f;
-        outline.precomputeOutline = true;
+       // outline.precomputeOutline = true;
         outline.enabled = false;
 
         //var meshRenderer = spawnedPrefab.GetComponent<MeshRenderer>();
