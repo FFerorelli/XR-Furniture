@@ -125,6 +125,7 @@ public class FurniturePlacement : MonoBehaviour
                     if (newOutline != null)
                     {
                         newOutline.enabled = true;
+                        newOutline.precomputeOutline = true;
                     }
 
                     // Update the last hit object
@@ -188,6 +189,7 @@ public class FurniturePlacement : MonoBehaviour
         outline.OutlineMode = Outline.Mode.OutlineAll;
         outline.OutlineColor = Color.yellow;
         outline.OutlineWidth = 5f;
+        outline.precomputeOutline = true;
         outline.enabled = false;
 
         //var meshRenderer = spawnedPrefab.GetComponent<MeshRenderer>();
