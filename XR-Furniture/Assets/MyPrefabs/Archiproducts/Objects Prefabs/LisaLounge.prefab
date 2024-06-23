@@ -133,6 +133,7 @@ MonoBehaviour:
   availableMaterials:
   - {fileID: 2100000, guid: c4363499f1b66ce4e84ca510bc3a6d8b, type: 2}
   - {fileID: 2100000, guid: 9f541602344dd33488dfd1e7b3173323, type: 2}
+  - {fileID: 2100000, guid: 150fb4d2e608b1c44b11cf75e74b2150, type: 2}
 --- !u!4 &6084254202365265167 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5a6271edcebabf1439f097c39dea4a35, type: 3}
