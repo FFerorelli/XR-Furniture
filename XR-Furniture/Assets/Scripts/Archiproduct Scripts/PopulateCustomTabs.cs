@@ -132,10 +132,27 @@ public class PopulateCustomTabs : MonoBehaviour
 
     private void ChangeMaterial(CustomElement part, Material material)
     {
-        Debug.Log($"Changing material of part {part.name} to {material.name}");
-        part.GetComponent<MeshRenderer>().material = material;
+        Debug.Log($"Attempting to change material of part {part.name} to {material.name}");
+
+        MeshRenderer meshRenderer = part.GetComponent<MeshRenderer>();
+        if (meshRenderer != null)
+        {
+            Debug.Log($"Changing material of part {part.name}");
+            meshRenderer.material = material;
+        }
+        else
+        {
+            Debug.Log($"Part {part.name} does not have a MeshRenderer. Changing material of its children.");
+            MeshRenderer[] childRenderers = part.GetComponentsInChildren<MeshRenderer>();
+            foreach (MeshRenderer childRenderer in childRenderers)
+            {
+                Debug.Log($"Changing material of child {childRenderer.gameObject.name}");
+                childRenderer.material = material;
+            }
+        }
     }
-    
+
+
 
 }
 

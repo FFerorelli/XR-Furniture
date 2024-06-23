@@ -12,10 +12,26 @@ public class CustomElement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        customPart = GetComponent<MeshRenderer>();
+        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
         defaultMaterial = availableMaterials[0];
-        customPart.material = defaultMaterial;
+
+        if (meshRenderer != null)
+        {
+            Debug.Log($"Assigning default material to {gameObject.name}");
+            meshRenderer.material = defaultMaterial;
+        }
+        else
+        {
+            Debug.Log($"{gameObject.name} does not have a MeshRenderer. Assigning default material to its children.");
+            MeshRenderer[] childRenderers = GetComponentsInChildren<MeshRenderer>();
+            foreach (MeshRenderer childRenderer in childRenderers)
+            {
+                Debug.Log($"Assigning default material to child {childRenderer.gameObject.name}");
+                childRenderer.material = defaultMaterial;
+            }
+        }
     }
+
 
     // Update is called once per frame
     void Update()

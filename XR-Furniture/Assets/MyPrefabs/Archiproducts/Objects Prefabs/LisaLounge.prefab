@@ -246,8 +246,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availableMaterials:
-  - {fileID: 2100000, guid: eb926364c593b5040ab0fedab1958543, type: 2}
   - {fileID: 2100000, guid: 5f423131eb3f45c478342031e1116495, type: 2}
+  - {fileID: 2100000, guid: eb926364c593b5040ab0fedab1958543, type: 2}
 --- !u!1001 &7102437257172330174
 PrefabInstance:
   m_ObjectHideFlags: 0
