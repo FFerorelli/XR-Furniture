@@ -3093,6 +3093,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LisaLounge
       objectReference: {fileID: 0}
+    - target: {fileID: 6855688484571094965, guid: e33707ff29540e045b8df8e94b995c75, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8176122958880212126, guid: e33707ff29540e045b8df8e94b995c75, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -3872,6 +3876,7 @@ MonoBehaviour:
   - {fileID: 8583480974749599785, guid: 1dcc6f10ac4557545924fb4cf9e7bcdc, type: 3}
   - {fileID: 6855688484571094965, guid: e33707ff29540e045b8df8e94b995c75, type: 3}
   - {fileID: 5452015522272291147, guid: b120c38b5cd037b4b8426f02be4e9f9c, type: 3}
+  - {fileID: 2091761451908332062, guid: eee8ce012f19af8449db802bdb273448, type: 3}
 --- !u!114 &739040509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9507,6 +9512,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dress-code (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2822373409179479118, guid: 86ffbaa0b6ea54245abc2015f48989d0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3197772364575602420, guid: 86ffbaa0b6ea54245abc2015f48989d0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.365
@@ -13144,6 +13153,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VitraTable
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5d7995744faa69349a1365caacfd64d4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7017971668660101505, guid: 5d7995744faa69349a1365caacfd64d4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -14480,6 +14493,67 @@ MonoBehaviour:
   _addNewPointsToFront: 0
   _forwardElement: {fileID: 0}
   _canvas: {fileID: 7281713211375048893}
+--- !u!1001 &3188314511245474136
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2091761451908332062, guid: eee8ce012f19af8449db802bdb273448, type: 3}
+      propertyPath: m_Name
+      value: Edra Velvet
+      objectReference: {fileID: 0}
+    - target: {fileID: 2091761451908332062, guid: eee8ce012f19af8449db802bdb273448, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091632094566343805, guid: eee8ce012f19af8449db802bdb273448, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091632094566343805, guid: eee8ce012f19af8449db802bdb273448, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091632094566343805, guid: eee8ce012f19af8449db802bdb273448, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091632094566343805, guid: eee8ce012f19af8449db802bdb273448, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091632094566343805, guid: eee8ce012f19af8449db802bdb273448, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091632094566343805, guid: eee8ce012f19af8449db802bdb273448, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091632094566343805, guid: eee8ce012f19af8449db802bdb273448, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091632094566343805, guid: eee8ce012f19af8449db802bdb273448, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091632094566343805, guid: eee8ce012f19af8449db802bdb273448, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091632094566343805, guid: eee8ce012f19af8449db802bdb273448, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: eee8ce012f19af8449db802bdb273448, type: 3}
 --- !u!224 &3244831468655491946
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14585,6 +14659,10 @@ PrefabInstance:
     - target: {fileID: 2334341911181911062, guid: 7713398a2d62d6a479b7b96e17db5a77, type: 3}
       propertyPath: m_Name
       value: ROCK-TABLE
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334341911181911062, guid: 7713398a2d62d6a479b7b96e17db5a77, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8606436259278104880, guid: 7713398a2d62d6a479b7b96e17db5a77, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16080,63 +16158,6 @@ Transform:
   - {fileID: 4372617667020499799}
   m_Father: {fileID: 2002084665166081820}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &8224715344754105801
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6783588240042790686, guid: f57473975d8f56b4786b868f3f21656d, type: 3}
-      propertyPath: m_Name
-      value: Edra
-      objectReference: {fileID: 0}
-    - target: {fileID: 7226838033244966963, guid: f57473975d8f56b4786b868f3f21656d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 8.17
-      objectReference: {fileID: 0}
-    - target: {fileID: 7226838033244966963, guid: f57473975d8f56b4786b868f3f21656d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7226838033244966963, guid: f57473975d8f56b4786b868f3f21656d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.069
-      objectReference: {fileID: 0}
-    - target: {fileID: 7226838033244966963, guid: f57473975d8f56b4786b868f3f21656d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 7226838033244966963, guid: f57473975d8f56b4786b868f3f21656d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 7226838033244966963, guid: f57473975d8f56b4786b868f3f21656d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7226838033244966963, guid: f57473975d8f56b4786b868f3f21656d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7226838033244966963, guid: f57473975d8f56b4786b868f3f21656d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7226838033244966963, guid: f57473975d8f56b4786b868f3f21656d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7226838033244966963, guid: f57473975d8f56b4786b868f3f21656d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f57473975d8f56b4786b868f3f21656d, type: 3}
 --- !u!1 &8358667394684651034
 GameObject:
   m_ObjectHideFlags: 0
@@ -16289,8 +16310,8 @@ SceneRoots:
   - {fileID: 692096385}
   - {fileID: 1864000204}
   - {fileID: 87203590}
-  - {fileID: 8224715344754105801}
-  - {fileID: 624851202}
   - {fileID: 1505845361}
   - {fileID: 1806848208}
   - {fileID: 3539491268002364663}
+  - {fileID: 624851202}
+  - {fileID: 3188314511245474136}
