@@ -41,8 +41,10 @@ public class ToggleCustomizeMenu : MonoBehaviour
         Debug.Log("ToggleCustomizeMenu called.");
         if (instantiatedMenu == null)
         {
-            Transform menuTransform = transform.Find("MenuTransform");
-            instantiatedMenu = Instantiate(menuPrefab, menuTransform);
+           // Transform menuTransform = transform.Find("MenuTransform");
+           // instantiatedMenu = Instantiate(menuPrefab, menuTransform);
+            MenuInstantiator menuInstantiator = GetComponent<MenuInstantiator>();
+            instantiatedMenu = menuInstantiator.InstantiateMenu();
 
             // Set the initial scale to zero for a scaling animation
             instantiatedMenu.transform.localScale = Vector3.zero;

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 520553530678876162}
   - component: {fileID: 6771248546920552985}
   - component: {fileID: 2459578668092666359}
+  - component: {fileID: 974776001623749782}
   m_Layer: 2
   m_Name: Dress-code
   m_TagString: Untagged
@@ -124,6 +125,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuPrefab: {fileID: 2314575692583149321, guid: af80d67f7ec014e47804ab21b166aaf8, type: 3}
+--- !u!114 &974776001623749782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2822373409179479118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1e2982105084714e942955fb0c8be70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuPrefab: {fileID: 2314575692583149321, guid: af80d67f7ec014e47804ab21b166aaf8, type: 3}
+  centerEyeAnchorName: CenterEyeAnchor
+  offsetDistance: 1
+  heightOffset: 1.4
 --- !u!1 &3017264310793351214
 GameObject:
   m_ObjectHideFlags: 0
