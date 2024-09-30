@@ -21,19 +21,38 @@ public abstract class Furniture : MonoBehaviour
     protected float prefabHeight;
     protected float objectHeight;
     protected Rigidbody rigidBody;
+    protected List<Renderer> renderers = new List<Renderer>(); // List to store all MeshRenderer components
 
     protected virtual void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
 
-       // currentMaterial = GetComponent<MeshRenderer>().material;
+        // currentMaterial = GetComponent<MeshRenderer>().material;
+        // Get all Renderers in this object and its children
+        renderers.AddRange(GetComponentsInChildren<Renderer>());
     }
 
     protected virtual void Update()
     {
         //currentMaterial = isPlaceble ? greenMat : redMat;
         //GetComponent<MeshRenderer>().material = currentMaterial;
-       // Debug.Log("rot.x ----------" + transform.rotation.eulerAngles.x);
+        // Debug.Log("rot.x ----------" + transform.rotation.eulerAngles.x);
+
+
+        // Choose the material based on the isPlaceable flag
+        Material targetMaterial = isPlaceble ? greenMat : redMat;
+
+        // Loop through all renderers and change their material
+        foreach (Renderer rend in renderers)
+        {
+            // If the renderer has multiple materials, change all of them
+            Material[] materials = rend.materials;
+            for (int i = 0; i < materials.Length; i++)
+            {
+                materials[i] = targetMaterial;
+            }
+            rend.materials = materials; // Apply the updated materials
+        }
     }
 
     public virtual void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray)

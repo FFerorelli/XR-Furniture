@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -19,6 +20,8 @@ public class FurniturePlacement : MonoBehaviour
     private Furniture _furnitureBehaviour;
     private Vector3 _startSpawnPos;
     private Quaternion _startSpawnRot;
+
+    private Dictionary<Renderer, Material[]> originalMaterials = new Dictionary<Renderer, Material[]>(); // Store original materials
     //private Outline outline;
 
     public static FurniturePlacement Instance { get; private set; }
@@ -67,6 +70,8 @@ public class FurniturePlacement : MonoBehaviour
             //var meshRenderer = _furniturePreview.GetComponent<MeshRenderer>();
             //originalMaterial = meshRenderer.material;
             //meshRenderer.material = previewMaterial;
+
+            SaveOriginalMaterials(_furniturePreview); // Call this before making any changes to save the current materials
 
             _furnitureBehaviour = _furniturePreview.GetComponent<Furniture>(); 
         }
@@ -192,8 +197,7 @@ public class FurniturePlacement : MonoBehaviour
        // outline.precomputeOutline = true;
         outline.enabled = false;
 
-        //var meshRenderer = spawnedPrefab.GetComponent<MeshRenderer>();
-        //meshRenderer.material = originalMaterial;
+        RestoreOriginalMaterials(spawnedPrefab); // Call this when you want to revert back to the original materials
 
         spawnedPrefab.tag = "Furniture";
         spawnedPrefab.layer = 8;
@@ -205,5 +209,35 @@ public class FurniturePlacement : MonoBehaviour
     private void DeleteFurniture(GameObject objectToDelete)
     {
         Destroy(objectToDelete);
+    }
+    // Saving original materials for the preview object and its children
+    public void SaveOriginalMaterials(GameObject furniturePreview)
+    {
+        // Get all Renderers in the furniturePreview object and its children
+        Renderer[] renderers = furniturePreview.GetComponentsInChildren<Renderer>();
+
+        // Save the original materials for each Renderer
+        foreach (Renderer rend in renderers)
+        {
+            // Store a copy of the materials array for each renderer
+            originalMaterials[rend] = rend.materials;
+        }
+    }
+
+    // Restoring original materials for the spawnedPrefab object and its children
+    public void RestoreOriginalMaterials(GameObject spawnedPrefab)
+    {
+        // Get all Renderers in the spawnedPrefab object and its children
+        Renderer[] renderers = spawnedPrefab.GetComponentsInChildren<Renderer>();
+
+        // Restore the original materials for each Renderer
+        foreach (Renderer rend in renderers)
+        {
+            if (originalMaterials.ContainsKey(rend))
+            {
+                // Assign the saved original materials back to the renderer
+                rend.materials = originalMaterials[rend];
+            }
+        }
     }
 }
