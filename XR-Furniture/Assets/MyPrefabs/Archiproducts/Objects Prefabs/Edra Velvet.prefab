@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4503210598240394666}
   - component: {fileID: 5502074144270156620}
   - component: {fileID: 4037287408881820123}
+  - component: {fileID: -8129411500284504937}
   m_Layer: 2
   m_Name: Edra Velvet
   m_TagString: Untagged
@@ -140,6 +141,19 @@ MonoBehaviour:
   centerEyeAnchorName: CenterEyeAnchor
   offsetDistance: 1
   heightOffset: 1.4
+--- !u!114 &-8129411500284504937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091761451908332062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4001d8293a4a8094599bb648f46eac3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simplificationPercentage: 0.15
 --- !u!1 &3575353092969309060
 GameObject:
   m_ObjectHideFlags: 0
