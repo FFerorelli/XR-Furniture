@@ -39,53 +39,64 @@ public class PopulateObjectList : MonoBehaviour
         {
             var prefab = _myPrefabList[i];
             string prefabName = prefab.name;
-            GameObject button = Instantiate(buttonPrefab, buttonsParent);
-            button.GetComponent<Button>().onClick.AddListener(() => FurniturePlacement.Instance.SetNewFurniture(prefab));
 
-            //ResourceRequest resourceRequest = Resources.LoadAsync<Texture2D>("Thumbnails/" + prefabName);
+            ResourceRequest resourceRequest = Resources.LoadAsync<Texture2D>("Thumbnails/" + prefabName);
+            yield return resourceRequest;
 
-            //yield return resourceRequest;
+            if (resourceRequest.asset == null)
+            {
+                Debug.Log("Failed to load: Thumbnails/" + prefabName);
+                continue;
+            }
 
-            //if (resourceRequest.asset == null)
-            //{
-            //    Debug.Log("Failed to load: Thumbnails/" + prefabName);
-            //    continue;
-            //}
+            if (resourceRequest.asset is Texture2D prefabThumbnail)
+            {
+                // Create the sprite from the texture
+                Sprite buttonImage = Sprite.Create(prefabThumbnail,
+                                                   new Rect(0, 0, prefabThumbnail.width, prefabThumbnail.height),
+                                                   new Vector2(0.5f, 0.5f),
+                                                   100);
 
-            //if (resourceRequest.asset is Texture2D prefabThumbnail)
-            //{
-            //    // Determine the size to crop to square based on the shorter side
-            //    float squareSize = Mathf.Min(prefabThumbnail.width, prefabThumbnail.height);
-            //    float xOffset = (prefabThumbnail.width - squareSize) / 2.0f; // Center the crop on the longer dimension
-            //    float yOffset = (prefabThumbnail.height - squareSize) / 2.0f;
+                // Instantiate the button prefab
+                GameObject button = Instantiate(buttonPrefab, buttonsParent);
 
-            //    Sprite buttonImage = Sprite.Create(prefabThumbnail, new Rect(xOffset, yOffset, squareSize, squareSize), new Vector2(0.5f, 0.5f), 100);
+                if (button == null)
+                {
+                    Debug.Log("Failed to instantiate button for: " + prefabName);
+                    continue;
+                }
 
-            //    GameObject button = Instantiate(buttonPrefab, buttonsParent);
+                // Find the ThumbnailImage child
+                Image buttonImageComponent = button.transform.Find("ThumbnailImage")?.GetComponent<Image>();
 
-            //    if (button == null)
-            //    {
-            //        Debug.Log("Failed to instantiate button for: " + prefabName);
-            //        continue;
-            //    }
+                if (buttonImageComponent == null)
+                {
+                    Debug.Log("Failed to find ThumbnailImage component for: " + prefabName);
+                    continue;
+                }
 
-            //    Image buttonImageComponent = button.GetComponentInChildren<Image>();
+                // Assign the sprite to the ThumbnailImage
+                buttonImageComponent.sprite = buttonImage;
 
-            //    if (buttonImageComponent == null)
-            //    {
-            //        Debug.Log("Failed to get Image component for: " + prefabName);
-            //        continue;
-            //    }
+                // Ensure preserve aspect is set to true to maintain image proportions
+                buttonImageComponent.preserveAspect = true;
 
-            //    buttonImageComponent.sprite = buttonImage;
-
-            //    button.GetComponent<Button>().onClick.AddListener(() => FurniturePlacement.Instance.SetNewFurniture(prefab));
-            //}
+                // Add the onClick listener
+                Button buttonComponent = button.GetComponent<Button>();
+                if (buttonComponent != null)
+                {
+                    buttonComponent.onClick.AddListener(() => FurniturePlacement.Instance.SetNewFurniture(prefab));
+                }
+                else
+                {
+                    Debug.Log("Button component missing on: " + prefabName);
+                }
+            }
 
             currentPrefabIndex = i + 1;
-
             yield return null;
         }
     }
+
 
 }
