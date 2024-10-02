@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ToggleCustomizeMenu : MonoBehaviour
 {
-    private Outline outline;
+    public Outline outline;
 
     [SerializeField] private GameObject menuPrefab;
     private Vector3 CUSTOMIZEMENUSCALE = new Vector3(50, 50, 50);
@@ -15,7 +15,7 @@ public class ToggleCustomizeMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        outline = GetComponent<Outline>();
+       // outline = GetComponent<Outline>();
     }
 
     // Update is called once per frame

@@ -5,24 +5,18 @@ using UnityEngine;
 public class FurniturePlacement : MonoBehaviour
 {
     public bool isPrefabSelected = false;
-    //[SerializeField] public Transform leftHand;
-    [SerializeField] public Transform rightHand;
-    //[SerializeField] private Transform _parentTransform;
+    [SerializeField] private Transform rightHand;
     [SerializeField] private Transform _UITransform;
     [SerializeField] private TextMeshProUGUI displayText = null;
     [SerializeField] private Material previewMaterial;
     [SerializeField] private GameObject furniturePrefab;
 
-    private Material originalMaterial;
-    private GameObject spawnedPrefab;
-    private GameObject _furniturePreview;
-    private GameObject lastHitObject = null;
+    private GameObject _furniture;
     private Furniture _furnitureBehaviour;
+    private GameObject lastHitObject = null;
     private Vector3 _startSpawnPos;
     private Quaternion _startSpawnRot;
-
-    private Dictionary<Renderer, Material[]> originalMaterials = new Dictionary<Renderer, Material[]>(); // Store original materials
-    //private Outline outline;
+    private Dictionary<Renderer, Material[]> originalMaterials = new Dictionary<Renderer, Material[]>();
 
     public static FurniturePlacement Instance { get; private set; }
 
@@ -38,16 +32,12 @@ public class FurniturePlacement : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void Start()
-    {
-       // SetNewFurniture(furniturePrefab);
-    }
 
     public void SetNewFurniture(GameObject prefab)
     {
-        if (_furniturePreview != null)
+        if (_furniture != null)
         {
-            Destroy(_furniturePreview);
+            Destroy(_furniture);
         }
 
         if (prefab != null)
@@ -55,85 +45,49 @@ public class FurniturePlacement : MonoBehaviour
             isPrefabSelected = true;
             furniturePrefab = prefab;
 
-            float origignalAssetOffset = - prefab.transform.rotation.eulerAngles.x;
+            float originalAssetOffset = -prefab.transform.rotation.eulerAngles.x;
             float uiRotation = _UITransform.rotation.eulerAngles.y;
-            Debug.Log(origignalAssetOffset);
             _startSpawnPos = transform.position;
-            _startSpawnRot = Quaternion.Euler(origignalAssetOffset, uiRotation, 0);
+            _startSpawnRot = Quaternion.Euler(originalAssetOffset, uiRotation, 0);
 
-            _furniturePreview = Instantiate(furniturePrefab, _startSpawnPos, _startSpawnRot);
+            _furniture = Instantiate(furniturePrefab, _startSpawnPos, _startSpawnRot);
+            _furniture.transform.Rotate(0, 180, 0);
 
+            SaveOriginalMaterials(_furniture);
 
-            // _furniturePreview.transform.LookAt(transform.position);
-            _furniturePreview.transform.Rotate(0, 180, 0);
-
-            //var meshRenderer = _furniturePreview.GetComponent<MeshRenderer>();
-            //originalMaterial = meshRenderer.material;
-            //meshRenderer.material = previewMaterial;
-
-            SaveOriginalMaterials(_furniturePreview); // Call this before making any changes to save the current materials
-
-            _furnitureBehaviour = _furniturePreview.GetComponent<Furniture>(); 
+            _furnitureBehaviour = _furniture.GetComponent<Furniture>();
         }
     }
 
-    // FixedUpdate is called once per frame, but with a fixed time interval
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        // Create a ray from the right hand's position, pointing forward
         Ray rightRay = new Ray(rightHand.position, rightHand.forward);
 
-        // Perform a raycast using the rightRay, store the result in rightHit and check if it hit something
         if (Physics.Raycast(rightRay, out RaycastHit rightHit, 100.0f))
         {
-            // Display the name of the layer of the hit object in the UI
             displayText.text = LayerMask.LayerToName(rightHit.collider.gameObject.layer);
 
-            // If a furniture is selected from the UI and the hit object's layer is included in the furniture's layer mask
             if (_furnitureBehaviour != null && ((1 << rightHit.collider.gameObject.layer) & _furnitureBehaviour.layer.value) != 0)
             {
-                // Make the furniture follow the ray hit
                 _furnitureBehaviour.FollowRayHit((rightHit.point, rightHit.normal, true));
-                // Handle the rotation of the furniture
                 _furnitureBehaviour.HandleRotation();
 
-                // If the trigger input is pressed and the furniture is placeable
                 if (CheckTriggerInput() && _furnitureBehaviour.isPlaceble)
                 {
-                    // Toggle the placement of the furniture
                     TogglePlacement();
                 }
             }
-            else if (_furniturePreview != null) // If the hit object's layer is not included in the furniture's layer mask
+            else if (_furniture != null)
             {
-                // Stop the furniture's movement
-                _furniturePreview.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                _furniture.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }
-            // if the layer you are pointing to is furniture and you press B it will delete the furniture
+
             if (rightHit.collider.gameObject.layer == 8)
             {
-                // If the ray hit a different object than last time
                 if (lastHitObject != rightHit.collider.gameObject)
                 {
-                    // Disable the outline of the last hit object
-                    if (lastHitObject != null)
-                    {
-                        var lastOutline = lastHitObject.GetComponent<Outline>();
-                        if (lastOutline != null)
-                        {
-                            lastOutline.enabled = false;
-                        }
-                    }
-
-                    // Enable the outline of the new hit object
-                    var newOutline = rightHit.collider.gameObject.GetComponent<Outline>();
-                    if (newOutline != null)
-                    {
-                        newOutline.enabled = true;
-                       // newOutline.precomputeOutline = true;
-                    }
-
-                    // Update the last hit object
+                    DisableOutline(lastHitObject);
+                    EnableOutline(rightHit.collider.gameObject);
                     lastHitObject = rightHit.collider.gameObject;
                 }
 
@@ -145,39 +99,22 @@ public class FurniturePlacement : MonoBehaviour
             }
             else
             {
-                // If the ray didn't hit a furniture object, disable the outline of the last hit object
-                if (lastHitObject != null)
-                {
-                    var lastOutline = lastHitObject.GetComponent<Outline>();
-                    if (lastOutline != null)
-                    {
-                        lastOutline.enabled = false;
-                    }
-                    lastHitObject = null;
-                }
-            }
-
-        }
-        else
-        {
-            // If the ray didn't hit anything, disable the outline of the last hit object
-            if (lastHitObject != null)
-            {
-                var lastOutline = lastHitObject.GetComponent<Outline>();
-                if (lastOutline != null)
-                {
-                    lastOutline.enabled = false;
-                }
+                DisableOutline(lastHitObject);
                 lastHitObject = null;
             }
         }
-
+        else
+        {
+            DisableOutline(lastHitObject);
+            lastHitObject = null;
+        }
     }
 
     private bool CheckTriggerInput()
     {
         return OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch);
     }
+
     private bool CheckBInput()
     {
         return OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch);
@@ -186,57 +123,91 @@ public class FurniturePlacement : MonoBehaviour
     private void TogglePlacement()
     {
         isPrefabSelected = false;
-       
-        spawnedPrefab = Instantiate(furniturePrefab, _furniturePreview.transform.position, _furniturePreview.transform.rotation);
-        spawnedPrefab.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
-        var outline = spawnedPrefab.AddComponent<Outline>();
+        // Revert preview materials to original materials
+        RestoreOriginalMaterials(_furniture);
+
+        _furniture.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        // Add Outline component to the placed furniture
+        var outline = _furniture.AddComponent<Outline>();
         outline.OutlineMode = Outline.Mode.OutlineVisible;
         outline.OutlineColor = Color.yellow;
-        outline.OutlineWidth = 5f;
-       // outline.precomputeOutline = true;
+        outline.OutlineWidth = 3f;
         outline.enabled = false;
 
-        RestoreOriginalMaterials(spawnedPrefab); // Call this when you want to revert back to the original materials
+        ToggleCustomizeMenu toggleCustomizeMenu = _furniture.GetComponent<ToggleCustomizeMenu>();
+        toggleCustomizeMenu.outline = outline;
+       
+        // Set tag and layer
+        _furniture.tag = "Furniture";
+        _furniture.layer = 8;
 
-        spawnedPrefab.tag = "Furniture";
-        spawnedPrefab.layer = 8;
+        // Remove the Furniture component
+        Destroy(_furniture.GetComponent<Furniture>());
 
-        Destroy(spawnedPrefab.GetComponent<Furniture>());
+        // Clear references
+        _furniture = null;
+        _furnitureBehaviour = null;
 
         SetNewFurniture(null);
     }
+
     private void DeleteFurniture(GameObject objectToDelete)
     {
         Destroy(objectToDelete);
     }
-    // Saving original materials for the preview object and its children
-    public void SaveOriginalMaterials(GameObject furniturePreview)
+
+    private void SaveOriginalMaterials(GameObject furniturePreview)
     {
-        // Get all Renderers in the furniturePreview object and its children
+        originalMaterials.Clear();
+
         Renderer[] renderers = furniturePreview.GetComponentsInChildren<Renderer>();
 
-        // Save the original materials for each Renderer
         foreach (Renderer rend in renderers)
         {
-            // Store a copy of the materials array for each renderer
             originalMaterials[rend] = rend.materials;
+
+            Material[] previewMaterials = new Material[rend.materials.Length];
+            for (int i = 0; i < previewMaterials.Length; i++)
+            {
+                previewMaterials[i] = previewMaterial;
+            }
+            rend.materials = previewMaterials;
         }
     }
 
-    // Restoring original materials for the spawnedPrefab object and its children
-    public void RestoreOriginalMaterials(GameObject spawnedPrefab)
+    private void RestoreOriginalMaterials(GameObject furniture)
     {
-        // Get all Renderers in the spawnedPrefab object and its children
-        Renderer[] renderers = spawnedPrefab.GetComponentsInChildren<Renderer>();
-
-        // Restore the original materials for each Renderer
-        foreach (Renderer rend in renderers)
+        foreach (var kvp in originalMaterials)
         {
-            if (originalMaterials.ContainsKey(rend))
+            if (kvp.Key != null)
             {
-                // Assign the saved original materials back to the renderer
-                rend.materials = originalMaterials[rend];
+                kvp.Key.materials = kvp.Value;
+            }
+        }
+        originalMaterials.Clear();
+    }
+
+    private void EnableOutline(GameObject obj)
+    {
+        if (obj != null)
+        {
+            var outline = obj.GetComponent<Outline>();
+            if (outline != null)
+            {
+                outline.enabled = true;
+            }
+        }
+    }
+
+    private void DisableOutline(GameObject obj)
+    {
+        if (obj != null)
+        {
+            var outline = obj.GetComponent<Outline>();
+            if (outline != null)
+            {
+                outline.enabled = false;
             }
         }
     }
