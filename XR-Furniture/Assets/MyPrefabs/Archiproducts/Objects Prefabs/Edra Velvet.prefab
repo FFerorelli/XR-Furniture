@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5502074144270156620}
   - component: {fileID: 4037287408881820123}
   - component: {fileID: -8129411500284504937}
+  - component: {fileID: 7301354016679129260}
   m_Layer: 2
   m_Name: Edra Velvet
   m_TagString: Untagged
@@ -97,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285f8d98c9dbc1d4798bed6e59a5b7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 0}
   menuPrefab: {fileID: 2314575692583149321, guid: af80d67f7ec014e47804ab21b166aaf8, type: 3}
 --- !u!54 &5502074144270156620
 Rigidbody:
@@ -148,12 +150,25 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2091761451908332062}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4001d8293a4a8094599bb648f46eac3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simplificationPercentage: 0.15
+  simplificationPercentage: 0
+--- !u!114 &7301354016679129260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091761451908332062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6782727a35dcb4d4d857708a1b787330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simplificationPercentage: 0
 --- !u!1 &3575353092969309060
 GameObject:
   m_ObjectHideFlags: 0

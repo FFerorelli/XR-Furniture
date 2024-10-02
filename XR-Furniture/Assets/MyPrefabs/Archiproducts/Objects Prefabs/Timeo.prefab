@@ -109,6 +109,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f13bf75973f4b604e90a9605b8dbc773, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8049867296910448784}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f13bf75973f4b604e90a9605b8dbc773, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3142634448719325287}
     - targetCorrespondingSourceObject: {fileID: -9095743518127516566, guid: f13bf75973f4b604e90a9605b8dbc773, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8985757344561950170}
@@ -225,6 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285f8d98c9dbc1d4798bed6e59a5b7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 0}
   menuPrefab: {fileID: 2314575692583149321, guid: af80d67f7ec014e47804ab21b166aaf8, type: 3}
 --- !u!54 &8274962263285748109
 Rigidbody:
@@ -269,6 +273,19 @@ MonoBehaviour:
   centerEyeAnchorName: CenterEyeAnchor
   offsetDistance: 1
   heightOffset: 1.4
+--- !u!114 &3142634448719325287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5452015522272291147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6782727a35dcb4d4d857708a1b787330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simplificationPercentage: 0.926
 --- !u!1001 &5816745270230704862
 PrefabInstance:
   m_ObjectHideFlags: 0

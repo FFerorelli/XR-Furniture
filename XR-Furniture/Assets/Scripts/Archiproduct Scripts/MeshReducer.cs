@@ -3,8 +3,8 @@ using UnityMeshSimplifier; // Ensure you have the UnityMeshSimplifier library im
 
 public class MeshReducer : MonoBehaviour
 {
-    [Range(0f, 1f)]
-    public float simplificationPercentage = 0.5f; // 50% reduction
+
+    public float simplificationPercentage; // 50% reduction
 
     void Start()
     {

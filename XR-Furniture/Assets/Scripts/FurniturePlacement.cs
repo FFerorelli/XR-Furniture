@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -10,7 +11,8 @@ public class FurniturePlacement : MonoBehaviour
     [SerializeField] private TextMeshProUGUI displayText = null;
     [SerializeField] private Material previewMaterial;
     [SerializeField] private GameObject furniturePrefab;
-
+    [Range(0f, 1f)]
+   // [SerializeField] private float simplificationPercentage = 0.1; // Default to 18%
     private GameObject _furniture;
     private Furniture _furnitureBehaviour;
     private GameObject lastHitObject = null;
@@ -53,10 +55,47 @@ public class FurniturePlacement : MonoBehaviour
             _furniture = Instantiate(furniturePrefab, _startSpawnPos, _startSpawnRot);
             _furniture.transform.Rotate(0, 180, 0);
 
-            SaveOriginalMaterials(_furniture);
-
             _furnitureBehaviour = _furniture.GetComponent<Furniture>();
+
+            // ** Get the simplification percentage from the SimplificationSettings component **
+            SimplificationSettings simplificationSettings = _furniture.GetComponent<SimplificationSettings>();
+            float simplificationPercentage = 0.5f; // Default value
+            if (simplificationSettings != null)
+            {
+                simplificationPercentage = simplificationSettings.simplificationPercentage;
+            }
+
+            // Start the mesh reduction asynchronously with the specific simplification percentage
+            StartCoroutine(ReduceMeshAndContinue(_furniture, simplificationPercentage));
+
+            // Proceed to create collider and assign materials
+            AutoBoxColliderForChildren colliderCreator = _furniture.GetComponent<AutoBoxColliderForChildren>();
+            if (colliderCreator != null)
+            {
+                colliderCreator.AddBoxCollider();
+            }
+
+            // Materials are managed in the Furniture script
         }
+    }
+    private IEnumerator ReduceMeshAndContinue(GameObject furniture, float simplificationPercentage)
+    {
+        // Perform the mesh reduction asynchronously
+        MeshReducerAsync meshReducer = new MeshReducerAsync(simplificationPercentage); // % reduction
+        yield return StartCoroutine(meshReducer.ReduceMeshAsync(furniture.transform));
+
+        // After the mesh reduction is complete, proceed
+        // Create the collider
+        AutoBoxColliderForChildren colliderCreator = furniture.GetComponent<AutoBoxColliderForChildren>();
+        if (colliderCreator != null)
+        {
+            colliderCreator.AddBoxCollider();
+        }
+
+        // Save original materials
+        SaveOriginalMaterials(furniture);
+
+        _furnitureBehaviour = furniture.GetComponent<Furniture>();
     }
 
     private void FixedUpdate()
@@ -127,7 +166,15 @@ public class FurniturePlacement : MonoBehaviour
         // Revert preview materials to original materials
         RestoreOriginalMaterials(_furniture);
 
+        // ** Call SetPlaced() on the Furniture script to stop material changes **
+        if (_furnitureBehaviour != null)
+        {
+            _furnitureBehaviour.RestoreOriginalMaterials();
+            _furnitureBehaviour.SetPlaced();
+        }
+
         _furniture.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+
         // Add Outline component to the placed furniture
         var outline = _furniture.AddComponent<Outline>();
         outline.OutlineMode = Outline.Mode.OutlineVisible;
@@ -137,7 +184,7 @@ public class FurniturePlacement : MonoBehaviour
 
         ToggleCustomizeMenu toggleCustomizeMenu = _furniture.GetComponent<ToggleCustomizeMenu>();
         toggleCustomizeMenu.outline = outline;
-       
+
         // Set tag and layer
         _furniture.tag = "Furniture";
         _furniture.layer = 8;
@@ -175,6 +222,7 @@ public class FurniturePlacement : MonoBehaviour
             rend.materials = previewMaterials;
         }
     }
+
 
     private void RestoreOriginalMaterials(GameObject furniture)
     {

@@ -6,6 +6,8 @@ public abstract class Furniture : MonoBehaviour
 {
     public bool isPlaceble;
     public LayerMask layer;
+    // ** Add this flag to indicate whether the object is placed **
+    private bool isPlaced = false;
 
     [SerializeField] protected Material greenMat;
     [SerializeField] protected Material redMat;
@@ -22,37 +24,63 @@ public abstract class Furniture : MonoBehaviour
     protected float objectHeight;
     protected Rigidbody rigidBody;
     protected List<Renderer> renderers = new List<Renderer>(); // List to store all MeshRenderer components
+    private Dictionary<Renderer, Material[]> originalMaterials = new Dictionary<Renderer, Material[]>();
 
     protected virtual void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
-
-        // currentMaterial = GetComponent<MeshRenderer>().material;
-        // Get all Renderers in this object and its children
         renderers.AddRange(GetComponentsInChildren<Renderer>());
+
+        // ** Save Original Materials **
+        SaveOriginalMaterials();
+
+        // ** Assign Preview Materials **
+        AssignPreviewMaterials();
     }
-
-    protected virtual void Update()
+    private void SaveOriginalMaterials()
     {
-        //currentMaterial = isPlaceble ? greenMat : redMat;
-        //GetComponent<MeshRenderer>().material = currentMaterial;
-        // Debug.Log("rot.x ----------" + transform.rotation.eulerAngles.x);
+        originalMaterials.Clear();
 
-
-        // Choose the material based on the isPlaceable flag
-        Material targetMaterial = isPlaceble ? greenMat : redMat;
-
-        // Loop through all renderers and change their material
         foreach (Renderer rend in renderers)
         {
-            // If the renderer has multiple materials, change all of them
-            Material[] materials = rend.materials;
-            for (int i = 0; i < materials.Length; i++)
-            {
-                materials[i] = targetMaterial;
-            }
-            rend.materials = materials; // Apply the updated materials
+            originalMaterials[rend] = rend.materials;
         }
+    }
+    private void AssignPreviewMaterials()
+    {
+        foreach (Renderer rend in renderers)
+        {
+            Material[] previewMaterials = new Material[rend.materials.Length];
+            for (int i = 0; i < previewMaterials.Length; i++)
+            {
+                previewMaterials[i] = isPlaceble ? greenMat : redMat;
+            }
+            rend.materials = previewMaterials;
+        }
+    }
+    public void RestoreOriginalMaterials()
+    {
+        foreach (var kvp in originalMaterials)
+        {
+            if (kvp.Key != null)
+            {
+                kvp.Key.materials = kvp.Value;
+            }
+        }
+        originalMaterials.Clear();
+    }
+    // Modify the Update method to use AssignPreviewMaterials()
+    protected virtual void Update()
+    {
+        if (!isPlaced)
+        {
+            AssignPreviewMaterials();
+        }
+    }
+    // ** Add this method to mark the object as placed **
+    public void SetPlaced()
+    {
+        isPlaced = true;
     }
 
     public virtual void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray)

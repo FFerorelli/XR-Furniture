@@ -447,6 +447,7 @@ GameObject:
   - component: {fileID: 2252755386650132606}
   - component: {fileID: 249338713448250423}
   - component: {fileID: 527865631862338502}
+  - component: {fileID: 3324692508516649072}
   m_Layer: 2
   m_Name: Flap
   m_TagString: Untagged
@@ -556,7 +557,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285f8d98c9dbc1d4798bed6e59a5b7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 0}
   menuPrefab: {fileID: 2314575692583149321, guid: af80d67f7ec014e47804ab21b166aaf8, type: 3}
+--- !u!114 &3324692508516649072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8583480974749599785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6782727a35dcb4d4d857708a1b787330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simplificationPercentage: 0.007
 --- !u!1 &8598967187208750188
 GameObject:
   m_ObjectHideFlags: 0

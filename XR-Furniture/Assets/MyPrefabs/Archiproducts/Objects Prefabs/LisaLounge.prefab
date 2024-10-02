@@ -109,6 +109,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5a6271edcebabf1439f097c39dea4a35, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3944889576117644356}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5a6271edcebabf1439f097c39dea4a35, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7639355373523634347}
     - targetCorrespondingSourceObject: {fileID: 2548489492842245292, guid: 5a6271edcebabf1439f097c39dea4a35, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2334905563906287792}
@@ -204,6 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285f8d98c9dbc1d4798bed6e59a5b7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 0}
   menuPrefab: {fileID: 2314575692583149321, guid: af80d67f7ec014e47804ab21b166aaf8, type: 3}
 --- !u!54 &4071424671465955152
 Rigidbody:
@@ -248,6 +252,19 @@ MonoBehaviour:
   centerEyeAnchorName: CenterEyeAnchor
   offsetDistance: 1
   heightOffset: 1.4
+--- !u!114 &7639355373523634347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6855688484571094965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6782727a35dcb4d4d857708a1b787330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simplificationPercentage: 1
 --- !u!1 &8123130589432303176 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2548489492842245292, guid: 5a6271edcebabf1439f097c39dea4a35, type: 3}

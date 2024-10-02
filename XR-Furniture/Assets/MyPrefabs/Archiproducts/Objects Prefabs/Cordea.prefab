@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 7707322647133027559}
   - component: {fileID: 6331258569201969272}
   - component: {fileID: -8511036402431499501}
+  - component: {fileID: 5443521741040515594}
   m_Layer: 2
   m_Name: Cordea
   m_TagString: Untagged
@@ -215,6 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285f8d98c9dbc1d4798bed6e59a5b7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 0}
   menuPrefab: {fileID: 2314575692583149321, guid: af80d67f7ec014e47804ab21b166aaf8, type: 3}
 --- !u!114 &-8511036402431499501
 MonoBehaviour:
@@ -232,6 +234,19 @@ MonoBehaviour:
   centerEyeAnchorName: CenterEyeAnchor
   offsetDistance: 0.75
   heightOffset: 0.5
+--- !u!114 &5443521741040515594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2295830495802232655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6782727a35dcb4d4d857708a1b787330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simplificationPercentage: 0
 --- !u!1 &3385192729465768406
 GameObject:
   m_ObjectHideFlags: 0

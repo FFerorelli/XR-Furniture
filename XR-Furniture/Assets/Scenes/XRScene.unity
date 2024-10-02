@@ -483,6 +483,7 @@ MonoBehaviour:
   displayText: {fileID: 1580169763}
   previewMaterial: {fileID: 2100000, guid: 1be49e0130fe7854eb12b9461eb50c1b, type: 2}
   furniturePrefab: {fileID: 5452015522272291147, guid: b120c38b5cd037b4b8426f02be4e9f9c, type: 3}
+  simplificationPercentage: 0.009
 --- !u!4 &181034089
 Transform:
   m_ObjectHideFlags: 0
@@ -3562,6 +3563,7 @@ MonoBehaviour:
   - {fileID: 5452015522272291147, guid: b120c38b5cd037b4b8426f02be4e9f9c, type: 3}
   - {fileID: 6855688484571094965, guid: e33707ff29540e045b8df8e94b995c75, type: 3}
   - {fileID: 2091761451908332062, guid: eee8ce012f19af8449db802bdb273448, type: 3}
+  - {fileID: 8583480974749599785, guid: 1dcc6f10ac4557545924fb4cf9e7bcdc, type: 3}
 --- !u!114 &739040509
 MonoBehaviour:
   m_ObjectHideFlags: 0
