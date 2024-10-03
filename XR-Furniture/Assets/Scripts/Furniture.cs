@@ -57,6 +57,7 @@ public abstract class Furniture : MonoBehaviour
             }
             rend.materials = previewMaterials;
         }
+        Debug.Log("________________________AssignPreviewMaterials");
     }
     public void RestoreOriginalMaterials()
     {

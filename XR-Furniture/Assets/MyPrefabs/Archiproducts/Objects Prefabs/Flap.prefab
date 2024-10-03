@@ -575,7 +575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6782727a35dcb4d4d857708a1b787330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simplificationPercentage: 0.3
+  simplificationPercentage: 0.25
 --- !u!114 &6677486769641433374
 MonoBehaviour:
   m_ObjectHideFlags: 0
