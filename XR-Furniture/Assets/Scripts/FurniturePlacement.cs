@@ -12,18 +12,17 @@ public class FurniturePlacement : MonoBehaviour
     [SerializeField] private Material previewMaterial;
     [SerializeField] private GameObject furniturePrefab;
     [Range(0f, 1f)]
-   // [SerializeField] private float simplificationPercentage = 0.1; // Default to 18%
     private GameObject _furniture;
     private Furniture _furnitureBehaviour;
     private GameObject lastHitObject = null;
     private Vector3 _startSpawnPos;
     private Quaternion _startSpawnRot;
-    private Dictionary<Renderer, Material[]> originalMaterials = new Dictionary<Renderer, Material[]>();
 
     public static FurniturePlacement Instance { get; private set; }
 
     private void Awake()
     {
+        // Singleton pattern
         if (Instance == null)
         {
             Instance = this;
@@ -56,49 +55,51 @@ public class FurniturePlacement : MonoBehaviour
             _furniture.transform.Rotate(0, 180, 0);
 
             _furnitureBehaviour = _furniture.GetComponent<Furniture>();
-
-            // ** Get the simplification percentage from the SimplificationSettings component **
-            SimplificationSettings simplificationSettings = _furniture.GetComponent<SimplificationSettings>();
-            float simplificationPercentage = 0.5f; // Default value
-            if (simplificationSettings != null)
+            if (_furnitureBehaviour == null)
             {
-                simplificationPercentage = simplificationSettings.simplificationPercentage;
+                Debug.LogError("Furniture script is missing on the prefab.");
+                return;
             }
 
-            // Start the mesh reduction asynchronously with the specific simplification percentage
-            StartCoroutine(ReduceMeshAndContinue(_furniture, simplificationPercentage));
+            // ** Initialize the furniture immediately to assign preview materials **
+            _furnitureBehaviour.InitializeFurniture();
 
-            // Proceed to create collider and assign materials
-            AutoBoxColliderForChildren colliderCreator = _furniture.GetComponent<AutoBoxColliderForChildren>();
-            if (colliderCreator != null)
-            {
-                colliderCreator.AddBoxCollider();
-            }
+            // Start the mesh reduction asynchronously
+            StartCoroutine(ReduceMeshAndContinue(_furniture));
 
-            // Materials are managed in the Furniture script
+            // Collider creation is handled after mesh reduction in the coroutine
         }
     }
-    private IEnumerator ReduceMeshAndContinue(GameObject furniture, float simplificationPercentage)
+
+
+    private IEnumerator ReduceMeshAndContinue(GameObject furniture)
     {
+        // Get the simplification percentage from the SimplificationSettings component
+        SimplificationSettings simplificationSettings = furniture.GetComponent<SimplificationSettings>();
+        float simplificationPercentage = simplificationSettings != null ? simplificationSettings.simplificationPercentage : 0.5f;
+
         // Perform the mesh reduction asynchronously
-        MeshReducerAsync meshReducer = new MeshReducerAsync(simplificationPercentage); // % reduction
+        MeshReducerAsync meshReducer = new MeshReducerAsync(simplificationPercentage);
         yield return StartCoroutine(meshReducer.ReduceMeshAsync(furniture.transform));
 
-        // After the mesh reduction is complete, proceed
-        // Create the collider
+        // ** After mesh reduction, create or update colliders **
         AutoBoxColliderForChildren colliderCreator = furniture.GetComponent<AutoBoxColliderForChildren>();
         if (colliderCreator != null)
         {
             colliderCreator.AddBoxCollider();
         }
 
-        // Save original materials
-        SaveOriginalMaterials(furniture);
-
-        _furnitureBehaviour = furniture.GetComponent<Furniture>();
+        // If any other updates are needed after mesh reduction, add them here
     }
 
+
     private void FixedUpdate()
+    {
+        HandleRaycast();
+        HandleInput();
+    }
+
+    private void HandleRaycast()
     {
         Ray rightRay = new Ray(rightHand.position, rightHand.forward);
 
@@ -110,42 +111,32 @@ public class FurniturePlacement : MonoBehaviour
             {
                 _furnitureBehaviour.FollowRayHit((rightHit.point, rightHit.normal, true));
                 _furnitureBehaviour.HandleRotation();
-
-                if (CheckTriggerInput() && _furnitureBehaviour.isPlaceble)
-                {
-                    TogglePlacement();
-                }
             }
             else if (_furniture != null)
             {
                 _furniture.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }
 
-            if (rightHit.collider.gameObject.layer == 8)
-            {
-                if (lastHitObject != rightHit.collider.gameObject)
-                {
-                    DisableOutline(lastHitObject);
-                    EnableOutline(rightHit.collider.gameObject);
-                    lastHitObject = rightHit.collider.gameObject;
-                }
-
-                if (CheckBInput())
-                {
-                    Debug.Log("Deleted " + rightHit.collider.gameObject.name);
-                    DeleteFurniture(rightHit.collider.gameObject);
-                }
-            }
-            else
-            {
-                DisableOutline(lastHitObject);
-                lastHitObject = null;
-            }
+            HandleOutline(rightHit.collider.gameObject);
         }
         else
         {
             DisableOutline(lastHitObject);
             lastHitObject = null;
+        }
+    }
+
+    private void HandleInput()
+    {
+        if (_furnitureBehaviour != null && CheckTriggerInput() && _furnitureBehaviour.isPlaceable)
+        {
+            PlaceFurniture();
+        }
+
+        if (lastHitObject != null && lastHitObject.layer == 8 && CheckBInput())
+        {
+            Debug.Log("Deleted " + lastHitObject.name);
+            DeleteFurniture(lastHitObject);
         }
     }
 
@@ -159,21 +150,12 @@ public class FurniturePlacement : MonoBehaviour
         return OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch);
     }
 
-    private void TogglePlacement()
+    private void PlaceFurniture()
     {
         isPrefabSelected = false;
 
-        // Revert preview materials to original materials
-        RestoreOriginalMaterials(_furniture);
-
-        // ** Call SetPlaced() on the Furniture script to stop material changes **
-        if (_furnitureBehaviour != null)
-        {
-            _furnitureBehaviour.RestoreOriginalMaterials();
-            _furnitureBehaviour.SetPlaced();
-        }
-
-        _furniture.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        // Notify the furniture that it has been placed
+        _furnitureBehaviour.Place();
 
         // Add Outline component to the placed furniture
         var outline = _furniture.AddComponent<Outline>();
@@ -182,14 +164,18 @@ public class FurniturePlacement : MonoBehaviour
         outline.OutlineWidth = 3f;
         outline.enabled = false;
 
+        // Assign outline to ToggleCustomizeMenu if applicable
         ToggleCustomizeMenu toggleCustomizeMenu = _furniture.GetComponent<ToggleCustomizeMenu>();
-        toggleCustomizeMenu.outline = outline;
+        if (toggleCustomizeMenu != null)
+        {
+            toggleCustomizeMenu.outline = outline;
+        }
 
         // Set tag and layer
         _furniture.tag = "Furniture";
         _furniture.layer = 8;
 
-        // Remove the Furniture component
+        // Remove the Furniture component to prevent further manipulation
         Destroy(_furniture.GetComponent<Furniture>());
 
         // Clear references
@@ -204,36 +190,22 @@ public class FurniturePlacement : MonoBehaviour
         Destroy(objectToDelete);
     }
 
-    private void SaveOriginalMaterials(GameObject furniturePreview)
+    private void HandleOutline(GameObject hitObject)
     {
-        originalMaterials.Clear();
-
-        Renderer[] renderers = furniturePreview.GetComponentsInChildren<Renderer>();
-
-        foreach (Renderer rend in renderers)
+        if (hitObject.layer == 8)
         {
-            originalMaterials[rend] = rend.materials;
-
-            Material[] previewMaterials = new Material[rend.materials.Length];
-            for (int i = 0; i < previewMaterials.Length; i++)
+            if (lastHitObject != hitObject)
             {
-                previewMaterials[i] = previewMaterial;
-            }
-            rend.materials = previewMaterials;
-        }
-    }
-
-
-    private void RestoreOriginalMaterials(GameObject furniture)
-    {
-        foreach (var kvp in originalMaterials)
-        {
-            if (kvp.Key != null)
-            {
-                kvp.Key.materials = kvp.Value;
+                DisableOutline(lastHitObject);
+                EnableOutline(hitObject);
+                lastHitObject = hitObject;
             }
         }
-        originalMaterials.Clear();
+        else
+        {
+            DisableOutline(lastHitObject);
+            lastHitObject = null;
+        }
     }
 
     private void EnableOutline(GameObject obj)

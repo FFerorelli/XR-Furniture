@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa4546592d437364bb6f31237a05ec6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlaceble: 0
+  isPlaceable: 0
   layer:
     serializedVersion: 2
     m_Bits: 451

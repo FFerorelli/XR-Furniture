@@ -1,42 +1,51 @@
-
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Furniture : MonoBehaviour
 {
-    public bool isPlaceble;
+    public bool isPlaceable = false;
     public LayerMask layer;
-    // ** Add this flag to indicate whether the object is placed **
-    private bool isPlaced = false;
 
     [SerializeField] protected Material greenMat;
     [SerializeField] protected Material redMat;
 
-   // public CustomElement[] customizableElements;
-
-    protected float speed = 3.5f;
-    protected float _rotationSpeed = 90f;
-    protected double epsilon = 0.03;
-    protected Material currentMaterial;
-    protected Vector3 offset;
-    protected Vector3 bottomOffset;
-    protected float prefabHeight;
-    protected float objectHeight;
     protected Rigidbody rigidBody;
-    protected List<Renderer> renderers = new List<Renderer>(); // List to store all MeshRenderer components
+    protected List<Renderer> renderers = new List<Renderer>();
     private Dictionary<Renderer, Material[]> originalMaterials = new Dictionary<Renderer, Material[]>();
+    private bool isPlaced = false;
+
+    protected float prefabHeight;
+    protected Vector3 offset;
+    public event Action OnPlaced;
 
     protected virtual void Start()
     {
+        // Initialization moved to InitializeFurniture()
+    }
+
+    public void InitializeFurniture()
+    {
         rigidBody = GetComponent<Rigidbody>();
+        if (rigidBody == null)
+        {
+            rigidBody = gameObject.AddComponent<Rigidbody>();
+            rigidBody.useGravity = false;
+            rigidBody.constraints = RigidbodyConstraints.FreezeRotation;
+        }
+
         renderers.AddRange(GetComponentsInChildren<Renderer>());
 
-        // ** Save Original Materials **
+        // Save Original Materials
         SaveOriginalMaterials();
 
-        // ** Assign Preview Materials **
+        // Assign Preview Materials
         AssignPreviewMaterials();
+
+        // ** Collider creation is moved to after mesh reduction **
     }
+
+
     private void SaveOriginalMaterials()
     {
         originalMaterials.Clear();
@@ -46,6 +55,7 @@ public abstract class Furniture : MonoBehaviour
             originalMaterials[rend] = rend.materials;
         }
     }
+
     private void AssignPreviewMaterials()
     {
         foreach (Renderer rend in renderers)
@@ -53,12 +63,12 @@ public abstract class Furniture : MonoBehaviour
             Material[] previewMaterials = new Material[rend.materials.Length];
             for (int i = 0; i < previewMaterials.Length; i++)
             {
-                previewMaterials[i] = isPlaceble ? greenMat : redMat;
+                previewMaterials[i] = isPlaceable ? greenMat : redMat;
             }
             rend.materials = previewMaterials;
         }
-        Debug.Log("________________________AssignPreviewMaterials");
     }
+
     public void RestoreOriginalMaterials()
     {
         foreach (var kvp in originalMaterials)
@@ -68,35 +78,37 @@ public abstract class Furniture : MonoBehaviour
                 kvp.Key.materials = kvp.Value;
             }
         }
-        originalMaterials.Clear();
     }
-    // Modify the Update method to use AssignPreviewMaterials()
+
     protected virtual void Update()
     {
-        Debug.Log("________________________isPlaced = " + isPlaced);
         if (!isPlaced)
         {
             AssignPreviewMaterials();
         }
     }
-    // ** Add this method to mark the object as placed **
-    public void SetPlaced()
+
+    public void Place()
     {
         isPlaced = true;
+        RestoreOriginalMaterials();
+        rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+
+        // Invoke the OnPlaced event
+        OnPlaced?.Invoke();
     }
 
     public virtual void FollowRayHit((Vector3 point, Vector3 normal, bool hit) ray)
     {
         Vector3 direction = ray.point - transform.position;
-        float step = Time.fixedDeltaTime * speed;
+        float step = Time.fixedDeltaTime * 3.5f; // Speed can be adjusted or made a variable
         Vector3 newPosition = transform.position + direction.normalized * step;
 
         if ((newPosition - ray.point).sqrMagnitude < step * step)
         {
             newPosition = ray.point;
         }
-        //Debug.Log("newPosition ----------" + newPosition);
-        //Debug.Log("rigidBody ----------" + rigidBody.name);
+
         rigidBody.MovePosition(newPosition);
     }
 
@@ -106,19 +118,16 @@ public abstract class Furniture : MonoBehaviour
 
         if (thumbStickPos != Vector2.zero)
         {
-            float rotateAmount = -thumbStickPos.x * _rotationSpeed * Time.fixedDeltaTime;
-            
-            if (transform.rotation.eulerAngles.x == 0)
+            float rotateAmount = -thumbStickPos.x * 90f * Time.fixedDeltaTime;
+
+            if (Mathf.Approximately(transform.rotation.eulerAngles.x, 0))
             {
-                //Debug.Log("transform.rotation.eulerAngles.x == 0 ----------" + transform.rotation.eulerAngles.x);
                 transform.Rotate(Vector3.up, rotateAmount, Space.Self);
             }
             else
             {
-                //Debug.Log("NOT 0 ----------" + transform.rotation.eulerAngles.x);
                 transform.Rotate(Vector3.forward, rotateAmount, Space.Self);
             }
-
         }
     }
 }

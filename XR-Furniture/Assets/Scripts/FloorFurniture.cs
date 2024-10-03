@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FloorFurniture : Furniture
@@ -8,16 +5,14 @@ public class FloorFurniture : Furniture
     protected override void Start()
     {
         base.Start();
-        isPlaceble = true;
-        prefabHeight = transform.localScale.y / 2;
-        offset = new Vector3(0, prefabHeight, 0);
+        isPlaceable = true;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Furniture"))
         {
-            isPlaceble = false;
+            isPlaceable = false;
         }
     }
 
@@ -25,7 +20,7 @@ public class FloorFurniture : Furniture
     {
         if (collision.gameObject.CompareTag("Furniture"))
         {
-            isPlaceble = true;
+            isPlaceable = true;
         }
     }
 }

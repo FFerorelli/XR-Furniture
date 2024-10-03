@@ -12,7 +12,7 @@ public class WallFurniture : Furniture
     protected override void Start()
     {
         base.Start();
-        isPlaceble = true;
+        isPlaceable = true;
         prefabHeight = transform.localScale.y / 2;
         offset = new Vector3(0, prefabHeight, 0);
 
@@ -24,7 +24,7 @@ public class WallFurniture : Furniture
 
     private void FixedUpdate()
     {
-        isPlaceble = IsPlacebleOnWall();
+        isPlaceable = IsPlacebleOnWall();
     }
 
     private bool IsPlacebleOnWall()
@@ -42,7 +42,7 @@ public class WallFurniture : Furniture
     {
         if (collision.gameObject.CompareTag("Furniture"))
         {
-            isPlaceble = false;
+            isPlaceable = false;
         }
     }
 
@@ -50,7 +50,7 @@ public class WallFurniture : Furniture
     {
         if (collision.gameObject.CompareTag("Furniture"))
         {
-            isPlaceble = true;
+            isPlaceable = true;
         }
     }
 }
