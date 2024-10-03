@@ -72,6 +72,7 @@ public abstract class Furniture : MonoBehaviour
     // Modify the Update method to use AssignPreviewMaterials()
     protected virtual void Update()
     {
+        Debug.Log("________________________isPlaced = " + isPlaced);
         if (!isPlaced)
         {
             AssignPreviewMaterials();

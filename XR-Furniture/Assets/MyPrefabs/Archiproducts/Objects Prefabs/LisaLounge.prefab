@@ -51,11 +51,11 @@ PrefabInstance:
     - target: {fileID: -6732238192337148294, guid: 5a6271edcebabf1439f097c39dea4a35, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: c4363499f1b66ce4e84ca510bc3a6d8b, type: 2}
+      objectReference: {fileID: 2100000, guid: 9f541602344dd33488dfd1e7b3173323, type: 2}
     - target: {fileID: -3754930820355261402, guid: 5a6271edcebabf1439f097c39dea4a35, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 5f423131eb3f45c478342031e1116495, type: 2}
+      objectReference: {fileID: 2100000, guid: eb926364c593b5040ab0fedab1958543, type: 2}
     - target: {fileID: 919132149155446097, guid: 5a6271edcebabf1439f097c39dea4a35, type: 3}
       propertyPath: m_Name
       value: LisaLounge
@@ -285,6 +285,7 @@ MonoBehaviour:
   availableMaterials:
   - {fileID: 2100000, guid: eb926364c593b5040ab0fedab1958543, type: 2}
   - {fileID: 2100000, guid: 5f423131eb3f45c478342031e1116495, type: 2}
+  - {fileID: 2100000, guid: 668e1e2ab3e4ae64fb5f86c15c79d061, type: 2}
 --- !u!1001 &7102437257172330174
 PrefabInstance:
   m_ObjectHideFlags: 0

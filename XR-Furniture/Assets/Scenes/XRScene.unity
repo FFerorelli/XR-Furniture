@@ -483,7 +483,6 @@ MonoBehaviour:
   displayText: {fileID: 1580169763}
   previewMaterial: {fileID: 2100000, guid: 1be49e0130fe7854eb12b9461eb50c1b, type: 2}
   furniturePrefab: {fileID: 5452015522272291147, guid: b120c38b5cd037b4b8426f02be4e9f9c, type: 3}
-  simplificationPercentage: 0.009
 --- !u!4 &181034089
 Transform:
   m_ObjectHideFlags: 0
@@ -15555,8 +15554,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.285, y: -0.0665}
-  m_SizeDelta: {x: 550, y: 142.1067}
+  m_AnchoredPosition: {x: 0.5113, y: -0.0665}
+  m_SizeDelta: {x: 700.8501, y: 142.1067}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

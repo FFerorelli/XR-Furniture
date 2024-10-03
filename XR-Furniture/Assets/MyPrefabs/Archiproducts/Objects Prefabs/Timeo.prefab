@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6782727a35dcb4d4d857708a1b787330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simplificationPercentage: 0.926
+  simplificationPercentage: 1
 --- !u!1001 &5816745270230704862
 PrefabInstance:
   m_ObjectHideFlags: 0
